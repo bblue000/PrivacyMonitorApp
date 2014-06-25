@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppStyle.RootLayout"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/history_onmap_title_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/spacing_50"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/common_padding"
+        android:paddingRight="@dimen/common_padding" >
+
+        <TextView
+            android:id="@+id/history_onmap_title_tv"
+            style="@style/AppStyle.Main.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    
+    <SeekBar 
+        android:id="@+id/history_onmap_time_sb"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/history_onmap_title_layout"
+        android:padding="@dimen/common_smallpadding"/>
+    
+    <TextView
+        android:id="@+id/history_onmap_datetime_tv"
+        style="@style/AppStyle.Main.Title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/history_onmap_time_sb"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical|right"
+        android:padding="@dimen/common_smallpadding"/>
+    
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/history_onmap_mv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/history_onmap_datetime_tv"
+        android:clickable="true" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/spacing_1"
+        android:layout_below="@id/history_onmap_title_layout"
+        android:background="@color/deep_sky_blue" />
+    
+</RelativeLayout>

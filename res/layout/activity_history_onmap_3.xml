@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppStyle.RootLayout"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/history_onmap_title_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/spacing_50"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/common_padding"
+        android:paddingRight="@dimen/common_padding" >
+
+        <TextView
+            android:id="@+id/history_onmap_title_tv"
+            style="@style/AppStyle.Main.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:id="@+id/history_onmap_datetime_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/history_onmap_title_layout"
+        android:layout_toRightOf="@+id/history_onmap_datetime_sb"
+        android:layout_marginTop="@dimen/spacing_10"
+        android:orientation="horizontal">
+        
+        <TextView
+	        style="@style/AppStyle.Main.SubHint"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.0"
+	        android:text="@string/privacy_location_time_hint"/>
+        
+        <TextView
+	        android:id="@+id/history_onmap_datetime_tv"
+	        style="@style/AppStyle.Main.Sub"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="3.0"
+	        android:paddingLeft="@dimen/spacing_10"
+       		android:paddingRight="@dimen/spacing_10"
+       		/>
+        
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:id="@+id/history_onmap_location_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/history_onmap_datetime_layout"
+        android:layout_toRightOf="@+id/history_onmap_datetime_sb"
+        android:layout_marginTop="@dimen/spacing_10"
+        android:layout_marginBottom="@dimen/spacing_10"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        
+        <TextView
+	        style="@style/AppStyle.Main.SubHint"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.0"
+	        android:text="@string/privacy_location_hint"/>
+        
+        <TextView
+	        android:id="@+id/history_onmap_location_tv"
+	        style="@style/AppStyle.Main.Sub"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="3.0"
+	        android:paddingLeft="@dimen/spacing_10"
+       		android:paddingRight="@dimen/spacing_10"
+	        />
+        
+    </LinearLayout>
+    
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/history_onmap_mv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/history_onmap_location_layout"
+        android:clickable="true" />
+
+    <com.ixming.privacy.android.main.view.VSeekBar
+        android:id="@+id/history_onmap_datetime_sb"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/history_onmap_title_layout"
+        android:layout_marginLeft="@dimen/spacing_5"
+        android:layout_marginTop="@dimen/spacing_20"
+        android:layout_marginBottom="@dimen/spacing_50"
+        />
+    
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/spacing_1"
+        android:layout_below="@id/history_onmap_title_layout"
+        android:background="@color/deep_sky_blue" />
+    
+</RelativeLayout>

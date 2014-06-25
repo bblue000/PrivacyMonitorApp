@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppStyle.ContainerLayout.WrapContent"
+    android:orientation="vertical" 
+    android:padding="@dimen/common_smallpadding">
+    
+	<TextView 
+	    android:id="@+id/privacy_location_item_datetime_tv"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:layout_alignParentLeft="true"
+	    android:textSize="@dimen/textsize_18"
+	    android:textColor="@color/black"
+	    android:textStyle="bold"
+	    android:text="2014-01-22 19:30:44"/>
+    
+	<TextView 
+	    android:id="@+id/privacy_location_item_lochint_tv"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/privacy_location_item_datetime_tv"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginTop="@dimen/spacing_10"
+	    android:textSize="@dimen/textsize_16"
+	    android:textColor="#ffA52A2A"
+	    android:textStyle="bold"
+	    android:text="@string/privacy_location_hint"/>
+	
+	<TextView 
+	    android:id="@+id/privacy_location_item_location_tv"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_toRightOf="@id/privacy_location_item_lochint_tv"
+	    android:layout_alignTop="@id/privacy_location_item_lochint_tv"
+	    android:layout_marginLeft="@dimen/common_smallmargin"
+	    android:textSize="@dimen/textsize_16"
+	    android:textColor="@color/black"/>
+	
+</RelativeLayout>

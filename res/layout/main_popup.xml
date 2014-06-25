@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.ixming.base.view.FixedRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:maxHeight="150dp"
+    android:background="@drawable/dropdown_bg">
+    
+    <ListView 
+        android:id="@+id/main_popup_lv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@color/transparent"
+        android:divider="@drawable/line"
+        android:fadingEdge="none"
+        android:scrollbars="none"/>
+    
+    <TextView 
+        android:id="@+id/main_popup_empty_tv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/spacing_30"
+        android:textSize="@dimen/textsize_16"
+        android:textColor="@color/black"
+	    android:gravity="center_vertical|left"
+	    android:padding="@dimen/spacing_10"/>
+
+</org.ixming.base.view.FixedRelativeLayout>

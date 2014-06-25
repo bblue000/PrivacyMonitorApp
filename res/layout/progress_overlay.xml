@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppStyle.RootLayout.Transparent"
+    android:gravity="center">
+    
+    <ProgressBar 
+        android:layout_width="@dimen/progress_overlay_size"
+        android:layout_height="@dimen/progress_overlay_size"
+        android:indeterminateDrawable="@drawable/progress_overlay"
+        />
+
+</LinearLayout>

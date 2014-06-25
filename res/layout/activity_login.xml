@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppStyle.RootLayout" >
+
+    <RelativeLayout
+        style="@style/AppStyle.ContainerLayout.WrapContent"
+        android:layout_centerInParent="true" 
+        android:padding="@dimen/common_padding"
+        >
+
+        <EditText
+            android:id="@+id/login_username_et"
+            style="@style/AppStyle.Login.Input.Username"
+            android:layout_marginBottom="@dimen/common_margin"
+            />
+
+        <EditText
+            android:id="@+id/login_password_et"
+            style="@style/AppStyle.Login.Input.Password"
+            android:layout_below="@id/login_username_et"
+            android:layout_marginBottom="@dimen/common_margin"
+            />
+
+        <Button
+            android:id="@+id/login_submit_btn"
+            style="@style/AppStyle.Login.Submit"
+            android:layout_below="@id/login_password_et"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>
