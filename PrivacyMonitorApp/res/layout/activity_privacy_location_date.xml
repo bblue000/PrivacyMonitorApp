@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppStyle.RootLayout">
+    
+    <LinearLayout
+        android:id="@+id/privacy_location_date_title_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/spacing_50"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/common_padding"
+        android:paddingRight="@dimen/common_padding" >
+
+        <TextView
+            style="@style/AppStyle.Main.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/privacy_location_date_title" />
+    </LinearLayout>
+    
+    <ListView 
+        android:id="@+id/privacy_location_date_lv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/privacy_location_date_title_layout"
+        android:cacheColorHint="@color/transparent"
+        android:divider="@drawable/line"
+        android:fadingEdge="none"
+        android:scrollbars="none"/>
+    
+    <TextView 
+        android:id="@+id/privacy_location_date_empty_tv"
+        style="@style/AppStyle.Common.EmptyListHint"
+        android:layout_below="@id/privacy_location_date_title_layout"
+        android:text="@string/privacy_location_date_empty_hint"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/spacing_1"
+        android:layout_below="@id/privacy_location_date_title_layout"
+        android:background="@color/deep_sky_blue" />
+    
+</RelativeLayout>
