@@ -28,8 +28,8 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.OverlayItem;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.ixming.privacy.android.main.control.MainController;
+import com.ixming.privacy.android.main.model.DatetimeUtils;
 import com.ixming.privacy.android.monitoring.entity.PrivacyLocaitonInfo;
-import com.ixming.privacy.android.monitoring.model.DatetimeUtils;
 import com.ixming.privacy.monitor.android.R;
 
 public class HistoryOnMapActivity2 extends BaseActivity implements MKGeneralListener {

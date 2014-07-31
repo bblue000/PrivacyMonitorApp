@@ -15,13 +15,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ixming.privacy.android.common.DropDownPop;
+import com.ixming.privacy.android.main.adapter.LocationDateAdapter;
 import com.ixming.privacy.android.main.adapter.MonitoredPersonAdapter;
 import com.ixming.privacy.android.main.control.PersonListController;
+import com.ixming.privacy.android.main.control.PersonController;
 import com.ixming.privacy.android.main.model.MonitoredPerson;
+import com.ixming.privacy.monitor.android.PAApplication;
 import com.ixming.privacy.monitor.android.R;
 
 public class PersionListFragment extends BaseFragment
-implements OnItemClickListener, PersonListController.MonitoringPersonLoadListener {
+implements OnItemClickListener, PersonListController.MonitoringPersonLoadListener,
+PersonController.LoactionDataLoadListener {
 
 	@ViewInject(id = R.id.person_list_selected_layout)
 	private View mPersonSel_Layout;
@@ -37,6 +41,7 @@ implements OnItemClickListener, PersonListController.MonitoringPersonLoadListene
 	private DropDownPop mDropDownPop;
 	
 	private MonitoredPersonAdapter mMonitoredPersonAdapter;
+	private LocationDateAdapter mLocationDateAdapter;
 	
 	@Override
 	public int provideLayoutResId() {
@@ -62,7 +67,7 @@ implements OnItemClickListener, PersonListController.MonitoringPersonLoadListene
 
 	@Override
 	public Handler provideActivityHandler() {
-		return null;
+		return PAApplication.getHandler();
 	}
 	
 	@OnClickMethodInject(id = R.id.person_list_selected_layout)
@@ -114,17 +119,39 @@ implements OnItemClickListener, PersonListController.MonitoringPersonLoadListene
 		updateCurrentMonitoringUI();
 		// request current monitoring person's data
 		
-		
+		PersonController personController = PersonListController.getInstance().getCurrentPersonController();
+		if (null == personController) {
+			return ;
+		}
+		personController.requestLoactionData(this);
 	}
 	
 	@Override
-	public void onLoadSuccess() {
+	public void onMPLoadSuccess() {
 		mMonitoredPersonAdapter.setData(PersonListController.getInstance().getMonitoringPersonList());
 		mMonitoredPersonAdapter.notifyDataSetChanged();
 	}
 
 	@Override
-	public void onLoadFailed() {
+	public void onMPLoadFailed() {
+		
+	}
+
+	@Override
+	public void onLocationLoadSuccess() {
+		if (null == mLocationDateAdapter) {
+			mLocationDateAdapter = new LocationDateAdapter(context);
+			mPersonDate_LV.setAdapter(mLocationDateAdapter);
+		}
+		PersonController personController = PersonListController.getInstance().getCurrentPersonController();
+		if (null == personController) {
+			return ;
+		}
+		mLocationDateAdapter.setData(personController.getLocationDates());
+	}
+
+	@Override
+	public void onLocationLoadFailed() {
 		
 	}
 

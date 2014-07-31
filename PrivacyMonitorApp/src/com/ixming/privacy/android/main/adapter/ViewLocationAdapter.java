@@ -7,8 +7,8 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import com.ixming.privacy.android.main.model.DatetimeUtils;
 import com.ixming.privacy.android.monitoring.entity.PrivacyLocaitonInfo;
-import com.ixming.privacy.android.monitoring.model.DatetimeUtils;
 import com.ixming.privacy.monitor.android.R;
 
 public class ViewLocationAdapter extends AbsResLayoutAdapter<PrivacyLocaitonInfo,

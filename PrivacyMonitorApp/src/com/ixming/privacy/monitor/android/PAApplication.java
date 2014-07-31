@@ -3,6 +3,9 @@ package com.ixming.privacy.monitor.android;
 import org.ixming.base.common.BaseApplication;
 import org.ixming.base.utils.android.LogUtils;
 
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.util.AQUtility;
+import com.ixming.privacy.android.common.model.AQueryTransformer;
 import com.ixming.privacy.android.monitoring.service.MainService;
 import com.ixming.privacy.android.splash.activity.SplashActivity;
 
@@ -19,6 +22,8 @@ public class PAApplication extends BaseApplication {
 		LogUtils.d(TAG, "onCreate process = " + Process.myPid());
 		super.onCreate();
 		
+		AQUtility.setDebug(true);
+		AjaxCallback.setTransformer(new AQueryTransformer());
 		MainService.startMe("PAApplication onCreate");
 	}
 	

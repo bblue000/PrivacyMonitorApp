@@ -1,6 +1,6 @@
 package com.ixming.privacy.android.main.model;
 
-public class DeviceBindResult {
+public class DeviceBind {
 
 	private long id;
 	private String device_id;
@@ -32,9 +32,8 @@ public class DeviceBindResult {
 
 	@Override
 	public String toString() {
-		return "DeviceBindResult [id=" + id + ", device_id=" + device_id
+		return "DeviceBind [id=" + id + ", device_id=" + device_id
 				+ ", device_token=" + device_token + "]";
 	}
-
 	
 }

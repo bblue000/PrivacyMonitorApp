@@ -16,7 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ixming.privacy.android.common.LocalBroadcastIntents;
-import com.ixming.privacy.android.main.adapter.ViewLocationDateAdapter;
+import com.ixming.privacy.android.main.adapter.LocationDateAdapter;
 import com.ixming.privacy.android.main.control.MainController;
 import com.ixming.privacy.monitor.android.R;
 
@@ -28,7 +28,7 @@ public class PrivacyLocationDateActivity extends BaseActivity {
 	@ViewInject(id = R.id.privacy_location_date_empty_tv)
 	private TextView mEmpty_TV;
 	
-	private ViewLocationDateAdapter mAdapter;
+	private LocationDateAdapter mAdapter;
 	
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 		public void onReceive(android.content.Context context, android.content.Intent intent) {
@@ -72,7 +72,7 @@ public class PrivacyLocationDateActivity extends BaseActivity {
 		
 		LocalBroadcasts.registerLocalReceiver(mReceiver, LocalBroadcastIntents.ACTION_UPDATE_LOCATION);
 		
-		mAdapter = new ViewLocationDateAdapter(context);
+		mAdapter = new LocationDateAdapter(context);
 		mListView.setAdapter(mAdapter);
 		
 		MainController.getInstance().loadLocationInfoData();

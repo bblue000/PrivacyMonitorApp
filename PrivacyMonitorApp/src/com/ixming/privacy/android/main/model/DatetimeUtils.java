@@ -1,4 +1,4 @@
-package com.ixming.privacy.android.monitoring.model;
+package com.ixming.privacy.android.main.model;
 
 import android.annotation.SuppressLint;
 import java.text.SimpleDateFormat;
