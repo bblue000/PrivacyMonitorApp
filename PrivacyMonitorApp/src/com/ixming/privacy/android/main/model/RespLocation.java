@@ -13,7 +13,7 @@ public class RespLocation {
 	private double latitude;
 	private double longitude;
 	private String address;
-	private long datetime;
+	private long date_time;
 
 	public long getId() {
 		return id;
@@ -63,12 +63,12 @@ public class RespLocation {
 		this.address = address;
 	}
 	
-	public long getDatetime() {
-		return datetime;
+	public long getDate_time() {
+		return date_time;
 	}
 
-	public void setDatetime(long datetime) {
-		this.datetime = datetime;
+	public void setDate_time(long date_time) {
+		this.date_time = date_time;
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class RespLocation {
 		return "RespLocation [id=" + id + ", device_id=" + device_id
 				+ ", device_token=" + device_token + ", latitude=" + latitude
 				+ ", longitude=" + longitude + ", address=" + address
-				+ ", datetime=" + datetime + "]";
+				+ ", date_time=" + date_time + "]";
 	}
 
 }

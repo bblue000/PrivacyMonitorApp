@@ -8,12 +8,14 @@ import java.util.Map;
 
 import org.apache.http.HttpStatus;
 import org.ixming.base.common.controller.BaseController;
+import org.ixming.base.utils.android.AndroidUtils;
 import org.ixming.base.utils.android.LogUtils;
 import org.ixming.base.utils.android.ToastUtils;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.ixming.privacy.android.main.model.MonitoredPerson;
 import com.ixming.privacy.android.main.model.RespLocation;
 import com.ixming.privacy.android.main.model.entity.RespLocationResult;
 import com.ixming.privacy.monitor.android.Config;
@@ -30,14 +32,19 @@ public class PersonController extends BaseController {
 		void onLocationLoadFailed();
 	}
 	
-	private final List<RespLocation> mLocationList = new ArrayList<RespLocation>(10);
 	private final long ONEDAY = 24 * 60 * 60 * 1000;
-	private final List<RespLocation> mLocationInfoList = new ArrayList<RespLocation>();
+	private final List<RespLocation> mLocationInfoList = new ArrayList<RespLocation>(10);
 	private final Map<Long, List<RespLocation>> mDateTimeData = new HashMap<Long, List<RespLocation>>();
 	private long mCurTime;
 	private List<RespLocation> mCurData = null; 
 	
 	private AjaxCallbackImpl mAjaxCallback;
+	
+	private MonitoredPerson	mMonitoredPerson;
+	protected PersonController(MonitoredPerson person) {
+		mMonitoredPerson = person;
+	}
+	
 	public void requestLoactionData(LoactionDataLoadListener listener) {
 		if (null != mAjaxCallback) {
 			mAjaxCallback.setLoactionDataLoadListener(null);
@@ -46,7 +53,11 @@ public class PersonController extends BaseController {
 		mAjaxCallback = new AjaxCallbackImpl();
 		mAjaxCallback.setLoactionDataLoadListener(listener);
 		AQuery aQuery = new AQuery(PAApplication.getAppContext());
-		aQuery.ajax(String.format(Config.URL_GET_LOCATION, "1", "2", "3"), RespLocationResult.class, mAjaxCallback);
+		aQuery.ajax(String.format(Config.URL_GET_LOCATION,
+					mMonitoredPerson.getDevice_token(),
+					mMonitoredPerson.getNote_name(),
+					AndroidUtils.getDeviceId()),
+				RespLocationResult.class, mAjaxCallback);
 	}
 	
 	private void calculate() {
@@ -59,7 +70,7 @@ public class PersonController extends BaseController {
 		List<RespLocation> curList = null;
 		for (int i = 0; i < mLocationInfoList.size(); i++) {
 			RespLocation info = mLocationInfoList.get(i);
-			long datetime = info.getDatetime();
+			long datetime = info.getDate_time();
 			curDay = datetime / ONEDAY;
 			if (lastDay != curDay) {
 				lastDay = curDay;
@@ -89,10 +100,10 @@ public class PersonController extends BaseController {
 	}
 	
 	private void setLocationData(List<RespLocation> locationList) {
-		mLocationList.clear();
+		mLocationInfoList.clear();
 		
 		if (null != locationList) {
-			mLocationList.addAll(locationList);
+			mLocationInfoList.addAll(locationList);
 		}
 		
 		calculate();

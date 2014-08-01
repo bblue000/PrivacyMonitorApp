@@ -303,6 +303,8 @@ public abstract class BaseFragment extends Fragment implements ILocalFragment {
 		super.onPause();
 	}
 	
-	
+	public BaseFragmentActivity getFragmentActivity() {
+		return (BaseFragmentActivity) fragmentActivity;
+	}
 	
 }

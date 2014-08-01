@@ -45,7 +45,7 @@ public class PersonListController extends BaseController {
 		
 		PersonController controller = mMonitoringPersonControllerMap.get(person);
 		if (null == controller) {
-			controller = new PersonController();
+			controller = new PersonController(person);
 			mMonitoringPersonControllerMap.put(person, controller);
 		}
 		

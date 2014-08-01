@@ -62,7 +62,7 @@ PersonController.LoactionDataLoadListener {
 
 	@Override
 	public void initListener() {
-		
+		mPersonDate_LV.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -106,7 +106,11 @@ PersonController.LoactionDataLoadListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		setCurrentMonitoringPerson(mMonitoredPersonAdapter.getItem(position));
+		if (parent == mPersonDate_LV) {
+			gotoTarget(mLocationDateAdapter.getItem(position));
+		} else {
+			setCurrentMonitoringPerson(mMonitoredPersonAdapter.getItem(position));
+		}
 	}
 	
 	private void setCurrentMonitoringPerson(MonitoredPerson person) {
@@ -124,6 +128,15 @@ PersonController.LoactionDataLoadListener {
 			return ;
 		}
 		personController.requestLoactionData(this);
+	}
+	
+	private void gotoTarget(long time) {
+		PersonController personController = PersonListController.getInstance().getCurrentPersonController();
+		if (null == personController) {
+			return ;
+		}
+		personController.setCurTime(time);
+//		getFragmentActivity().startActivity(clz)
 	}
 	
 	@Override
@@ -148,6 +161,7 @@ PersonController.LoactionDataLoadListener {
 			return ;
 		}
 		mLocationDateAdapter.setData(personController.getLocationDates());
+		mLocationDateAdapter.notifyDataSetChanged();
 	}
 
 	@Override

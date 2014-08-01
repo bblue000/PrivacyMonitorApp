@@ -29,8 +29,8 @@ public class BindController extends BaseController {
 	 * @author Yin Yong
 	 *
 	 */
-	public static interface RequestKeyCallback {
-		void onKeyLoaded();
+	public static interface RequestDeviceTokenCallback {
+		void onDeviceTokenLoaded();
 		
 		void onError();
 	}
@@ -40,26 +40,41 @@ public class BindController extends BaseController {
 		return sInstance;
 	}
 	
+	private String mDeviceToken;
+	private AjaxCallbackImpl mAjaxCallback;
+	private final AQuery mAQuery;
 	private BindController() {
 		obtainLocalKey();
+		mAQuery = new AQuery(PAApplication.getAppContext());
 	}
 	
-	private String mCurrentKey;
-	public String getCurrentKey() {
-		return mCurrentKey;
+	
+	/**
+	 * 获取当前DeviceToken
+	 */
+	public String getDeviceToken() {
+		return mDeviceToken;
 	}
 	
-	public boolean hasKey() {
-		return !TextUtils.isEmpty(mCurrentKey);
+	/**
+	 * 判断有无DeviceToken
+	 */
+	public boolean hasDeviceToken() {
+		return !TextUtils.isEmpty(mDeviceToken);
 	}
 	
-	public void setCurrentKey(String key) {
-		AppSharedUtils.saveDeviceToken(key);
-		mCurrentKey = key;
+	/**
+	 * 设置DeviceToken
+	 */
+	public void setCurrentKey(String deviceToken) {
+		AppSharedUtils.saveDeviceToken(deviceToken);
+		mDeviceToken = deviceToken;
 	}
 	
-	private AjaxCallbackImpl mAjaxCallback;
-	public void requestKey(final RequestKeyCallback callback) {
+	/**
+	 * 请求DeviceToken，并通过回调返回
+	 */
+	public void requestKey(final RequestDeviceTokenCallback callback) {
 		if (null != mAjaxCallback) {
 			mAjaxCallback.setRequestKeyCallback(null);
 		}
@@ -68,18 +83,17 @@ public class BindController extends BaseController {
 		mAjaxCallback.setRequestKeyCallback(callback);
 		
 		Map<String, String> param = RequestPiecer.getBasicData();
-		AQuery aQuery = new AQuery(PAApplication.getAppContext());
-		aQuery.ajax(Config.URL_POST_DEVICE, param, DeviceBindResult.class, mAjaxCallback);
+		mAQuery.ajax(Config.URL_POST_DEVICE, param, DeviceBindResult.class, mAjaxCallback);
 	}
 	
 	private void obtainLocalKey() {
-		mCurrentKey = AppSharedUtils.getDeviceToken();
+		mDeviceToken = AppSharedUtils.getDeviceToken();
 	}
 	
 	private class AjaxCallbackImpl extends AjaxCallback<DeviceBindResult> {
 		
-		private RequestKeyCallback mRequestKeyCallback;
-		public void setRequestKeyCallback(RequestKeyCallback callback) {
+		private RequestDeviceTokenCallback mRequestKeyCallback;
+		public void setRequestKeyCallback(RequestDeviceTokenCallback callback) {
 			mRequestKeyCallback = callback;
 		}
 		
@@ -93,12 +107,13 @@ public class BindController extends BaseController {
 					try {
 						if (result.isOK()) {
 							setCurrentKey(result.getValue().getDevice_token());
-							mRequestKeyCallback.onKeyLoaded();
+							mRequestKeyCallback.onDeviceTokenLoaded();
 						} else {
 							ToastUtils.showToast(result.getMsg());
 							mRequestKeyCallback.onError();
 						}
 					} catch (Exception e) {
+						LogUtils.e(TAG, "callback Exception: " + e.getMessage());
 						e.printStackTrace();
 						ToastUtils.showToast(R.string.device_bind_obtain_error);
 						mRequestKeyCallback.onError();

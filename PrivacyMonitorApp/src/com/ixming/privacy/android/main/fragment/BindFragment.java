@@ -15,7 +15,7 @@ import com.ixming.privacy.android.main.control.BindController;
 import com.ixming.privacy.monitor.android.PAApplication;
 import com.ixming.privacy.monitor.android.R;
 
-public class BindFragment extends BaseFragment implements BindController.RequestKeyCallback {
+public class BindFragment extends BaseFragment implements BindController.RequestDeviceTokenCallback {
 
 	@ViewInject(id = R.id.device_bind_obtain_et)
 	private EditText mKeyInput_ET;
@@ -62,8 +62,8 @@ public class BindFragment extends BaseFragment implements BindController.Request
 	}
 	
 	private void updateUI() {
-		if (BindController.getInstance().hasKey()) {
-			mKeyInput_ET.setText(BindController.getInstance().getCurrentKey());
+		if (BindController.getInstance().hasDeviceToken()) {
+			mKeyInput_ET.setText(BindController.getInstance().getDeviceToken());
 			ViewUtils.setViewVisible(mHide_BT);
 		} else {
 			mKeyInput_ET.setText(null);
@@ -74,7 +74,7 @@ public class BindFragment extends BaseFragment implements BindController.Request
 	}
 
 	@Override
-	public void onKeyLoaded() {
+	public void onDeviceTokenLoaded() {
 		updateUI();
 	}
 
