@@ -67,7 +67,7 @@ public class UserListActivity extends BaseActivity {
 	
 	void gotoViewLocation() {
 		if (checkHasUserSelected()) {
-			startActivity(PrivacyLocationDateActivity.class);
+//			startActivity(PrivacyLocationDateActivity.class);
 		}
 	}
 	

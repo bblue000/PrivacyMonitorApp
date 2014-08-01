@@ -48,6 +48,13 @@
         android:fadingEdge="none"
         android:scrollbars="none"/>
     
+    <TextView 
+        android:id="@+id/person_list_date_empty_tv"
+        style="@style/AppStyle.Common.EmptyListHint"
+        android:layout_below="@id/person_list_selected_layout"
+        android:layout_above="@+id/person_list_delete_btn"
+        android:text="@string/privacy_location_date_empty_hint"/>
+    
     <Button 
         android:id="@+id/person_list_delete_btn"
         style="@style/AppStyle.Common.Btn"

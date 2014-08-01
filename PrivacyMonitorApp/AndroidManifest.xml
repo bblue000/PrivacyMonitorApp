@@ -54,47 +54,15 @@
             android:launchMode="singleTask"/>
                 
         <activity
-            android:name="com.ixming.privacy.android.main.activity.MainActivity"
-            android:label="@string/app_name" 
-            />
-        <activity
             android:name="com.ixming.privacy.android.main.activity.NewMainActivity"
             android:label="@string/app_name" 
             />
-        <activity
-            android:name="com.ixming.privacy.android.main.activity.UserListActivity"
-            android:label="@string/app_name" 
-            android:launchMode="singleTask"
-            />
         
         <activity
-            android:name="com.ixming.privacy.android.main.activity.PrivacyLocationActivity"
-            android:label="@string/app_name" 
-            />
-        <activity
-            android:name="com.ixming.privacy.android.main.activity.PrivacyLocationDateActivity"
+            android:name="com.ixming.privacy.android.main.activity.PersonLocationActivity"
             android:label="@string/app_name" 
             android:launchMode="singleTask"
             />
-        
-        <activity
-            android:name="com.ixming.privacy.android.main.activity.HistoryOnMapActivity"
-            android:label="@string/app_name" 
-            android:launchMode="singleTask"
-            />
-        <activity
-            android:name="com.ixming.privacy.android.main.activity.HistoryOnMapActivity2"
-            android:label="@string/app_name" 
-            android:launchMode="singleTask"
-            />
-        
-        <activity
-            android:name="com.ixming.privacy.android.main.activity.HistoryOnMapActivity3"
-            android:label="@string/app_name" 
-            android:launchMode="singleTask"
-            >
-        </activity>
-        
         
         <receiver android:name="com.ixming.privacy.android.monitoring.service.BootReceiver"
             android:process=":IXMingprivacy">

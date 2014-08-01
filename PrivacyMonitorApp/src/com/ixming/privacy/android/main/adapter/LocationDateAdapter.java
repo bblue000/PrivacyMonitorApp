@@ -7,13 +7,13 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-import com.ixming.privacy.android.monitoring.model.DatetimeUtils;
+import com.ixming.privacy.android.main.model.DatetimeUtils;
 import com.ixming.privacy.monitor.android.R;
 
-public class ViewLocationDateAdapter extends AbsResLayoutAdapter<Long,
-ViewLocationDateAdapter.ViewHolder> {
+public class LocationDateAdapter extends AbsResLayoutAdapter<Long,
+LocationDateAdapter.ViewHolder> {
 
-	public ViewLocationDateAdapter(Context context) {
+	public LocationDateAdapter(Context context) {
 		super(context);
 		
 	}

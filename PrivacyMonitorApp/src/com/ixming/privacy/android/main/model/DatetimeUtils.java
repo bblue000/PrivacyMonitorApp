@@ -1,4 +1,4 @@
-package com.ixming.privacy.android.monitoring.model;
+package com.ixming.privacy.android.main.model;
 
 import android.annotation.SuppressLint;
 import java.text.SimpleDateFormat;
@@ -8,7 +8,7 @@ public class DatetimeUtils {
 	@SuppressLint("SimpleDateFormat")
 	private static SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	@SuppressLint("SimpleDateFormat")
-	private static SimpleDateFormat sFormatter_Date = new SimpleDateFormat("yyyy-MM-dd");
+	private static SimpleDateFormat sFormatter_Date = new SimpleDateFormat("yyyy年MM月dd日");
 	@SuppressLint("SimpleDateFormat")
 	private static SimpleDateFormat sFormatter_Time = new SimpleDateFormat("HH:mm:ss");
 	public static String format(long datetime) {

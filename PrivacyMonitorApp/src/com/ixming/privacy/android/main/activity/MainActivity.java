@@ -117,7 +117,7 @@ public class MainActivity extends BaseActivity {
 	@OnClickMethodInject(id = R.id.main_view_location_btn)
 	void gotoViewLocation() {
 		if (checkHasUserSelected()) {
-			startActivity(PrivacyLocationDateActivity.class);
+//			startActivity(PrivacyLocationDateActivity.class);
 		}
 	}
 	

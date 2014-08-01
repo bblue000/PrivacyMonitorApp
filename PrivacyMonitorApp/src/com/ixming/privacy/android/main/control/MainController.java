@@ -23,7 +23,6 @@ import com.ixming.privacy.android.common.LocalBroadcastIntents;
 import com.ixming.privacy.android.common.model.RequestPiecer;
 import com.ixming.privacy.android.main.adapter.ViewPersonAdapter;
 import com.ixming.privacy.android.monitoring.entity.PrivacyLocaitonInfo;
-import com.ixming.privacy.android.monitoring.model.LocationResponseData;
 import com.ixming.privacy.android.monitoring.model.UserInfo;
 import com.ixming.privacy.android.monitoring.model.UserResponseData;
 import com.ixming.privacy.monitor.android.Config;
@@ -75,55 +74,55 @@ public class MainController extends BaseController {
 			mLocationTask = new HttpGetTask(new DefNonProgressDisplayer());
 		}
 		
-		mLocationTask.execute(Config.URL_GET_LOCATION, RequestPiecer.getLocationJson(getCurUser().getId()),
-				Config.MODE_GET_LOCATION, new OnLoadListener() {
-			
-			@Override
-			public void onSuccess(Object obj, ReqBean reqMode) {
-				HttpRes httpRes = (HttpRes) obj;
-				try {
-					String json = GsonHelper.getJson(httpRes);
-					LocationResponseData result = GsonPool.getExposeRestrict().fromJson(
-							json, LocationResponseData.class);
-					
-					LogUtils.d(TAG, "onSuccess result: " + result);
-					if (null != result) {
-						if (result.getStatus() == 200) {
-							mLastCheckLocationTime = System.currentTimeMillis();
-							
-							synchronized (mLocationInfoList) {
-								mLocationInfoList.clear();
-								
-								List<PrivacyLocaitonInfo> list = result.getData();
-								if (null != list && !list.isEmpty()) {
-									mLocationInfoList.addAll(list);
-									Collections.sort(mLocationInfoList);
-								}
-								calculate();
-							}
-							
-							PAApplication.getHandler().post(new Runnable() {
-								
-								@Override
-								public void run() {
-									checkLocationAndBroadcast(true);
-								}
-							});
-						} else {
-							checkLocationAndBroadcast(true);
-						}
-					}
-				} catch (Exception e) {
-					LogUtils.e(TAG, "onSuccess Exception: " + e.getMessage());
-					e.printStackTrace();
-				}
-			}
-			
-			@Override
-			public void onError(Object obj, ReqBean reqMode) {
-				checkLocationAndBroadcast(true);
-			}
-		});
+//		mLocationTask.execute(Config.URL_GET_LOCATION, RequestPiecer.postLocationJson(getCurUser().getId()),
+//				Config.MODE_GET_LOCATION, new OnLoadListener() {
+//			
+//			@Override
+//			public void onSuccess(Object obj, ReqBean reqMode) {
+//				HttpRes httpRes = (HttpRes) obj;
+//				try {
+//					String json = GsonHelper.getJson(httpRes);
+//					LocationResponseData result = GsonPool.getExposeRestrict().fromJson(
+//							json, LocationResponseData.class);
+//					
+//					LogUtils.d(TAG, "onSuccess result: " + result);
+//					if (null != result) {
+//						if (result.getStatus() == 200) {
+//							mLastCheckLocationTime = System.currentTimeMillis();
+//							
+//							synchronized (mLocationInfoList) {
+//								mLocationInfoList.clear();
+//								
+//								List<PrivacyLocaitonInfo> list = result.getData();
+//								if (null != list && !list.isEmpty()) {
+//									mLocationInfoList.addAll(list);
+//									Collections.sort(mLocationInfoList);
+//								}
+//								calculate();
+//							}
+//							
+//							PAApplication.getHandler().post(new Runnable() {
+//								
+//								@Override
+//								public void run() {
+//									checkLocationAndBroadcast(true);
+//								}
+//							});
+//						} else {
+//							checkLocationAndBroadcast(true);
+//						}
+//					}
+//				} catch (Exception e) {
+//					LogUtils.e(TAG, "onSuccess Exception: " + e.getMessage());
+//					e.printStackTrace();
+//				}
+//			}
+//			
+//			@Override
+//			public void onError(Object obj, ReqBean reqMode) {
+//				checkLocationAndBroadcast(true);
+//			}
+//		});
 	}
 	
 	private void checkLocationAndBroadcast(boolean broadcast) {
@@ -198,46 +197,46 @@ public class MainController extends BaseController {
 			});
 		}
 		
-		mUserTask.execute(Config.URL_GET_USER, RequestPiecer.getUserJson(), Config.MODE_GET_USER,
-			new OnLoadListener() {
-				
-				@Override
-				public void onSuccess(Object obj, ReqBean reqMode) {
-					HttpRes httpRes = (HttpRes) obj;
-					try {
-						String json = GsonHelper.getJson(httpRes);
-						UserResponseData result = GsonPool.getExposeRestrict().fromJson(
-								json, UserResponseData.class);
-						
-						LogUtils.d(TAG, "onSuccess result: " + result);
-						if (null != result) {
-							if (result.getStatus() == 200) {
-								mLastCheckUserTime = System.currentTimeMillis();
-								mUserList = result.getData();
-								
-								PAApplication.getHandler().post(new Runnable() {
-									
-									@Override
-									public void run() {
-										adapter.setData(mUserList);
-										adapter.notifyDataSetChanged();
-									}
-								});
-							} else {
-								
-							}
-						}
-					} catch (Exception e) {
-						LogUtils.e(TAG, "onSuccess Exception: " + e.getMessage());
-						e.printStackTrace();
-					}
-				}
-				
-				@Override
-				public void onError(Object obj, ReqBean reqMode) {
-					
-				}
-			});
+//		mUserTask.execute(Config.URL_GET_USER, RequestPiecer.getUserJson(), Config.MODE_GET_USER,
+//			new OnLoadListener() {
+//				
+//				@Override
+//				public void onSuccess(Object obj, ReqBean reqMode) {
+//					HttpRes httpRes = (HttpRes) obj;
+//					try {
+//						String json = GsonHelper.getJson(httpRes);
+//						UserResponseData result = GsonPool.getExposeRestrict().fromJson(
+//								json, UserResponseData.class);
+//						
+//						LogUtils.d(TAG, "onSuccess result: " + result);
+//						if (null != result) {
+//							if (result.getStatus() == 200) {
+//								mLastCheckUserTime = System.currentTimeMillis();
+//								mUserList = result.getData();
+//								
+//								PAApplication.getHandler().post(new Runnable() {
+//									
+//									@Override
+//									public void run() {
+//										adapter.setData(mUserList);
+//										adapter.notifyDataSetChanged();
+//									}
+//								});
+//							} else {
+//								
+//							}
+//						}
+//					} catch (Exception e) {
+//						LogUtils.e(TAG, "onSuccess Exception: " + e.getMessage());
+//						e.printStackTrace();
+//					}
+//				}
+//				
+//				@Override
+//				public void onError(Object obj, ReqBean reqMode) {
+//					
+//				}
+//			});
 	}
 	
 	public void setCurrentUser(UserInfo user) {

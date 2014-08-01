@@ -1,7 +1,6 @@
 package com.ixming.privacy.android.main.fragment;
 
 import org.ixming.base.common.activity.BaseFragment;
-import org.ixming.base.utils.android.ToastUtils;
 import org.ixming.base.view.utils.ViewUtils;
 import org.ixming.inject4android.annotation.OnClickMethodInject;
 import org.ixming.inject4android.annotation.ViewInject;
@@ -16,9 +15,8 @@ import com.ixming.privacy.android.main.control.BindController;
 import com.ixming.privacy.monitor.android.PAApplication;
 import com.ixming.privacy.monitor.android.R;
 
-public class BindFragment extends BaseFragment implements BindController.RequestKeyCallback {
+public class BindFragment extends BaseFragment implements BindController.RequestDeviceTokenCallback {
 
-	
 	@ViewInject(id = R.id.device_bind_obtain_et)
 	private EditText mKeyInput_ET;
 	@ViewInject(id = R.id.device_bind_obtain_btn)
@@ -54,17 +52,6 @@ public class BindFragment extends BaseFragment implements BindController.Request
 	@OnClickMethodInject(id = R.id.device_bind_obtain_btn)
 	void obtainKey() {
 		BindController.getInstance().requestKey(this);
-		
-		handler.postDelayed(new Runnable() {
-			
-			@Override
-			public void run() {
-				BindController.getInstance().setCurrentKey("YY110");
-				
-				updateUI();
-			}
-			
-		}, 1000);
 	}
 	
 	@OnClickMethodInject(id = R.id.device_bind_hide_btn)
@@ -75,26 +62,25 @@ public class BindFragment extends BaseFragment implements BindController.Request
 	}
 	
 	private void updateUI() {
-		if (BindController.getInstance().hasKey()) {
-			mKeyInput_ET.setText(BindController.getInstance().getCurrentKey());
+		if (BindController.getInstance().hasDeviceToken()) {
+			mKeyInput_ET.setText(BindController.getInstance().getDeviceToken());
 			ViewUtils.setViewVisible(mHide_BT);
 		} else {
 			mKeyInput_ET.setText(null);
-			ViewUtils.setViewGone(mHide_BT);
+			ViewUtils.setViewInvisible(mHide_BT);
 		}
 		mKeyInput_ET.setFocusable(true);
 		mKeyInput_ET.setFocusableInTouchMode(false);
 	}
 
 	@Override
-	public void onKeyLoaded(String key) {
-		BindController.getInstance().setCurrentKey(key);
+	public void onDeviceTokenLoaded() {
 		updateUI();
 	}
 
 	@Override
 	public void onError() {
-		ToastUtils.showToast(R.string.device_bind_obtain_error);
+		
 	}
 
 }
