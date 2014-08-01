@@ -11,5 +11,4 @@
     
     <dimen name="main_title_height">@dimen/spacing_50</dimen>
     <dimen name="main_title_textsize">@dimen/textsize_20</dimen>
-    
 </resources>

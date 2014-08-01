@@ -19,28 +19,29 @@
             style="@style/AppStyle.Login.Input.Password"
             android:layout_below="@id/login_username_et"
             android:layout_margin="@dimen/common_margin"
-            android:hint="@string/login_password_hint"
-            android:background="@drawable/text_shape" />
+            android:background="@drawable/text_shape"
+            android:hint="@string/login_password_hint" />
+
+        <EditText
+            android:id="@+id/login_confim_password_et"
+            style="@style/AppStyle.Login.Input.Password"
+            android:layout_below="@id/login_password_et"
+            android:layout_margin="@dimen/common_margin"
+            android:background="@drawable/text_shape"
+            android:hint="@string/login_password_hint" />
+
+        <EditText
+            android:id="@+id/login_confim_password_et"
+            style="@style/AppStyle.Login.Input.Password"
+            android:layout_below="@id/login_password_et"
+            android:layout_margin="@dimen/common_margin"
+            android:background="@drawable/text_shape"
+            android:hint="@string/login_confim_password_hint" />
 
         <Button
             android:id="@+id/login_submit_btn"
             style="@style/AppStyle.Login.Submit"
-            android:text="@string/login_submit"
-            android:layout_below="@id/login_password_et"
-            android:layout_margin="@dimen/common_margin" />
-
-        <TextView
-            android:id="@+id/login_forgot_password_tv"
-            style="@style/AppStyle.Login.Text"
-            android:layout_below="@+id/login_submit_btn"
-            android:layout_margin="@dimen/common_margin"
-            android:text="@string/login_forgot_password" />
-
-        <TextView
-            android:id="@+id/login_register_tv"
-            style="@style/AppStyle.Login.Text"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/login_submit_btn"
+            android:layout_below="@id/login_confim_password_et"
             android:layout_margin="@dimen/common_margin"
             android:text="@string/login_register" />
     </RelativeLayout>

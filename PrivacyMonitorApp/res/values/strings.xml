@@ -2,10 +2,10 @@
 <resources>
 
     <string name="app_name">了如指掌</string>
-    
-
-    <string name="login_username_hint">用户名</string>
+    <string name="login_username_hint">用户名/电子邮箱</string>
+    <string name="login_email_hint">电子邮箱</string>
     <string name="login_password_hint">密码</string>
+    <string name="login_confim_password_hint">确认密码</string>
     <string name="login_submit">登录</string>
     <string name="login_input_digits">._@0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ</string>
     <string name="login_username_empty">用户名不能为空</string>
@@ -14,22 +14,23 @@
     <string name="login_password_error">密码错误</string>
     <string name="login_already_process">正在登录...</string>
     <string name="login_failed">登录失败</string>
-    
-    
+    <string name="login_retrieve_password">找回密码</string>
+    <string name="login_forgot_password">忘记密码</string>
+    <string name="login_register">注册</string>
+
     <!-- tabs -->
     <string name="tab_main_index">首页</string>
     <string name="tab_device_bind">设置</string>
+
     <string-array name="tabs">
         <item>@string/tab_main_index</item>
         <item>@string/tab_device_bind</item>
     </string-array>
-    
-    
+
     <!-- index -->
     <string name="persion_list_select_hint">选择查看对象</string>
     <string name="persion_list_operate">操作</string>
-    
-    
+
     <!-- device bind -->
     <string name="device_bind_top_hint">通过标识码可以查询该设备的位置</string>
     <string name="device_bind_warning">警告：请勿将标识码告诉陌生人</string>
@@ -37,28 +38,18 @@
     <string name="device_bind_hide_app">隐藏应用</string>
     <string name="device_bind_key_hint">填写标识码</string>
     <string name="device_bind_obtain_error">获取失败</string>
-    
-    
-    
-    
-    
     <string name="main_view_person_hint">选择查看对象</string>
     <string name="main_view_person_progress_hint">正在加载...</string>
     <string name="main_view_person_current">当前对象：%1$s</string>
     <string name="main_view_persion_none_hint">请选择查看对象</string>
-    
     <string name="main_view_phone">查看通话记录</string>
     <string name="main_view_sms">查看短信</string>
     <string name="main_view_location">查看位置</string>
-    
     <string name="main_add_person_hint">添加查看对象</string>
-    
     <string name="privacy_location_date_empty_hint">暂没有位置数据</string>
     <string name="privacy_location_hint">位置:</string>
     <string name="privacy_location_date_title">选择日期</string>
     <string name="privacy_location_time_hint">时间:</string>
-    
     <string name="error_network">网络出错啦！</string>
-    
-    
+
 </resources>
