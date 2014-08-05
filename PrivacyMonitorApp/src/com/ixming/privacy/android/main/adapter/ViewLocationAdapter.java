@@ -8,10 +8,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ixming.privacy.android.main.model.DatetimeUtils;
-import com.ixming.privacy.android.monitoring.entity.PrivacyLocaitonInfo;
+import com.ixming.privacy.android.main.model.RespLocation;
 import com.ixming.privacy.monitor.android.R;
 
-public class ViewLocationAdapter extends AbsResLayoutAdapter<PrivacyLocaitonInfo,
+public class ViewLocationAdapter extends AbsResLayoutAdapter<RespLocation,
 ViewLocationAdapter.ViewHolder> {
 
 	public ViewLocationAdapter(Context context) {
@@ -39,10 +39,10 @@ ViewLocationAdapter.ViewHolder> {
 	}
 
 	@Override
-	protected void bindView(ViewHolder holder, PrivacyLocaitonInfo data, int position,
+	protected void bindView(ViewHolder holder, RespLocation data, int position,
 			View view) {
-		holder.mDatetime_TV.setText(DatetimeUtils.format(data.getDatetime()));
-		holder.mLocation_TV.setText(data.getLocationInfo());
+		holder.mDatetime_TV.setText(DatetimeUtils.format(data.getDate_time()));
+		holder.mLocation_TV.setText(data.getAddress());
 	}
 	
 }

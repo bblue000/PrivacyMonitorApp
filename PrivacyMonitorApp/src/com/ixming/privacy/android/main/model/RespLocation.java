@@ -1,6 +1,6 @@
 package com.ixming.privacy.android.main.model;
 
-public class RespLocation {
+public class RespLocation implements Comparable<RespLocation> {
 	// "id": 1,
 	// "device_id": "akdjlaksjdlasjldkjlsajdlajlskjsldjalsjdslkjaldjasldkjal",
 	// "longitude": "987654321",
@@ -77,6 +77,12 @@ public class RespLocation {
 				+ ", device_token=" + device_token + ", latitude=" + latitude
 				+ ", longitude=" + longitude + ", address=" + address
 				+ ", date_time=" + date_time + "]";
+	}
+	
+	@Override
+	public int compareTo(RespLocation another) {
+		
+		return (int) (another.getDate_time() - getDate_time());
 	}
 
 }

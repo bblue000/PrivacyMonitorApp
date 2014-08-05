@@ -1,12 +1,19 @@
 package com.ixming.privacy.android.main.model;
 
+import java.io.Serializable;
+
 /**
  * 被监测的对象
  * 
  * @author Yin Yong
  *
  */
-public class MonitoredPerson {
+public class MonitoredPerson implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 标识码

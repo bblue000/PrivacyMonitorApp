@@ -21,4 +21,11 @@ public class ObjectUtils {
 		}
 	}
 	
+	public static boolean equals(Object obj1, Object obj2) {
+		if (null == obj1) {
+			return null == obj2;
+		} else {
+			return obj1.equals(obj2);
+		}
+	}
 }

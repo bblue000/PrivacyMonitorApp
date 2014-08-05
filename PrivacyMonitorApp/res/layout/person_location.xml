@@ -20,28 +20,65 @@
         
     </LinearLayout>
     
-    <com.baidu.mapapi.map.MapView
-        android:id="@+id/person_location_mv"
+    <LinearLayout
+        android:id="@+id/person_location_map_container"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/person_location_title_layout"
-        android:clickable="true" />
+        android:layout_below="@id/person_location_title_layout">
+        
+    </LinearLayout>
+    
+<!--     <com.baidu.mapapi.map.MapView -->
+<!--         android:id="@+id/person_location_mv" -->
+<!--         android:layout_width="fill_parent" -->
+<!--         android:layout_height="fill_parent" -->
+<!--         android:layout_below="@id/person_location_title_layout" -->
+<!--         android:clickable="true" /> -->
 
-    <com.ixming.privacy.android.main.view.VSeekBar
-        android:id="@+id/person_location_datetime_sb"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
+	<FrameLayout 
+	    android:layout_width="wrap_content"
+	    android:layout_height="fill_parent"
         android:layout_below="@id/person_location_title_layout"
-        android:layout_marginLeft="@dimen/spacing_5"
-        android:layout_marginTop="@dimen/spacing_20"
-        android:layout_marginBottom="@dimen/spacing_50"
-        />
+        android:paddingLeft="@dimen/spacing_20"
+        android:paddingRight="@dimen/spacing_20"
+        android:paddingTop="@dimen/spacing_20"
+        android:paddingBottom="@dimen/spacing_50"
+        android:layout_alignParentLeft="true"
+        >
+        
+	    <com.ixming.privacy.android.main.view.VSeekBar
+	        android:id="@+id/person_location_datetime_sb"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        />
+	    
+	</FrameLayout>
+    
     
     <View
         android:layout_width="fill_parent"
         android:layout_height="@dimen/spacing_1"
         android:layout_below="@id/person_location_title_layout"
         android:background="@color/deep_sky_blue" />
+    <!-- 
+    <TextView
+        android:id="@+id/person_location_current_marker_tv"
+        style="@style/AppStyle.ContainerLayout.WrapContent"
+	    android:singleLine="true"
+	    android:textColor="@color/black"
+	    android:textSize="@dimen/textsize_16"
+	    android:gravity="center"
+	    android:drawableBottom="@drawable/location_marker"
+	    android:visibility="invisible"/>
     
+    <TextView
+        android:id="@+id/person_location_other_marker_tv"
+        style="@style/AppStyle.ContainerLayout.WrapContent"
+	    android:singleLine="true"
+	    android:textColor="@color/black"
+	    android:textSize="@dimen/textsize_16"
+	    android:gravity="center"
+	    android:drawableBottom="@drawable/location_marker_alpha"
+	    android:visibility="invisible"/>
+     -->
 </RelativeLayout>

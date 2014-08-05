@@ -2,7 +2,8 @@ package com.ixming.privacy.android.main.control;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class PersonController extends BaseController {
 	
 	private static final String TAG = PersonController.class.getSimpleName();
 	
-	public static interface LoactionDataLoadListener {
+	public static interface LocationDataLoadListener {
 		void onLocationLoadSuccess();
 
 		void onLocationLoadFailed();
@@ -34,7 +35,7 @@ public class PersonController extends BaseController {
 	
 	private final long ONEDAY = 24 * 60 * 60 * 1000;
 	private final List<RespLocation> mLocationInfoList = new ArrayList<RespLocation>(10);
-	private final Map<Long, List<RespLocation>> mDateTimeData = new HashMap<Long, List<RespLocation>>();
+	private final Map<Long, List<RespLocation>> mDateTimeData = new LinkedHashMap<Long, List<RespLocation>>();
 	private long mCurTime;
 	private List<RespLocation> mCurData = null; 
 	
@@ -45,7 +46,7 @@ public class PersonController extends BaseController {
 		mMonitoredPerson = person;
 	}
 	
-	public void requestLoactionData(LoactionDataLoadListener listener) {
+	public void requestLoactionData(LocationDataLoadListener listener) {
 		if (null != mAjaxCallback) {
 			mAjaxCallback.setLoactionDataLoadListener(null);
 		}
@@ -58,6 +59,27 @@ public class PersonController extends BaseController {
 					mMonitoredPerson.getNote_name(),
 					AndroidUtils.getDeviceId()),
 				RespLocationResult.class, mAjaxCallback);
+	}
+	
+	public MonitoredPerson getMonitoringPerson() {
+		return mMonitoredPerson;
+	}
+
+	public Collection<Long> getLocationDates() {
+		return mDateTimeData.keySet();
+	}
+	
+	public void setCurTime(long datetime) {
+		mCurTime = (datetime / ONEDAY) * ONEDAY; // clear time, second, mills
+		mCurData = mDateTimeData.get(mCurTime);
+	}
+	
+	public long getCurTime() {
+		return mCurTime;
+	}
+	
+	public List<RespLocation> getCurData() {
+		return mCurData;
 	}
 	
 	private void calculate() {
@@ -82,28 +104,12 @@ public class PersonController extends BaseController {
 		LogUtils.d(TAG, "calculate mDateTimeData.size() = " + mDateTimeData.size());
 	}
 	
-	public Collection<Long> getLocationDates() {
-		return mDateTimeData.keySet();
-	}
-	
-	public void setCurTime(long datetime) {
-		mCurTime = (datetime / ONEDAY) * ONEDAY; // clear time, second, mills
-		mCurData = mDateTimeData.get(mCurTime);
-	}
-	
-	public long getCurTime() {
-		return mCurTime;
-	}
-	
-	public List<RespLocation> getCurData() {
-		return mCurData;
-	}
-	
 	private void setLocationData(List<RespLocation> locationList) {
 		mLocationInfoList.clear();
 		
 		if (null != locationList) {
 			mLocationInfoList.addAll(locationList);
+			Collections.sort(mLocationInfoList);
 		}
 		
 		calculate();
@@ -111,8 +117,8 @@ public class PersonController extends BaseController {
 	
 	private class AjaxCallbackImpl extends AjaxCallback<RespLocationResult> {
 		
-		private LoactionDataLoadListener mLoactionDataLoadListener;
-		public void setLoactionDataLoadListener(LoactionDataLoadListener loactionDataLoadListener) {
+		private LocationDataLoadListener mLoactionDataLoadListener;
+		public void setLoactionDataLoadListener(LocationDataLoadListener loactionDataLoadListener) {
 			mLoactionDataLoadListener = loactionDataLoadListener;
 		}
 		

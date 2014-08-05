@@ -24,7 +24,6 @@ public class PersonListController extends BaseController {
 	
 	private final List<MonitoredPerson> mMonitoringPersonList = new ArrayList<MonitoredPerson>(5);
 	private final Map<MonitoredPerson, PersonController> mMonitoringPersonControllerMap = new HashMap<MonitoredPerson, PersonController>(5);
-	private MonitoredPerson mCurrentMonitoringPerson;
 	private PersonController mCurrentMonitoringPersonController;
 	private PersonListController() {
 		mMonitoringPersonList.add(new MonitoredPerson("123", "迷失的老人"));
@@ -41,19 +40,17 @@ public class PersonListController extends BaseController {
 	}
 	
 	public void setCurrentMonitoringPerson(MonitoredPerson person) {
-		mCurrentMonitoringPerson = person;
-		
-		PersonController controller = mMonitoringPersonControllerMap.get(person);
-		if (null == controller) {
-			controller = new PersonController(person);
-			mMonitoringPersonControllerMap.put(person, controller);
+		if (null == person) {
+			mCurrentMonitoringPersonController = null;
+		} else {
+			PersonController controller = mMonitoringPersonControllerMap.get(person);
+			if (null == controller) {
+				controller = new PersonController(person);
+				mMonitoringPersonControllerMap.put(person, controller);
+			}
+			
+			mCurrentMonitoringPersonController = controller;
 		}
-		
-		mCurrentMonitoringPersonController = controller;
-	}
-	
-	public MonitoredPerson getCurrentMonitoringPerson() {
-		return mCurrentMonitoringPerson;
 	}
 	
 	public PersonController getCurrentPersonController() {
