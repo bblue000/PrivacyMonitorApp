@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ixming.privacy.android.common.DropDownPop;
+import com.ixming.privacy.android.main.activity.PersonLocationV3Activity;
 import com.ixming.privacy.android.main.adapter.LocationDateAdapter;
 import com.ixming.privacy.android.main.adapter.MonitoredPersonAdapter;
 import com.ixming.privacy.android.main.control.PersonListController;
@@ -25,18 +26,20 @@ import com.ixming.privacy.monitor.android.R;
 
 public class PersionListFragment extends BaseFragment
 implements OnItemClickListener, PersonListController.MonitoringPersonLoadListener,
-PersonController.LoactionDataLoadListener {
+PersonController.LocationDataLoadListener {
 
 	@ViewInject(id = R.id.person_list_selected_layout)
 	private View mPersonSel_Layout;
 	@ViewInject(id = R.id.person_list_selected_tv)
 	private TextView mPersonSel_TV;
-	@ViewInject(id = R.id.person_list_selected_operate_btn)
-	private Button mPersonSelOp_BT;
+	@ViewInject(id = R.id.person_list_selected_add_btn)
+	private Button mPersonSelAdd_BT;
 	@ViewInject(id = R.id.person_list_date_lv)
 	private ListView mPersonDate_LV;
-	@ViewInject(id = R.id.person_list_delete_btn)
-	private Button mPersonDelete_BT;
+	@ViewInject(id = R.id.person_list_date_empty_tv)
+	private View mPersonDateEmpty_TV;
+	@ViewInject(id = R.id.person_list_operate_layout)
+	private View mPersonOperate_Layout;
 	
 	private DropDownPop mDropDownPop;
 	
@@ -50,12 +53,17 @@ PersonController.LoactionDataLoadListener {
 
 	@Override
 	public void initView(View view) {
-		updateCurrentMonitoringUI();
 	}
 
 	@Override
 	public void initData(View view, Bundle savedInstanceState) {
 		mDropDownPop = new DropDownPop(context);
+		mLocationDateAdapter = new LocationDateAdapter(context);
+		mPersonDate_LV.setAdapter(mLocationDateAdapter);
+		PersonListController.getInstance().setCurrentMonitoringPerson(null);
+		
+		updateCurrentMonitoringUI();
+		
 		// request my monitoring person
 		PersonListController.getInstance().requestMonitoringPerson(this);
 	}
@@ -83,8 +91,8 @@ PersonController.LoactionDataLoadListener {
 		}
 	}
 	
-	@OnClickMethodInject(id = R.id.person_list_selected_operate_btn)
-	void operateCurrentPerson() {
+	@OnClickMethodInject(id = R.id.person_list_selected_add_btn)
+	void addPerson() {
 		
 	}
 	
@@ -93,16 +101,33 @@ PersonController.LoactionDataLoadListener {
 		
 	}
 	
+	@OnClickMethodInject(id = R.id.person_list_update_btn)
+	void updateCurrentPerson() {
+		
+	}
+	
 	private void updateCurrentMonitoringUI() {
-		if (null == PersonListController.getInstance().getCurrentMonitoringPerson()) {
+		if (null == PersonListController.getInstance().getCurrentPersonController()) {
 			ViewUtils.setViewGone(mPersonDate_LV);
-			ViewUtils.setViewGone(mPersonDelete_BT);
+			ViewUtils.setViewGone(mPersonDateEmpty_TV);
+			ViewUtils.setViewGone(mPersonOperate_Layout);
 		} else {
-			ViewUtils.setViewVisible(mPersonDate_LV);
-			ViewUtils.setViewVisible(mPersonDelete_BT);
+			if (mLocationDateAdapter.isEmpty()) {
+				ViewUtils.setViewGone(mPersonDate_LV);
+				ViewUtils.setViewVisible(mPersonDateEmpty_TV);
+			} else {
+				ViewUtils.setViewVisible(mPersonDate_LV);
+				ViewUtils.setViewGone(mPersonDateEmpty_TV);
+			}
+			ViewUtils.setViewVisible(mPersonOperate_Layout);
 		}
 	}
-
+	
+	private void hideCurrentMonitoringTmp() {
+		ViewUtils.setViewGone(mPersonDate_LV);
+		ViewUtils.setViewGone(mPersonDateEmpty_TV);
+	}
+	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
@@ -113,30 +138,36 @@ PersonController.LoactionDataLoadListener {
 		}
 	}
 	
-	private void setCurrentMonitoringPerson(MonitoredPerson person) {
-		if (null == person) {
-			return ;
-		}
-		mPersonSel_TV.setText(person.getNote_name());
-		
-		PersonListController.getInstance().setCurrentMonitoringPerson(person);
-		updateCurrentMonitoringUI();
-		// request current monitoring person's data
-		
-		PersonController personController = PersonListController.getInstance().getCurrentPersonController();
-		if (null == personController) {
-			return ;
-		}
-		personController.requestLoactionData(this);
-	}
-	
 	private void gotoTarget(long time) {
 		PersonController personController = PersonListController.getInstance().getCurrentPersonController();
 		if (null == personController) {
 			return ;
 		}
 		personController.setCurTime(time);
-//		getFragmentActivity().startActivity(clz)
+		getFragmentActivity().startActivity(PersonLocationV3Activity.class);
+	}
+	
+	private void setCurrentMonitoringPerson(MonitoredPerson person) {
+		PersonListController.getInstance().setCurrentMonitoringPerson(person);
+		
+		if (null == person) {
+			mPersonSel_TV.setText(null);
+		} else {
+			mPersonSel_TV.setText(person.getNote_name());
+		}
+		
+		updateCurrentMonitoringUI();
+		
+		// request current monitoring person's data
+		PersonController personController = PersonListController.getInstance().getCurrentPersonController();
+		if (null == personController) {
+			
+		} else {
+			// 隐藏列表和列表为空时的界面
+			hideCurrentMonitoringTmp();
+			personController.requestLoactionData(this);
+		}
+		
 	}
 	
 	@Override
@@ -152,21 +183,21 @@ PersonController.LoactionDataLoadListener {
 
 	@Override
 	public void onLocationLoadSuccess() {
-		if (null == mLocationDateAdapter) {
-			mLocationDateAdapter = new LocationDateAdapter(context);
-			mPersonDate_LV.setAdapter(mLocationDateAdapter);
-		}
 		PersonController personController = PersonListController.getInstance().getCurrentPersonController();
 		if (null == personController) {
-			return ;
+			mLocationDateAdapter.setData(null);
+		} else {
+			mLocationDateAdapter.setData(personController.getLocationDates());
 		}
-		mLocationDateAdapter.setData(personController.getLocationDates());
 		mLocationDateAdapter.notifyDataSetChanged();
+		updateCurrentMonitoringUI();
 	}
 
 	@Override
 	public void onLocationLoadFailed() {
-		
+		mLocationDateAdapter.setData(null);
+		mLocationDateAdapter.notifyDataSetChanged();
+		updateCurrentMonitoringUI();
 	}
 
 

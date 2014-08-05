@@ -16,53 +16,45 @@ public class PersonListController extends BaseController {
 
 		void onMPLoadFailed();
 	}
-
+	
 	private static PersonListController sInstance = new PersonListController();
-
 	public static PersonListController getInstance() {
 		return sInstance;
 	}
-
-	private final List<MonitoredPerson> mMonitoringPersonList = new ArrayList<MonitoredPerson>(
-			5);
-	private final Map<MonitoredPerson, PersonController> mMonitoringPersonControllerMap = new HashMap<MonitoredPerson, PersonController>(
-			5);
-	private MonitoredPerson mCurrentMonitoringPerson;
+	
+	private final List<MonitoredPerson> mMonitoringPersonList = new ArrayList<MonitoredPerson>(5);
+	private final Map<MonitoredPerson, PersonController> mMonitoringPersonControllerMap = new HashMap<MonitoredPerson, PersonController>(5);
 	private PersonController mCurrentMonitoringPersonController;
-
 	private PersonListController() {
 		mMonitoringPersonList.add(new MonitoredPerson("123", "迷失的老人"));
 		mMonitoringPersonList.add(new MonitoredPerson("123", "花心的老公"));
 		mMonitoringPersonList.add(new MonitoredPerson("123", "美丽的老婆"));
 	}
-
+	
 	public void requestMonitoringPerson(MonitoringPersonLoadListener listener) {
-
+		
 	}
-
+	
 	public List<MonitoredPerson> getMonitoringPersonList() {
 		return mMonitoringPersonList;
 	}
-
+	
 	public void setCurrentMonitoringPerson(MonitoredPerson person) {
-		mCurrentMonitoringPerson = person;
-
-		PersonController controller = mMonitoringPersonControllerMap
-				.get(person);
-		if (null == controller) {
-			controller = new PersonController(person);
-			mMonitoringPersonControllerMap.put(person, controller);
+		if (null == person) {
+			mCurrentMonitoringPersonController = null;
+		} else {
+			PersonController controller = mMonitoringPersonControllerMap.get(person);
+			if (null == controller) {
+				controller = new PersonController(person);
+				mMonitoringPersonControllerMap.put(person, controller);
+			}
+			
+			mCurrentMonitoringPersonController = controller;
 		}
-
-		mCurrentMonitoringPersonController = controller;
 	}
-
-	public MonitoredPerson getCurrentMonitoringPerson() {
-		return mCurrentMonitoringPerson;
-	}
-
+	
 	public PersonController getCurrentPersonController() {
 		return mCurrentMonitoringPersonController;
 	}
-
+	
 }

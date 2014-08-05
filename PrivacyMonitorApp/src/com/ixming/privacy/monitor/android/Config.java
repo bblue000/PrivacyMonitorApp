@@ -6,10 +6,12 @@ public class Config {
 	 * shared preference 的前缀
 	 */
 	public static final String SHAREPRE_PREFIX = "SP_NAME_MAIN_";
-
 	// private static final String URL_PREFIX =
 	// "http://10.101.2.60:8080/findlocation";// "http://10.101.2.60";
 	private static final String URL_PREFIX = "http://10.101.100.85:8080/findlocation";// "http://10.101.2.60";
+	
+	
+	
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>
 	// post data
 	public static final String URL_POST_DEVICE = URL_PREFIX + "/device";

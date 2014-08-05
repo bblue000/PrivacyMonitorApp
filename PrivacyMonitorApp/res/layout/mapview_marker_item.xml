@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppStyle.ContainerLayout.WrapContent"
+    android:layout_width="match_parent" >
+
+    <TextView
+        android:id="@+id/mapview_marker_item_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textsize_16" />
+    
+    <ImageView 
+        android:id="@+id/mapview_marker_item_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/location_marker"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/mapview_marker_item_tv"/>
+
+</RelativeLayout>

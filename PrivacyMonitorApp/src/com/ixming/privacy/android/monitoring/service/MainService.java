@@ -39,6 +39,8 @@ public class MainService extends Service {
 		synchronized (MainService.class) {
 			sMainService = this;	
 		}
+		
+		
 		mLocationModule = new LocationModule(this, true);
 		mLocateResult = new LocateResult();
 		mLocationModule.startContinuousLocation(mLocateResult);

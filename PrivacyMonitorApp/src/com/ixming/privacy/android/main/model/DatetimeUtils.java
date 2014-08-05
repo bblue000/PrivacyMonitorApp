@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 public class DatetimeUtils {
 
 	@SuppressLint("SimpleDateFormat")
-	private static SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private static SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
 	@SuppressLint("SimpleDateFormat")
 	private static SimpleDateFormat sFormatter_Date = new SimpleDateFormat("yyyy年MM月dd日");
 	@SuppressLint("SimpleDateFormat")

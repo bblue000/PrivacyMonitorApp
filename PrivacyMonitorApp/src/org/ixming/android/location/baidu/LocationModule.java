@@ -37,7 +37,8 @@ public class LocationModule {
 		mLocationClientOption = new LocationClientOption();
 		mLocationClientOption.setLocationMode(LocationMode.Hight_Accuracy);
 //		mLocationClientOption.setLocationMode(LocationMode.Battery_Saving);
-		mLocationClientOption.setCoorType("gcj02");
+//		mLocationClientOption.setCoorType("gcj02");
+		mLocationClientOption.setCoorType("bd09ll");
 		mLocationClientOption.setNeedDeviceDirect(true);
 		mLocationClientOption.setIsNeedAddress(true);
 		// 不使用GPS定位，因为通知栏有图标，太过明显

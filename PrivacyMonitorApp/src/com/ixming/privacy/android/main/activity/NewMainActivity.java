@@ -45,7 +45,6 @@ public class NewMainActivity extends BaseFragmentActivity {
 
 	@Override
 	public void initData(View view, Bundle savedInstanceState) {
-		
 	}
 
 	@Override

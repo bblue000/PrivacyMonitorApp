@@ -31,7 +31,9 @@
 
     <!-- index -->
     <string name="persion_list_select_hint">选择查看对象</string>
-    <string name="persion_list_operate">操作</string>
+    <string name="persion_list_operate_add">添加</string>
+    <string name="persion_list_operate_update">更新</string>
+    <string name="persion_list_operate_delete">删除</string>
     <string name="persion_location_data_obtain_error">获取失败</string>
 
     <!-- device bind -->
