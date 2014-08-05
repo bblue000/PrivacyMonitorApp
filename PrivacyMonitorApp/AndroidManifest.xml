@@ -22,100 +22,96 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    
-    
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    
-    
+
     <application
+        android:name="com.ixming.privacy.monitor.android.PAApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme.Activity" 
-        android:name="com.ixming.privacy.monitor.android.PAApplication">
-        
+        android:theme="@style/AppTheme.Activity" >
         <activity
             android:name="com.ixming.privacy.android.splash.activity.SplashActivity"
-            android:label="@string/app_name" 
-            android:theme="@style/AppTheme.Activity.Launcher"
-            android:launchMode="singleTask">
-            
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Activity.Launcher" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        
         <activity
             android:name="com.ixming.privacy.android.login.activity.LoginActivity"
-            android:label="@string/app_name" 
-            android:launchMode="singleTask"/>
-                
+            android:label="@string/app_name"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.ixming.privacy.android.login.activity.ForgotPasswordActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.ixming.privacy.android.login.activity.RegisterActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" />
         <activity
             android:name="com.ixming.privacy.android.main.activity.NewMainActivity"
-            android:label="@string/app_name" 
-            />
-        
+            android:label="@string/app_name" />
         <activity
             android:name="com.ixming.privacy.android.main.activity.PersonLocationActivity"
-            android:label="@string/app_name" 
-            android:launchMode="singleTask"
-            />
-        
-        <receiver android:name="com.ixming.privacy.android.monitoring.service.BootReceiver"
-            android:process=":IXMingprivacy">
-            
+            android:label="@string/app_name"
+            android:launchMode="singleTask" />
+
+        <receiver
+            android:name="com.ixming.privacy.android.monitoring.service.BootReceiver"
+            android:process=":IXMingprivacy" >
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-            
         </receiver>
-        
-        <receiver android:name="com.ixming.privacy.android.monitoring.service.TriggerActionsReceiver"
-            android:process=":IXMingprivacy">
+        <receiver
+            android:name="com.ixming.privacy.android.monitoring.service.TriggerActionsReceiver"
+            android:process=":IXMingprivacy" >
+
             <!-- 开关机 -->
             <intent-filter>
-                <action android:name="android.intent.action.ACTION_SHUTDOWN"/>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
             </intent-filter>
-            
-            
             <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT"/>
-                
-                <action android:name="android.intent.action.SCREEN_ON"/>
-                <action android:name="android.intent.action.SCREEN_OFF"/>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="android.intent.action.SCREEN_OFF" />
             </intent-filter>
-            
-            
-            <!-- 网络状态改变 
-            android:process=":IXMingprivacy"-->
+
+            <!--
+            网络状态改变 
+            android:process=":IXMingprivacy"
+            -->
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
-            
             <intent-filter>
-                <action android:name="android.intent.action.DATE_CHANGED"/>
+                <action android:name="android.intent.action.DATE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
             </intent-filter>
         </receiver>
-        
-        
-        <provider android:name="com.ixming.privacy.android.monitoring.db.LocalDBProvider"
+
+        <provider
+            android:name="com.ixming.privacy.android.monitoring.db.LocalDBProvider"
             android:authorities="com.ixming.privacy.android.main.db.provider"
-            android:exported="false"/>
-        
-        <service android:name="com.ixming.privacy.android.monitoring.service.MainService"
-            android:enabled="true" android:process=":IXMingprivacy"/>
-        
+            android:exported="false" />
+
+        <service
+            android:name="com.ixming.privacy.android.monitoring.service.MainService"
+            android:enabled="true"
+            android:process=":IXMingprivacy" />
+
         <!-- baidu location service -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
-        
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="0xbQi5UXMEAlUcriOfvH3LFt" />

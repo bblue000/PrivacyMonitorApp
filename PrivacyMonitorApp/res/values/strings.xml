@@ -8,10 +8,12 @@
     <string name="login_confim_password_hint">确认密码</string>
     <string name="login_submit">登录</string>
     <string name="login_input_digits">._@0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ</string>
+    <string name="login_email_error">邮箱格式错误！</string>
     <string name="login_username_empty">用户名不能为空</string>
     <string name="login_password_empty">密码不能为空</string>
     <string name="login_username_error">用户名不存在</string>
     <string name="login_password_error">密码错误</string>
+    <string name="login_confim_password_error">两次密码不一致</string>
     <string name="login_already_process">正在登录...</string>
     <string name="login_failed">登录失败</string>
     <string name="login_retrieve_password">找回密码</string>
@@ -30,10 +32,8 @@
     <!-- index -->
     <string name="persion_list_select_hint">选择查看对象</string>
     <string name="persion_list_operate">操作</string>
-
     <string name="persion_location_data_obtain_error">获取失败</string>
-    
-    
+
     <!-- device bind -->
     <string name="device_bind_top_hint">通过标识码可以查询该设备的位置</string>
     <string name="device_bind_warning">警告：请勿将标识码告诉陌生人</string>

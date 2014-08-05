@@ -40,12 +40,14 @@ public class LoginActivity extends BaseActivity {
 	public void initView(View view) {
 		aq = new AQuery(this);
 		InjectorUtils.defaultInstance().inject(this);
-		aq.id(R.id.login_submit_btn).clicked(this, "login");
+
 	}
 
 	@Override
 	public void initListener() {
-
+		aq.id(R.id.login_submit_btn).clicked(this);
+		aq.id(R.id.login_forgot_password_tv).clicked(this);
+		aq.id(R.id.login_register_tv).clicked(this);
 	}
 
 	@Override
@@ -66,7 +68,14 @@ public class LoginActivity extends BaseActivity {
 
 	@Override
 	public void onClick(View v) {
-
+		switch (v.getId()) {
+		case R.id.login_forgot_password_tv:
+			LoginActivity.this.startActivity(ForgotPasswordActivity.class);
+			break;
+		case R.id.login_register_tv:
+			LoginActivity.this.startActivity(RegisterActivity.class);
+			break;
+		}
 	}
 
 	@OnClickMethodInject(id = R.id.login_submit_btn)
