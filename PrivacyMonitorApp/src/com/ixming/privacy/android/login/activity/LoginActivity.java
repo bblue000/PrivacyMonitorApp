@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import com.androidquery.AQuery;
 import com.ixming.privacy.android.common.LocalBroadcastIntents;
 import com.ixming.privacy.android.login.manager.LoginManager;
 import com.ixming.privacy.android.login.manager.LoginOperationCallback;
@@ -27,29 +28,9 @@ public class LoginActivity extends BaseActivity {
 	private EditText mUsername_ET;
 	@ViewInject(id = R.id.login_password_et)
 	private EditText mPassword_ET;
-	
+	private AQuery aq;
 	private LoginManager mLoginManager;
-	
-	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			String action = intent.getAction();
-			if (LocalBroadcastIntents.ACTION_LOGIN.equals(action)) {
-				int code = intent.getIntExtra(LoginOperationCallback.EXTRA_RESULT_CODE, 0);
-				switch (code) {
-				case LoginOperationCallback.CODE_SUCCESS:
-					startActivity(NewMainActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK
-							| Intent.FLAG_ACTIVITY_NEW_TASK);
-					finish();
-					break;
-				default:
-					break;
-				}
-				
-			}
-		}
-	};
-	
+
 	@Override
 	public int provideLayoutResId() {
 		return R.layout.activity_login;
@@ -57,23 +38,30 @@ public class LoginActivity extends BaseActivity {
 
 	@Override
 	public void initView(View view) {
+		aq = new AQuery(this);
 		InjectorUtils.defaultInstance().inject(this);
+		aq.id(R.id.login_submit_btn).clicked(this, "login");
 	}
 
 	@Override
 	public void initListener() {
-		
+
 	}
 
 	@Override
 	public void initData(View view, Bundle savedInstanceState) {
-		LocalBroadcasts.registerLocalReceiver(mReceiver, LocalBroadcastIntents.ACTION_LOGIN);
+		LocalBroadcasts.registerLocalReceiver(mReceiver,
+				LocalBroadcastIntents.ACTION_LOGIN);
 		mLoginManager = LoginManager.getInstance();
 	}
-    
+
 	@Override
 	public Handler provideActivityHandler() {
 		return null;
+	}
+
+	private void login() {
+
 	}
 
 	@Override
@@ -85,21 +73,21 @@ public class LoginActivity extends BaseActivity {
 	void submit() {
 		mUsername_ET.setError(null);
 		mPassword_ET.setError(null);
-		
+
 		CharSequence username = mUsername_ET.getText();
 		if (TextUtils.isEmpty(username)) {
 			mUsername_ET.setError(getString(R.string.login_username_empty));
-			return ;
+			return;
 		}
 		CharSequence password = mPassword_ET.getText();
 		if (TextUtils.isEmpty(password)) {
 			mPassword_ET.setError(getString(R.string.login_password_empty));
-			return ;
+			return;
 		}
-		
+
 		mLoginManager.login(username.toString(), password.toString());
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -107,5 +95,27 @@ public class LoginActivity extends BaseActivity {
 		mLoginManager.cancelLogin();
 		LocalBroadcasts.unregisterLocalReceiver(mReceiver);
 	}
-	
+
+	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			if (LocalBroadcastIntents.ACTION_LOGIN.equals(action)) {
+				int code = intent.getIntExtra(
+						LoginOperationCallback.EXTRA_RESULT_CODE, 0);
+				switch (code) {
+				case LoginOperationCallback.CODE_SUCCESS:
+					startActivity(NewMainActivity.class,
+							Intent.FLAG_ACTIVITY_CLEAR_TASK
+									| Intent.FLAG_ACTIVITY_NEW_TASK);
+					finish();
+					break;
+				default:
+					break;
+				}
+
+			}
+		}
+	};
+
 }

@@ -4,8 +4,7 @@
 
     <ScrollView
         style="@style/AppStyle.ContainerLayout.WrapContent"
-        android:layout_centerInParent="true" 
-        android:layout_margin="@dimen/spacing_10">
+        android:layout_margin="@dimen/spacing_10" >
 
         <RelativeLayout style="@style/AppStyle.ContainerLayout.WrapContent" >
 
@@ -23,16 +22,16 @@
                 android:layout_below="@id/device_bind_hint_tv"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/spacing_10"
-                android:hint="@string/device_bind_key_hint"/>
+                android:hint="@string/device_bind_key_hint" />
 
             <TextView
                 android:id="@+id/device_bind_warning_tv"
                 style="@style/AppStyle.MainIndex.Warning"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@id/device_bind_obtain_et"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/spacing_20"
                 android:text="@string/device_bind_warning" />
-            
+
             <Button
                 android:id="@+id/device_bind_obtain_btn"
                 style="@style/AppStyle.Common.Btn"
@@ -48,9 +47,14 @@
                 android:layout_below="@id/device_bind_obtain_btn"
                 android:layout_marginTop="@dimen/spacing_75"
                 android:text="@string/device_bind_hide_app" />
-            
+
+            <Button
+                android:id="@+id/device_bind_login_btn"
+                style="@style/AppStyle.Common.Btn"
+                android:layout_below="@id/device_bind_hide_btn"
+                android:layout_marginTop="@dimen/spacing_75"
+                android:text="@string/login_submit" />
         </RelativeLayout>
-        
     </ScrollView>
 
 </RelativeLayout>

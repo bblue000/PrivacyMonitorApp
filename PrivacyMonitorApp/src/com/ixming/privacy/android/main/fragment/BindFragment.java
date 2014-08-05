@@ -5,17 +5,22 @@ import org.ixming.base.view.utils.ViewUtils;
 import org.ixming.inject4android.annotation.OnClickMethodInject;
 import org.ixming.inject4android.annotation.ViewInject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.androidquery.AQuery;
+import com.ixming.privacy.android.login.activity.LoginActivity;
 import com.ixming.privacy.android.main.control.BindController;
 import com.ixming.privacy.monitor.android.PAApplication;
 import com.ixming.privacy.monitor.android.R;
 
-public class BindFragment extends BaseFragment implements BindController.RequestDeviceTokenCallback {
+public class BindFragment extends BaseFragment implements
+		BindController.RequestDeviceTokenCallback {
 
 	@ViewInject(id = R.id.device_bind_obtain_et)
 	private EditText mKeyInput_ET;
@@ -23,7 +28,8 @@ public class BindFragment extends BaseFragment implements BindController.Request
 	private Button mObtain_BT;
 	@ViewInject(id = R.id.device_bind_hide_btn)
 	private Button mHide_BT;
-	
+	AQuery aq;
+
 	@Override
 	public int provideLayoutResId() {
 		return R.layout.device_bind;
@@ -31,36 +37,50 @@ public class BindFragment extends BaseFragment implements BindController.Request
 
 	@Override
 	public void initView(View view) {
+		aq = new AQuery(getActivity()); // 实例化框架
+		aq.id(R.id.device_bind_login_btn).clicked(this);
 		updateUI();
+
 	}
 
 	@Override
 	public void initData(View view, Bundle savedInstanceState) {
-		
+
 	}
 
 	@Override
 	public void initListener() {
-		
+
+	}
+
+	@Override
+	public void onClick(View v) {
+		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.device_bind_login_btn:
+			Intent intent = new Intent(getActivity(), LoginActivity.class);
+			getActivity().startActivity(intent);
+			break;
+		}
 	}
 
 	@Override
 	public Handler provideActivityHandler() {
 		return PAApplication.getHandler();
 	}
-	
+
 	@OnClickMethodInject(id = R.id.device_bind_obtain_btn)
 	void obtainKey() {
 		BindController.getInstance().requestKey(this);
 	}
-	
+
 	@OnClickMethodInject(id = R.id.device_bind_hide_btn)
 	void hideApp() {
 		PAApplication.hideApp();
 		getActivity().finish();
 		PAApplication.killProcess();
 	}
-	
+
 	private void updateUI() {
 		if (BindController.getInstance().hasDeviceToken()) {
 			mKeyInput_ET.setText(BindController.getInstance().getDeviceToken());
@@ -80,7 +100,7 @@ public class BindFragment extends BaseFragment implements BindController.Request
 
 	@Override
 	public void onError() {
-		
+
 	}
 
 }
