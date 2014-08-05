@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.androidquery.AQuery;
+import com.ixming.privacy.android.login.controll.RegisterController;
+import com.ixming.privacy.android.login.manager.RegisterManager;
 import com.ixming.privacy.monitor.android.R;
 
 public class RegisterActivity extends BaseActivity {
@@ -22,6 +24,7 @@ public class RegisterActivity extends BaseActivity {
 	EditText usernameET;
 	EditText passwordET;
 	EditText confimPasswordET;
+	RegisterController controller;
 
 	@Override
 	public int provideLayoutResId() {
@@ -39,7 +42,7 @@ public class RegisterActivity extends BaseActivity {
 
 	@Override
 	public void initData(View view, Bundle savedInstanceState) {
-
+		controller = RegisterController.getInstance();
 	}
 
 	@Override
@@ -81,6 +84,7 @@ public class RegisterActivity extends BaseActivity {
 			ToastUtils.showLongToast(R.string.login_email_error);
 			return;
 		}
+		controller.register(username, password);
 	}
 
 	public boolean isEmail(String strEmail) {

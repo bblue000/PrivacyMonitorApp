@@ -2,17 +2,17 @@ package com.ixming.privacy.android.login.controll;
 
 import com.ixming.privacy.android.login.manager.RegisterManager;
 
-public class RegisterControll {
-	private static RegisterControll instance = null;
+public class RegisterController {
+	private static RegisterController instance = null;
 	RegisterManager manger = null;
 
-	private RegisterControll() {
+	private RegisterController() {
 		manger = new RegisterManager();
 	}
 
-	public static RegisterControll getInstance() {
+	public static RegisterController getInstance() {
 		if (instance == null) {
-			instance = new RegisterControll();
+			instance = new RegisterController();
 		}
 		return instance;
 	}
