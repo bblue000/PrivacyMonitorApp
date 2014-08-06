@@ -2,30 +2,34 @@
 <!-- 这个文件中包含的是整个APP中相对通用模块的一些样式，比如列表的滚动轴 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="AppStyle"/>
+    <style name="AppStyle" />
+
     <style name="AppStyle.RootLayout">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:background">@color/rootlayout_bg</item>
     </style>
+
     <style name="AppStyle.RootLayout.Transparent">
         <item name="android:background">@null</item>
     </style>
-    
+
     <style name="AppStyle.ContainerLayout">
         <item name="android:background">@null</item>
     </style>
+
     <style name="AppStyle.ContainerLayout.FillParent">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:background">@null</item>
     </style>
+
     <style name="AppStyle.ContainerLayout.WrapContent">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@null</item>
     </style>
-    
+
     <!-- base list style -->
     <style name="AppStyle.BaseList">
         <item name="android:background">@drawable/common_transparent</item>
@@ -33,26 +37,30 @@
         <item name="android:fadingEdge">none</item>
         <item name="android:listSelector">@drawable/common_transparent</item>
     </style>
+
     <style name="AppStyle.BaseList.NoScrollBar">
         <item name="android:scrollbars">none</item>
     </style>
+
     <style name="AppStyle.BaseList.ScrollBar">
         <item name="android:scrollbarStyle">outsideOverlay</item>
         <item name="android:scrollbarSize">@dimen/scrollbar_size</item>
         <item name="android:fadeScrollbars">true</item>
         <item name="android:scrollbarFadeDuration">@android:integer/config_mediumAnimTime</item>
     </style>
+
     <style name="AppStyle.BaseList.ScrollBar.Vertical">
         <item name="android:scrollbars">vertical</item>
         <item name="android:scrollbarThumbVertical">@drawable/scrollbar_thumb</item>
         <item name="android:scrollbarTrackVertical">@null</item>
     </style>
+
     <style name="AppStyle.BaseList.ScrollBar.Horizontal">
         <item name="android:scrollbars">horizontal</item>
         <item name="android:scrollbarThumbHorizontal">@drawable/scrollbar_thumb</item>
         <item name="android:scrollbarTrackHorizontal">@null</item>
     </style>
-    
+
     <!-- style applying for thoes with scrolls -->
     <style name="AppStyle.ScrollBar">
         <item name="android:scrollbarStyle">outsideOverlay</item>
@@ -60,15 +68,30 @@
         <item name="android:fadeScrollbars">true</item>
         <item name="android:scrollbarFadeDuration">@android:integer/config_mediumAnimTime</item>
     </style>
+
     <style name="AppStyle.ScrollBar.Vertical">
         <item name="android:scrollbars">vertical</item>
         <item name="android:scrollbarThumbVertical">@drawable/scrollbar_thumb</item>
         <item name="android:scrollbarTrackVertical">@null</item>
     </style>
+
     <style name="AppStyle.ScrollBar.Horizontal">
         <item name="android:scrollbars">horizontal</item>
         <item name="android:scrollbarThumbHorizontal">@drawable/scrollbar_thumb</item>
         <item name="android:scrollbarTrackHorizontal">@null</item>
     </style>
-    
+
+    <style name="DialogInOutBottomAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_dialog_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_dialog_out_to_bottom</item>
+    </style>
+
+    <style name="dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/DialogInOutBottomAnimation</item>
+    </style>
+
 </resources>

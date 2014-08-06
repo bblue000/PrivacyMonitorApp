@@ -8,13 +8,19 @@ import org.ixming.base.utils.StringUtils;
 import org.ixming.base.utils.android.LogUtils;
 import org.ixming.base.utils.android.ToastUtils;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import com.androidquery.AQuery;
+import com.ixming.privacy.android.common.DialogUtil;
 import com.ixming.privacy.android.login.controll.RegisterController;
 import com.ixming.privacy.android.login.manager.RegisterManager;
 import com.ixming.privacy.monitor.android.R;
@@ -50,6 +56,13 @@ public class RegisterActivity extends BaseActivity {
 		aq.id(R.id.register_submit_btn).clicked(this);
 	}
 
+	public void registerReceiver() {
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(RegisterManager.REGISTER_SUCCESS_ACTION);
+		LocalBroadcastManager.getInstance(appContext).registerReceiver(
+				receiver, filter);
+	}
+
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -80,7 +93,7 @@ public class RegisterActivity extends BaseActivity {
 			ToastUtils.showLongToast(R.string.login_confim_password_error);
 			return;
 		}
-		if (isEmail(username)) {
+		if (!isEmail(username)) {
 			ToastUtils.showLongToast(R.string.login_email_error);
 			return;
 		}
@@ -88,10 +101,10 @@ public class RegisterActivity extends BaseActivity {
 	}
 
 	public boolean isEmail(String strEmail) {
-		String strPattern = "^[a-zA-Z][\\w\\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]$";
-		Pattern p = Pattern.compile(strPattern);
-		Matcher m = p.matcher(strEmail);
-		return m.matches();
+		Pattern pattern = Pattern
+				.compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
+		Matcher matcher = pattern.matcher(strEmail);
+		return matcher.matches();
 	}
 
 	@Override
@@ -100,4 +113,16 @@ public class RegisterActivity extends BaseActivity {
 		return null;
 	}
 
+	BroadcastReceiver receiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			if (RegisterManager.REGISTER_SUCCESS_ACTION.equals(action)) {
+				// DialogUtil.getPromptDialog(context, title, message,
+				// confirmListener, cancelListener);
+				ToastUtils.showLongToast(R.string.login_register_success);
+				RegisterActivity.this.finish();
+			}
+		}
+	};
 }
