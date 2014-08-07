@@ -3,6 +3,7 @@ package com.ixming.privacy.android.login.activity;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.ixming.base.common.LocalBroadcasts;
 import org.ixming.base.common.activity.BaseActivity;
 import org.ixming.base.utils.StringUtils;
 import org.ixming.base.utils.android.LogUtils;
@@ -14,14 +15,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import com.androidquery.AQuery;
-import com.ixming.privacy.android.common.DialogUtil;
 import com.ixming.privacy.android.login.controll.RegisterController;
+import com.ixming.privacy.android.login.manager.LoginManager;
 import com.ixming.privacy.android.login.manager.RegisterManager;
 import com.ixming.privacy.monitor.android.R;
 
@@ -43,7 +43,7 @@ public class RegisterActivity extends BaseActivity {
 		usernameET = aq.id(R.id.login_username_et).getEditText();
 		passwordET = aq.id(R.id.login_password_et).getEditText();
 		confimPasswordET = aq.id(R.id.login_confim_password_et).getEditText();
-
+		registerReceiver();
 	}
 
 	@Override
@@ -56,11 +56,10 @@ public class RegisterActivity extends BaseActivity {
 		aq.id(R.id.register_submit_btn).clicked(this);
 	}
 
-	public void registerReceiver() {
+	private void registerReceiver() {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(RegisterManager.REGISTER_SUCCESS_ACTION);
-		LocalBroadcastManager.getInstance(appContext).registerReceiver(
-				receiver, filter);
+		LocalBroadcasts.registerLocalReceiver(receiver, filter);
 	}
 
 	@Override
@@ -114,14 +113,15 @@ public class RegisterActivity extends BaseActivity {
 	}
 
 	BroadcastReceiver receiver = new BroadcastReceiver() {
+
 		@Override
 		public void onReceive(Context context, Intent intent) {
+			LogUtils.i(getClass(), "execute  onReceive !!!");
 			String action = intent.getAction();
 			if (RegisterManager.REGISTER_SUCCESS_ACTION.equals(action)) {
-				// DialogUtil.getPromptDialog(context, title, message,
-				// confirmListener, cancelListener);
 				ToastUtils.showLongToast(R.string.login_register_success);
 				RegisterActivity.this.finish();
+				// 清理所有其他Activity
 			}
 		}
 	};

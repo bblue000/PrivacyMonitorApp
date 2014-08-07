@@ -75,6 +75,10 @@ public class LoginActivity extends BaseActivity {
 		case R.id.login_register_tv:
 			LoginActivity.this.startActivity(RegisterActivity.class);
 			break;
+		case R.id.login_submit_btn:
+			submit();
+			break;
+
 		}
 	}
 
@@ -82,7 +86,6 @@ public class LoginActivity extends BaseActivity {
 	void submit() {
 		mUsername_ET.setError(null);
 		mPassword_ET.setError(null);
-
 		CharSequence username = mUsername_ET.getText();
 		if (TextUtils.isEmpty(username)) {
 			mUsername_ET.setError(getString(R.string.login_username_empty));

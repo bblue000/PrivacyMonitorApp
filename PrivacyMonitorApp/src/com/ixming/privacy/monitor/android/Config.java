@@ -9,9 +9,7 @@ public class Config {
 	// private static final String URL_PREFIX =
 	// "http://10.101.2.60:8080/findlocation";// "http://10.101.2.60";
 	private static final String URL_PREFIX = "http://10.101.100.85:8080/findlocation";// "http://10.101.2.60";
-	
-	
-	
+
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>
 	// post data
 	public static final String URL_POST_DEVICE = URL_PREFIX + "/device";
@@ -22,7 +20,7 @@ public class Config {
 
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>
 	// get data
-	public static final String URL_GET_LOGIN = URL_PREFIX + "/privacy/login";
+	public static final String URL_GET_LOGIN = URL_PREFIX + "/login/%s/%s";
 	public static final String URL_GET_LOCATION = URL_PREFIX
 			+ "/locations/%s/%s/%s";
 

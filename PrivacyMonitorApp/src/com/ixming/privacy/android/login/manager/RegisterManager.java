@@ -3,21 +3,24 @@ package com.ixming.privacy.android.login.manager;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.HttpStatus;
+import org.ixming.base.utils.android.ToastUtils;
+
 import android.app.Dialog;
-import android.content.Intent;
-import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.ixming.privacy.android.common.Dialogs;
+import com.ixming.privacy.android.common.model.ResponseData.RegisterResult;
+import com.ixming.privacy.android.login.model.UserInfo;
 import com.ixming.privacy.monitor.android.Config;
 import com.ixming.privacy.monitor.android.PAApplication;
 
 public class RegisterManager {
 	AQuery aq;
 	public static final String REGISTER_SUCCESS_ACTION = "com.find.REGISTER_SUCCESS_ACTION";
+	private AjaxCallbackImpl mAjaxCallback;
 
 	public RegisterManager() {
 		aq = new AQuery(PAApplication.getAppContext());
@@ -28,19 +31,20 @@ public class RegisterManager {
 		map.put("username", username);
 		map.put("password", password);
 		final Dialog dialog = Dialogs.showProgress();
-		aq.ajax(Config.URL_POST_REGISTER, map, String.class,
-				new AjaxCallback<String>() {
-					@Override
-					public void callback(String url, String json,
-							AjaxStatus status) {
-						super.callback(url, json, status);
-						Log.i("RegisterManager", "json:" + json);
-						LocalBroadcastManager.getInstance(
-								PAApplication.getAppContext()).sendBroadcast(
-								new Intent(REGISTER_SUCCESS_ACTION));
-						dialog.dismiss();
-					}
-				});
-		// 关闭
+		aq.ajax(Config.URL_POST_REGISTER, map, RegisterResult.class,
+				mAjaxCallback);
+
+	}
+
+	private class AjaxCallbackImpl extends AjaxCallback<RegisterResult> {
+		@Override
+		public void callback(String url, RegisterResult object,
+				AjaxStatus status) {
+			if (status.getCode() == HttpStatus.SC_OK) {
+				UserInfo user = object.getValue();
+			} else {
+				ToastUtils.showToast(result.getMsg());
+			}
+		}
 	}
 }
