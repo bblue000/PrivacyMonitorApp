@@ -19,6 +19,7 @@ import com.ixming.privacy.monitor.android.Config;
 import com.ixming.privacy.monitor.android.PAApplication;
 
 public class LoginManager {
+	public final static String LOGIN_ACTION = "com.find.LOGIN_ACTION";
 
 	private LoginManager() {
 		aq = new AQuery(PAApplication.getAppContext());
@@ -26,7 +27,6 @@ public class LoginManager {
 	}
 
 	private static final String TAG = LoginManager.class.getSimpleName();
-
 	private static LoginManager sInstance;
 	AQuery aq;
 	AjaxCallbackImpl ajaxCallback;
@@ -59,9 +59,9 @@ public class LoginManager {
 	}
 
 	private synchronized void storeToShare() {
-		// SharedUtil.setUsername(mUserInfo.getUsername());
+		SharedUtil.setUsername(mUserInfo.getUsername());
 		// SharedUtil.setPassword(mUserInfo.getPassword());
-		// SharedUtil.setUserToken(mUserInfo.getUserToken());
+		SharedUtil.setUserToken(mUserInfo.getUser_token());
 		// SharedUtil.setLastLoginDatetime(mUserInfo.getLastLoginDatetime());
 	}
 
@@ -126,7 +126,9 @@ public class LoginManager {
 			if (status.getCode() == HttpStatus.SC_OK) {
 				if (object.getStatus() == 200) {
 					mUserInfo = object.getValue();
+					onLoginSuccess();
 				}
+				;
 				ToastUtils.showLongToast(result.getMsg());
 			} else {
 				ToastUtils.showLongToast(result.getMsg());
@@ -134,21 +136,27 @@ public class LoginManager {
 		}
 	}
 
-	private synchronized void onLoginSuccess(LoginResult result) {
-		// mUserInfo.setUserToken(result.getUser_token());
-		// mUserInfo.setLastLoginDatetime(System.currentTimeMillis());
-		storeToShare();
+	public UserInfo getmUserInfo() {
+		return mUserInfo;
+	}
 
-		LocalBroadcasts.sendLocalBroadcast(new Intent(
-				LocalBroadcastIntents.ACTION_LOGIN).putExtra(
-				LoginOperationCallback.EXTRA_RESULT_CODE,
-				LoginOperationCallback.CODE_SUCCESS));
+	public void setmUserInfo(UserInfo mUserInfo) {
+		this.mUserInfo = mUserInfo;
+		onLoginSuccess();
+	}
+
+	private synchronized void onLoginSuccess() {
+		storeToShare();
+		LocalBroadcasts
+				.sendLocalBroadcast(new Intent(LoginManager.LOGIN_ACTION)
+						.putExtra(LoginOperationCallback.EXTRA_RESULT_CODE,
+								LoginOperationCallback.CODE_SUCCESS));
 	}
 
 	private synchronized void onLoginFailed(int code) {
-		Intent intent = new Intent(LocalBroadcastIntents.ACTION_LOGIN);
-		intent.putExtra(LoginOperationCallback.EXTRA_RESULT_CODE, code);
-		LocalBroadcasts.sendLocalBroadcast(intent);
+		// Intent intent = new Intent(LocalBroadcastIntents.ACTION_LOGIN);
+		// intent.putExtra(LoginOperationCallback.EXTRA_RESULT_CODE, code);
+		// LocalBroadcasts.sendLocalBroadcast(intent);
 	}
 
 }

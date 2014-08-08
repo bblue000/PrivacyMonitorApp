@@ -5,7 +5,7 @@ public interface LocalBroadcastIntents {
 	/**
 	 * 当用户登录时广播
 	 */
-	String ACTION_LOGIN = "com.ixming.privacy.android.ACTION_LOGIN";
+	//String ACTION_LOGIN = "com.ixming.privacy.android.ACTION_LOGIN";
 	/**
 	 * 当用户注销时广播
 	 */

@@ -27,6 +27,7 @@ public class RegisterManager {
 	}
 
 	public void register(String username, String password) {
+		mAjaxCallback = new AjaxCallbackImpl();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("username", username);
 		map.put("password", password);
@@ -41,7 +42,8 @@ public class RegisterManager {
 		public void callback(String url, RegisterResult object,
 				AjaxStatus status) {
 			if (status.getCode() == HttpStatus.SC_OK) {
-				UserInfo user = object.getValue();
+				LoginManager.getInstance().setmUserInfo(object.getValue());
+				ToastUtils.showToast(result.getMsg());
 			} else {
 				ToastUtils.showToast(result.getMsg());
 			}

@@ -53,7 +53,7 @@ public class LoginActivity extends BaseActivity {
 	@Override
 	public void initData(View view, Bundle savedInstanceState) {
 		LocalBroadcasts.registerLocalReceiver(mReceiver,
-				LocalBroadcastIntents.ACTION_LOGIN);
+				LoginManager.LOGIN_ACTION);
 		mLoginManager = LoginManager.getInstance();
 	}
 
@@ -112,14 +112,11 @@ public class LoginActivity extends BaseActivity {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
-			if (LocalBroadcastIntents.ACTION_LOGIN.equals(action)) {
+			if (LoginManager.LOGIN_ACTION.equals(action)) {
 				int code = intent.getIntExtra(
 						LoginOperationCallback.EXTRA_RESULT_CODE, 0);
 				switch (code) {
 				case LoginOperationCallback.CODE_SUCCESS:
-					startActivity(NewMainActivity.class,
-							Intent.FLAG_ACTIVITY_CLEAR_TASK
-									| Intent.FLAG_ACTIVITY_NEW_TASK);
 					finish();
 					break;
 				default:

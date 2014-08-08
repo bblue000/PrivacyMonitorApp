@@ -54,6 +54,14 @@
                 android:layout_below="@id/device_bind_hide_btn"
                 android:layout_marginTop="@dimen/spacing_75"
                 android:text="@string/login_submit" />
+
+            <Button
+                android:id="@+id/device_bind_logout_btn"
+                style="@style/AppStyle.Common.Btn"
+                android:layout_below="@id/device_bind_hide_btn"
+                android:layout_marginTop="@dimen/spacing_75"
+                android:visibility="gone"
+                android:text="@string/logout_submit" />
         </RelativeLayout>
     </ScrollView>
 

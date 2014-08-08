@@ -15,6 +15,8 @@ import android.widget.EditText;
 
 import com.androidquery.AQuery;
 import com.ixming.privacy.android.login.activity.LoginActivity;
+import com.ixming.privacy.android.login.manager.LoginManager;
+import com.ixming.privacy.android.login.manager.LogoutOperationCallback;
 import com.ixming.privacy.android.main.control.BindController;
 import com.ixming.privacy.monitor.android.PAApplication;
 import com.ixming.privacy.monitor.android.R;
@@ -39,6 +41,7 @@ public class BindFragment extends BaseFragment implements
 	public void initView(View view) {
 		aq = new AQuery(getActivity()); // 实例化框架
 		aq.id(R.id.device_bind_login_btn).clicked(this);
+		aq.id(R.id.device_bind_logout_btn).clicked(this);
 		updateUI();
 
 	}
@@ -60,6 +63,17 @@ public class BindFragment extends BaseFragment implements
 		case R.id.device_bind_login_btn:
 			Intent intent = new Intent(getActivity(), LoginActivity.class);
 			getActivity().startActivity(intent);
+			break;
+		case R.id.device_bind_logout_btn:
+			LoginManager.getInstance().logout(new LogoutOperationCallback() {
+				@Override
+				public void onLogoutSuccess() {
+				}
+
+				@Override
+				public void onLogoutError(int errorCode) {
+				}
+			});
 			break;
 		}
 	}
@@ -89,6 +103,7 @@ public class BindFragment extends BaseFragment implements
 			mKeyInput_ET.setText(null);
 			ViewUtils.setViewInvisible(mHide_BT);
 		}
+		// if(LoginManager.getInstance().)
 		mKeyInput_ET.setFocusable(true);
 		mKeyInput_ET.setFocusableInTouchMode(false);
 	}
