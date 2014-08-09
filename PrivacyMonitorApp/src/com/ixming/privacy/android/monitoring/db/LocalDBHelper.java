@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.ixming.privacy.android.monitoring.entity.PrivacyLocaitonInfo;
-import com.ixming.privacy.android.monitoring.entity.PrivacyPhoneInfo;
-import com.ixming.privacy.android.monitoring.entity.PrivacySmsInfo;
 
 /**
  * a example of SQLiteOpenHelper()
@@ -46,9 +44,7 @@ import com.ixming.privacy.android.monitoring.entity.PrivacySmsInfo;
 	
 	// =====================================================
 	private void modifyTables_V1_0(SQLiteDatabase db){
-		SQLiteUtils.createTableAndIndices(db, PrivacySmsInfo.class);
 		SQLiteUtils.createTableAndIndices(db, PrivacyLocaitonInfo.class);
-		SQLiteUtils.createTableAndIndices(db, PrivacyPhoneInfo.class);
 	}
 	
 	private void modifyTables_V1_1(SQLiteDatabase db){

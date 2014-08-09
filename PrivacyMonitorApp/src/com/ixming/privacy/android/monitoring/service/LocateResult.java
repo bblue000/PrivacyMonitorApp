@@ -1,5 +1,7 @@
 package com.ixming.privacy.android.monitoring.service;
 
+import java.util.Map;
+
 import org.apache.http.HttpStatus;
 import org.ixming.android.location.baidu.LocationInfo;
 import org.ixming.android.location.baidu.OnLocationLoadListener;
@@ -11,8 +13,6 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
 import com.ixming.privacy.android.common.model.BasicAjaxCallback;
 import com.ixming.privacy.android.common.model.RequestPiecer;
-import com.ixming.privacy.android.monitoring.entity.PrivacyLocaitonInfo;
-import com.ixming.privacy.android.monitoring.model.PrivacyInfoFactory;
 import com.ixming.privacy.monitor.android.Config;
 import com.ixming.privacy.monitor.android.PAApplication;
 
@@ -40,8 +40,7 @@ public class LocateResult implements OnLocationLoadListener {
 	}
 
 	private void execute(LocationInfo locationInfo) {
-		PrivacyLocaitonInfo info = PrivacyInfoFactory.createPrivacyLocaitonInfo(locationInfo);
-		Log.d(TAG, "HandlerLocationInfoTask :: execute " + info);
+		Log.d(TAG, "HandlerLocationInfoTask :: execute " + locationInfo);
 //		final List<PrivacyLocaitonInfo> localData;
 //		final PrivacyLocationInfoDBManager dbManager = PrivacyLocationInfoDBManager.getInstance();
 //		// lock all next operations
@@ -71,7 +70,16 @@ public class LocateResult implements OnLocationLoadListener {
 			}
 		};
 		
-		aQuery.ajax(Config.URL_POST_LOCATION, RequestPiecer.postLocationJson(info), String.class, callback);
+//		device_id		String（不可为空）
+//		device_token	String（不可为空）
+//		longitude		String（不可为空）
+//		latitude		String（不可为空）
+//		address			String（不可为空）
+		Map<String, String> data = RequestPiecer.getBasicData();
+		data.put("latitude", String.valueOf(locationInfo.getLatitude()));
+		data.put("longitude", String.valueOf(locationInfo.getLongitude()));
+		data.put("address", locationInfo.getAddress());
+		aQuery.ajax(Config.URL_POST_LOCATION, data, String.class, callback);
 	}
 	
 }

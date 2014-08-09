@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
@@ -33,7 +32,7 @@ import com.ixming.privacy.android.main.control.PersonController;
 import com.ixming.privacy.android.main.control.PersonListController;
 import com.ixming.privacy.android.main.model.DatetimeUtils;
 import com.ixming.privacy.android.main.model.RespLocation;
-import com.ixming.privacy.android.main.view.VSeekBar;
+import com.ixming.privacy.android.main.view.CustomVSeekBar;
 import com.ixming.privacy.monitor.android.R;
 
 public class PersonLocationV3Activity extends BaseActivity implements BaiduMap.OnMapLoadedCallback {
@@ -41,7 +40,7 @@ public class PersonLocationV3Activity extends BaseActivity implements BaiduMap.O
 	@ViewInject(id = R.id.person_location_title_tv)
 	private TextView mTitle_TV;
 	@ViewInject(id = R.id.person_location_datetime_sb)
-	private VSeekBar mTime_SB;
+	private CustomVSeekBar mTime_SB;
 	@ViewInject(id = R.id.person_location_map_container)
 	private ViewGroup mMapContainer_Layout;
 	
@@ -124,24 +123,17 @@ public class PersonLocationV3Activity extends BaseActivity implements BaiduMap.O
 
 	@Override
 	public void initListener() {
-		mTime_SB.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-			
+		mTime_SB.setOnSeekBarChangeListener(new CustomVSeekBar.OnSeekBarChangeListener() {
 			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
+			public void onProgressChanged(CustomVSeekBar seekBar, int progress,
+					int max) {
 				if (null == mPersonLocation) {
 					return ;
 				}
 				long datetime = mPersonLocation.startTime + ((mPersonLocation.endTime - mPersonLocation.startTime)
-						* seekBar.getProgress()) / 100;
+						* progress) / max;
 				invalidateUI(datetime);
 			}
-			
-			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) { }
-			
-			@Override
-			public void onProgressChanged(SeekBar seekBar, int progress,
-					boolean fromUser) { }
 		});
 	}
 

@@ -66,14 +66,12 @@ public class SplashActivity extends BaseActivity implements LoginStateCallback {
 
 	@Override
 	public void onNonLogin() {
-//		startActivity(LoginActivity.class);
 		startActivity(NewMainActivity.class);
 		finish();
 	}
 
 	@Override
 	public void onAlreadyLogged() {
-//		startActivity(UserListActivity.class);
 		startActivity(NewMainActivity.class);
 		finish();
 	}

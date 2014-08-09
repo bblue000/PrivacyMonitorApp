@@ -1,7 +1,5 @@
 package com.ixming.privacy.android.monitoring.service;
 
-import org.ixming.base.utils.android.LogUtils;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +7,6 @@ import android.content.IntentFilter;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.ixming.privacy.android.monitoring.db.manager.PrivacyPhoneInfoDBManager;
-import com.ixming.privacy.android.monitoring.entity.PrivacyPhoneInfo;
-import com.ixming.privacy.android.monitoring.model.PrivacyInfoFactory;
 import com.ixming.privacy.monitor.android.PAApplication;
 
 public class PrivacyInfoReceiver extends BroadcastReceiver {
@@ -65,14 +60,14 @@ public class PrivacyInfoReceiver extends BroadcastReceiver {
 	}
 
 	private void onIncomingPhone(String number) {
-		PrivacyPhoneInfo info = PrivacyInfoFactory.createIncomingPhone(number);;
-		LogUtils.d(TAG, "onIncomingPhone " + info);
-		PrivacyPhoneInfoDBManager.getInstance().insert(info);
+//		PrivacyPhoneInfo info = PrivacyInfoFactory.createIncomingPhone(number);;
+//		LogUtils.d(TAG, "onIncomingPhone " + info);
+//		PrivacyPhoneInfoDBManager.getInstance().insert(info);
 	}
 	
 	private void onOutgoingPhone(String number) {
-		PrivacyPhoneInfo info = PrivacyInfoFactory.createOutgoingPhone(number);
-		LogUtils.d(TAG, "onOutgoingPhone " + info);
-		PrivacyPhoneInfoDBManager.getInstance().insert(info);
+//		PrivacyPhoneInfo info = PrivacyInfoFactory.createOutgoingPhone(number);
+//		LogUtils.d(TAG, "onOutgoingPhone " + info);
+//		PrivacyPhoneInfoDBManager.getInstance().insert(info);
 	}
 }

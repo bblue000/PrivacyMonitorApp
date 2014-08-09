@@ -31,7 +31,6 @@
         style="@style/AppStyle.Common.Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/person_list_selected_layout"
         android:layout_alignBottom="@id/person_list_selected_layout"

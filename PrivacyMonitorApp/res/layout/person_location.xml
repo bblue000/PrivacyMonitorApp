@@ -46,11 +46,12 @@
         android:layout_alignParentLeft="true"
         >
         
-	    <com.ixming.privacy.android.main.view.VSeekBar
+	    <com.ixming.privacy.android.main.view.CustomVSeekBar
 	        android:id="@+id/person_location_datetime_sb"
-	        android:layout_width="wrap_content"
+	        android:layout_width="10dp"
 	        android:layout_height="fill_parent"
-	        />
+	        android:progressDrawable="@drawable/vseekbar_progress"
+	        android:thumb="@drawable/seekbar_thumb"/>
 	    
 	</FrameLayout>
     

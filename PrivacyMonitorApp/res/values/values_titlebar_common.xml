@@ -6,6 +6,7 @@
 <resources>
     <!-- ids for title bar -->
     <item type="id" name="common_titlebar"/>
+    <item type="id" name="titlebar_bottom_shadow"/>
     
     
     <!-- dimens for title bar -->

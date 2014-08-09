@@ -28,6 +28,7 @@
     <!-- spacing dips -->
     <dimen name="spacing_0">0dp</dimen>
     <dimen name="spacing_1">1dp</dimen>
+    <dimen name="spacing_2_5">2.5dp</dimen>
     <dimen name="spacing_5">5dp</dimen>
     <dimen name="spacing_10">10dp</dimen>
     <dimen name="spacing_15">15dp</dimen>
