@@ -24,11 +24,11 @@ class PersonLocationV3 {
 		// sorted
 		Collections.reverse(infoList);
 		
-		points = new LatLng[list.size()];
+		points = new LatLng[infoList.size()];
 		long minTime = Long.MAX_VALUE;
 		long maxTime = 0;
-		for (int i = 0; i < list.size(); i++) {
-			RespLocation info = list.get(i);
+		for (int i = 0; i < infoList.size(); i++) {
+			RespLocation info = infoList.get(i);
 			points[i] = new LatLng(info.getLatitude(), info.getLongitude());
 			if (minTime > info.getDate_time()) {
 				minTime = info.getDate_time();

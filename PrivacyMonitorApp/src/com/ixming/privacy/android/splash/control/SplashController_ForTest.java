@@ -1,16 +1,23 @@
 package com.ixming.privacy.android.splash.control;
 
-import org.ixming.base.common.activity.ActivityControl;
+
+import org.ixming.base.common.LocalBroadcasts;
 import org.ixming.base.common.controller.BaseController;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.ixming.privacy.android.common.DefLoginStateCallback;
-import com.ixming.privacy.android.login.manager.LoginManager;
-import com.ixming.privacy.android.main.activity.MainActivity;
+import com.ixming.privacy.android.common.LocalBroadcastIntents;
+import com.ixming.privacy.android.common.control.BindController;
+import com.ixming.privacy.android.monitoring.service.MainService;
 
+/**
+ * 处理启动/全局的数据/状态
+ * 
+ * @author Yin Yong
+ *
+ */
 public class SplashController_ForTest extends BaseController {
 
 	private static SplashController_ForTest sInstance;
@@ -23,36 +30,30 @@ public class SplashController_ForTest extends BaseController {
 	}
 
 	private SplashController_ForTest() {
-		// LocalBroadcasts.registerLocalReceiver(mReceiver,
-		// LocalBroadcastIntents.ACTION_LOGIN);
+		 LocalBroadcasts.registerLocalReceiver(mReceiver,
+				 LocalBroadcastIntents.MonitorLocation.ACTION_SETTING_OPEN,
+				 LocalBroadcastIntents.MonitorLocation.ACTION_SETTING_CLOSE);
 	}
 
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
-			// if (LocalBroadcastIntents.ACTION_LOGIN.equals(action)) {
-			// BaseActivity act = (BaseActivity) ActivityControl.getInstance()
-			// .getTopActivity();
-			// if (null == act) {
-			// ActivityControl.getInstance().clearAll();
-			// ActivityControl.startNewTaskActivity(MainActivity.class, 0);
-			// } else {
-			// act.startActivity(MainActivity.class);
-			// }
-			// return;
-			// }
+			if (LocalBroadcastIntents.MonitorLocation.ACTION_SETTING_OPEN.equals(action)) {
+				MainService.startMe("SplashController");
+			} else if (LocalBroadcastIntents.MonitorLocation.ACTION_SETTING_CLOSE.equals(action)) {
+				MainService.stopMe("SplashController");
+			}
+			
 		}
 	};
-
-	public void checkJump() {
-		LoginManager.getInstance().checkLoginState(new DefLoginStateCallback() {
-			@Override
-			public void onAlreadyLogged() {
-				ActivityControl.getInstance().clearAll();
-				ActivityControl.startNewTaskActivity(MainActivity.class, 0);
-			}
-		});
+	
+	public void checkDeviceToken() {
+		if (BindController.getInstance().hasDeviceToken()) {
+			
+		} else {
+			
+		}
 	}
 
 }

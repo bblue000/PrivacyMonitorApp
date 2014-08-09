@@ -44,6 +44,7 @@
     <string name="device_bind_hide_app">隐藏应用</string>
     <string name="device_bind_key_hint">填写标识码</string>
     <string name="device_bind_obtain_error">获取失败</string>
+    <string name="device_bind_open_location_hint">开启定位</string>
     <string name="main_view_person_hint">选择查看对象</string>
     <string name="main_view_person_progress_hint">正在加载...</string>
     <string name="main_view_person_current">当前对象：%1$s</string>

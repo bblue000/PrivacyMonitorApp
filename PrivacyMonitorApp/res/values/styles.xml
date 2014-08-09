@@ -87,11 +87,6 @@
         <item name="android:gravity">left|center_vertical</item>
     </style>
 
-    <style name="AppStyle.MainIndex.Key">
-        <item name="android:textSize">@dimen/textsize_20</item>
-        <item name="android:gravity">left|center_vertical</item>
-    </style>
-
     <!-- styles for main module -->
     <style name="AppStyle.Main" />
 

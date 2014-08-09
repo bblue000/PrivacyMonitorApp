@@ -3,10 +3,13 @@
     style="@style/AppStyle.RootLayout" >
 
     <ScrollView
-        style="@style/AppStyle.ContainerLayout.WrapContent"
-        android:layout_margin="@dimen/spacing_10" >
+        style="@style/AppStyle.ContainerLayout.FillParent"
+        android:layout_above="@+id/device_bind_login_state_layout"
+        android:padding="@dimen/spacing_10"
+        >
 
-        <RelativeLayout style="@style/AppStyle.ContainerLayout.WrapContent" >
+        <RelativeLayout style="@style/AppStyle.ContainerLayout.WrapContent"
+            >
 
             <TextView
                 android:id="@+id/device_bind_hint_tv"
@@ -16,13 +19,15 @@
 
             <EditText
                 android:id="@+id/device_bind_obtain_et"
-                style="@style/AppStyle.MainIndex.Key"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/spacing_75"
                 android:layout_below="@id/device_bind_hint_tv"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/spacing_10"
-                android:hint="@string/device_bind_key_hint" />
+                android:textSize="@dimen/textsize_24"
+                android:gravity="center"
+                android:hint="@string/device_bind_key_hint" 
+                />
 
             <TextView
                 android:id="@+id/device_bind_warning_tv"
@@ -32,6 +37,58 @@
                 android:layout_marginTop="@dimen/spacing_20"
                 android:text="@string/device_bind_warning" />
 
+            <RelativeLayout 
+                android:id="@+id/device_bind_open_loc_layout"
+                style="@style/AppStyle.ContainerLayout.WrapContent"
+                android:layout_below="@id/device_bind_warning_tv"
+                android:layout_marginTop="@dimen/spacing_20">
+                
+                <TextView 
+                	android:id="@+id/device_bind_open_loc_tv"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/spacing_50"
+                    android:layout_toLeftOf="@+id/device_bind_open_loc_cb"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="left|center_vertical"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsize_18"
+                    android:text="@string/device_bind_open_location_hint"/>
+                
+                <CheckBox 
+                	android:id="@+id/device_bind_open_loc_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:button="@drawable/switcher_selector"
+                    android:background="@null"/>
+            </RelativeLayout>
+            
+            <RelativeLayout 
+                android:id="@+id/device_bind_hide_layout"
+                style="@style/AppStyle.ContainerLayout.WrapContent"
+                android:layout_below="@id/device_bind_open_loc_layout"
+                android:layout_marginTop="@dimen/spacing_20"
+	            android:visibility="gone">
+                
+                <TextView 
+                	android:id="@+id/device_bind_hide_tv"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/spacing_50"
+                    android:layout_toLeftOf="@+id/device_bind_open_loc_cb"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="left|center_vertical"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsize_18"
+                    android:text="@string/device_bind_open_location_hint"/>
+                
+                 <Button
+	                android:id="@+id/device_bind_hide_btn"
+	                style="@style/AppStyle.Common.Btn"
+	                android:layout_marginTop="@dimen/spacing_75"
+	                android:text="@string/device_bind_hide_app" />
+            </RelativeLayout>
+
             <Button
                 android:id="@+id/device_bind_obtain_btn"
                 style="@style/AppStyle.Common.Btn"
@@ -39,30 +96,30 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/device_bind_warning_tv"
                 android:layout_marginTop="@dimen/spacing_20"
-                android:text="@string/device_bind_obtain_key" />
-
-            <Button
-                android:id="@+id/device_bind_hide_btn"
-                style="@style/AppStyle.Common.Btn"
-                android:layout_below="@id/device_bind_obtain_btn"
-                android:layout_marginTop="@dimen/spacing_75"
-                android:text="@string/device_bind_hide_app" />
-
-            <Button
-                android:id="@+id/device_bind_login_btn"
-                style="@style/AppStyle.Common.Btn"
-                android:layout_below="@id/device_bind_hide_btn"
-                android:layout_marginTop="@dimen/spacing_75"
-                android:text="@string/login_submit" />
-
-            <Button
-                android:id="@+id/device_bind_logout_btn"
-                style="@style/AppStyle.Common.Btn"
-                android:layout_below="@id/device_bind_hide_btn"
-                android:layout_marginTop="@dimen/spacing_75"
-                android:visibility="gone"
-                android:text="@string/logout_submit" />
+                android:text="@string/device_bind_obtain_key" 
+                android:visibility="gone"/>
+            
         </RelativeLayout>
     </ScrollView>
+
+    <RelativeLayout 
+        android:id="@+id/device_bind_login_state_layout"
+        style="@style/AppStyle.ContainerLayout.WrapContent"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/spacing_10">
+
+        <Button
+            android:id="@+id/device_bind_login_btn"
+            style="@style/AppStyle.Common.Btn"
+            android:text="@string/login_submit" />
+
+        <Button
+            android:id="@+id/device_bind_logout_btn"
+            style="@style/AppStyle.Common.Btn"
+            android:text="@string/logout_submit"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+    
 
 </RelativeLayout>

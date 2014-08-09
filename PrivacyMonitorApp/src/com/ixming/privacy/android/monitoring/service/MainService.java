@@ -33,6 +33,13 @@ public class MainService extends Service {
 		}
 	}
 	
+	public synchronized static void stopMe(String tag) {
+		LogUtils.d(TAG, "onCreate tag = " + tag + ", process = " + Process.myPid());
+		PAApplication.getAppContext().stopService(new Intent(
+				PAApplication.getAppContext(),
+				MainService.class));
+	}
+	
 	@Override
 	public void onCreate() {
 		Log.i(TAG, "onCreate");
@@ -68,7 +75,7 @@ public class MainService extends Service {
 		}
 		
 		// restart
-		startMe(TAG);
+//		startMe(TAG);
 	}
 	
 	@Override

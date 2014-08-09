@@ -5,8 +5,8 @@ import org.ixming.base.utils.android.LogUtils;
 
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.util.AQUtility;
+import com.ixming.privacy.android.common.control.LocationController;
 import com.ixming.privacy.android.common.model.AQueryTransformer;
-import com.ixming.privacy.android.monitoring.service.MainService;
 import com.ixming.privacy.android.splash.activity.SplashActivity;
 
 import android.content.ComponentName;
@@ -24,7 +24,8 @@ public class PAApplication extends BaseApplication {
 		
 		AQUtility.setDebug(true);
 		AjaxCallback.setTransformer(new AQueryTransformer());
-		MainService.startMe("PAApplication onCreate");
+		
+		LocationController.getInstance().checkLocationSetting();
 	}
 	
 	
