@@ -17,16 +17,30 @@ public class Config {
 	public static final String URL_POST_DEVICE = URL_PREFIX + "/device";
 	public static final String URL_POST_LOCATION = URL_PREFIX + "/location";
 	public static final String URL_POST_REGISTER = URL_PREFIX + "/register";
-	public static final int MODE_POST_DEVICE = 0x00001;
-	public static final int MODE_POST_LOCATION = 0x00002;
+	public static final String URL_POST_LISTENER = URL_PREFIX + "/listener";
 
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>
 	// get data
 	public static final String URL_GET_LOGIN = URL_PREFIX + "/login/%s/%s";
+	/**
+	 * /locations/{device_token}/{username}/{device_id}
+	 */
 	public static final String URL_GET_LOCATION = URL_PREFIX
 			+ "/locations/%s/%s/%s";
+	/**
+	 * listeners/{username}/{device_id}
+	 */
+	public static final String URL_GET_LISTENERS = URL_PREFIX
+			+ "/listeners/%s/%s";
 
-	public static final int MODE_GET_LOGIN = 0x00001;
-	public static final int MODE_GET_LOCATION = 0x00002;
-
+	
+	
+	// >>>>>>>>>>>>>>>>>>>>>>>>>>>
+	// put
+	/**
+	 * listener/{id}/{name}
+	 */
+	public static final String URL_PUT_LISTENER = URL_PREFIX
+			+ "/listener/%s/%s";
+	
 }

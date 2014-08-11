@@ -117,7 +117,7 @@ public class PersonLocationV3Activity extends BaseActivity implements BaiduMap.O
 		
 		mPersonLocation = new PersonLocationV3(mPersonController);
 		
-		mTitle_TV.setText(mPersonController.getMonitoringPerson().getNote_name() + " - "
+		mTitle_TV.setText(mPersonController.getMonitoringPerson().getName() + " - "
 				+ DatetimeUtils.formatDate(mPersonController.getCurTime()));
 	}
 
@@ -161,7 +161,7 @@ public class PersonLocationV3Activity extends BaseActivity implements BaiduMap.O
 	}
 	
 	private void updateTitleTime(long datetime) {
-		mTitle_TV.setText(mPersonController.getMonitoringPerson().getNote_name() + " - "
+		mTitle_TV.setText(mPersonController.getMonitoringPerson().getName() + " - "
 				+ DatetimeUtils.format(datetime));
 	}
 	

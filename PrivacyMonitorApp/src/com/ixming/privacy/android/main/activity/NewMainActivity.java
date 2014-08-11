@@ -49,7 +49,7 @@ public class NewMainActivity extends BaseFragmentActivity {
 
 	@Override
 	public void initListener() {
-		
+		mIndex_VP.setOnPageChangeListener(mAdapter);
 	}
 
 	@Override

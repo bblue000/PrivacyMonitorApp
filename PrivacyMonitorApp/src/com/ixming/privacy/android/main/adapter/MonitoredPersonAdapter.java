@@ -37,7 +37,7 @@ public class MonitoredPersonAdapter extends AbsResLayoutAdapter<MonitoredPerson,
 	@Override
 	protected void bindView(ViewHolder holder, MonitoredPerson data, int position,
 			View view) {
-		holder.mName_TV.setText(data.getNote_name());
+		holder.mName_TV.setText(data.getName());
 	}
 	
 }

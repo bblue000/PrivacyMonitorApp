@@ -36,6 +36,25 @@ public interface LocalBroadcastIntents {
 		String ACTION_SETTING_OPEN = "com.ixming.privacy.android.MonitorLocation.ACTION_SETTING_OPEN";
 		String ACTION_SETTING_CLOSE = "com.ixming.privacy.android.MonitorLocation.ACTION_SETTING_CLOSE";
 		
+	}
+	
+	
+	/**
+	 * 当前用户监听人员变动广播
+	 * 
+	 * @author Yin Yong
+	 */
+	public interface MonitoringPerson {
+		
+		/**
+		 * 本地数据变化，界面相应地更新
+		 */
+		String ACTION_DATA_CHANGED = "com.ixming.privacy.android.MonitoringPerson.ACTION_DATA_CHANGED";
+		
+		/**
+		 * 需要从服务器重新请求数据
+		 */
+		String ACTION_DATA_INVALIDATE = "com.ixming.privacy.android.MonitoringPerson.ACTION_DATA_INVALIDATE";
 		
 	}
 }

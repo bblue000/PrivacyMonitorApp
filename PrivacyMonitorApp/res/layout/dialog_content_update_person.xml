@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/DialogContentContainerStyle"
+    android:padding="@dimen/spacing_10">
+
+    <EditText 
+        android:id="@+id/person_operate_update_name_et"
+        style="@style/AppStyle.Common.InputEdit"
+        android:background="@drawable/text_shape_deep_blue"
+        android:hint="@string/person_operate_update_name_hint"
+        />
+
+</RelativeLayout>
