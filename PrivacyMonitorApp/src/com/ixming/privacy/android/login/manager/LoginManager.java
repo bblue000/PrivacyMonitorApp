@@ -69,8 +69,8 @@ public class LoginManager {
 	 * 清除本地的用户隐私信息——密码和token
 	 */
 	public synchronized void clearUserPrivacyInfo() {
-		// mUserInfo.setPassword(null);
-		// mUserInfo.setUserToken(null);
+		mUserInfo.setUsername(null);
+		mUserInfo.setUser_token(null);
 		// mUserInfo.setLastLoginDatetime(0);
 		storeToShare();
 	}

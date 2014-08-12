@@ -15,19 +15,25 @@ public class RequestPiecer {
 		data.put("app_version", AndroidUtils.getAppVersionName("1.0"));
 		return data;
 	}
-	
+
 	static final String EMPTY_ARRAY = "[]";
-	
-	public static Map<String, String> getLoginJson(String username, String password) {
+
+	public static Map<String, String> getLoginJson(String username,
+			String password) {
 		Map<String, String> data = getBasicData();
 		data.put("username", username);
 		data.put("password", password);
 		return data;
 	}
-	
+
 	public static Map<String, String> getUserJson() {
 		Map<String, String> data = getBasicData();
 		return data;
 	}
-	
+
+	public static Map<String, String> getForgotPasswordJson(String email) {
+		Map<String, String> data = getBasicData();
+		data.put("email", email);
+		return data;
+	}
 }

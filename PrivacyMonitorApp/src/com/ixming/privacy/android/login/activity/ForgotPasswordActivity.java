@@ -1,14 +1,20 @@
 package com.ixming.privacy.android.login.activity;
 
 import org.ixming.base.common.activity.BaseActivity;
-
-import com.ixming.privacy.monitor.android.R;
+import org.ixming.base.utils.StringUtils;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.EditText;
+
+import com.androidquery.AQuery;
+import com.ixming.privacy.android.login.manager.ForgotPasswordManager;
+import com.ixming.privacy.monitor.android.R;
 
 public class ForgotPasswordActivity extends BaseActivity {
+	AQuery aq = null;
+	EditText email_ET;
 
 	@Override
 	public int provideLayoutResId() {
@@ -17,7 +23,9 @@ public class ForgotPasswordActivity extends BaseActivity {
 
 	@Override
 	public void initView(View view) {
-
+		aq = new AQuery(this);
+		aq.id(R.id.retrieve_submit_btn).clicked(this);
+		email_ET = aq.id(R.id.retrieve_email_et).getEditText();
 	}
 
 	@Override
@@ -27,7 +35,24 @@ public class ForgotPasswordActivity extends BaseActivity {
 
 	@Override
 	public void initListener() {
+	}
 
+	@Override
+	public void onClick(View v) {
+		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.retrieve_submit_btn:
+			ForgotPasswordManager fpm = new ForgotPasswordManager();
+			String email = email_ET.getText().toString();
+			if (StringUtils.isEmpty(email)) {
+				email_ET.setError("不能为空");
+				break;
+			}
+			fpm.sendEmail(email);
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override

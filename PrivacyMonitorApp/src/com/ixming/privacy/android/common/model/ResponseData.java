@@ -10,4 +10,7 @@ public class ResponseData {
 	public class RegisterResult extends BasicResponseData<UserInfo> {
 
 	}
+
+	public class ForgotPasswordResult extends BasicResponseData<String> {
+	}
 }
