@@ -31,11 +31,24 @@
     </string-array>
 
     <!-- index -->
-    <string name="persion_list_select_hint">选择查看对象</string>
-    <string name="persion_list_operate_add">添加</string>
-    <string name="persion_list_operate_update">更新</string>
-    <string name="persion_list_operate_delete">删除</string>
-    <string name="persion_location_data_obtain_error">获取失败</string>
+    <string name="person_list_select_hint">选择查看对象</string>
+    <string name="person_list_empty_tip">暂时没有查看对象</string>
+    <string name="person_list_operate_add">添加</string>
+    <string name="person_list_operate_update">更新</string>
+    <string name="person_list_operate_delete">删除</string>
+    <string name="person_location_data_obtain_error">获取失败</string>
+    
+    <string name="person_operate_add_title">@string/app_name</string>
+    <string name="person_operate_add_device_token_hint">输入位置标识码</string>
+    <string name="person_operate_add_name_hint">输入备注名</string>
+    <string name="person_operate_add_btn">添加</string>
+    <string name="person_operate_add_device_token_empty_tip">请输入标识码</string>
+    <string name="person_operate_add_name_empty_tip">请输入备注名</string>
+    
+    <string name="person_operate_update_title">@string/app_name</string>
+    <string name="person_operate_update_name_hint">输入备注名</string>
+    <string name="person_operate_update_name_empty_tip">输入备注名</string>
+    <string name="person_operate_update_btn">确认修改</string>
 
     <!-- device bind -->
     <string name="device_bind_top_hint">通过标识码可以查询该设备的位置</string>

@@ -14,27 +14,71 @@ public class MonitoredPerson implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+//	"name": "小龙女",
+//    "id": 3,
+//    "username": "123@qq.com",
+//    "device_id": "123",
+//    "device_token": "123"
+	
+	private long id;
 	/**
-	 * 标识码
+	 * 监听者的username
 	 */
-	private String device_token;
+	private String username;
+	/**
+	 * 监听者的device_id
+	 */
+	private String device_id;
 	
 	/**
-	 * 备注名
+	 * 被监听者的别名
 	 */
-	private String note_name;
+	private String name;
+	
+	/**
+	 * 被监听者的device_token标识码
+	 */
+	private String device_token;
 	
 	public MonitoredPerson() {
 	}
 	
-	public MonitoredPerson(String device_token, String note_name) {
-		this();
+	public MonitoredPerson(String device_token, String name) {
 		this.device_token = device_token;
-		this.note_name = note_name;
+		this.name = name;
 	}
 
+	public long getId() {
+		return id;
+	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getDevice_id() {
+		return device_id;
+	}
+
+	public void setDevice_id(String device_id) {
+		this.device_id = device_id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getDevice_token() {
 		return device_token;
@@ -44,19 +88,11 @@ public class MonitoredPerson implements Serializable {
 		this.device_token = device_token;
 	}
 
-	public String getNote_name() {
-		return note_name;
-	}
-
-	public void setNote_name(String note_name) {
-		this.note_name = note_name;
-	}
-
 	@Override
 	public String toString() {
-		return "MonitoredPerson [device_token=" + device_token + ", note_name="
-				+ note_name + "]";
+		return "MonitoredPerson [id=" + id + ", username=" + username
+				+ ", device_id=" + device_id + ", name=" + name
+				+ ", device_token=" + device_token + "]";
 	}
-	
 	
 }

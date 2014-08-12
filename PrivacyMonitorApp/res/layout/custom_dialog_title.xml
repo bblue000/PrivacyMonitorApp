@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 消息设置 标题 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/DialogTitleContainerStyle"
+	android:orientation="vertical">
+	
+    <TextView style="@style/DialogTitleStyle"/>
+    
+    <View style="@style/DialogHorizontalSep"/>
+    
+</LinearLayout>

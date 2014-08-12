@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_simple_text_content_rl"
+    style="@style/DialogContentContainerStyle">
+
+    <TextView
+        android:id="@+id/dialog_simple_text_tv"
+        style="@style/DialogContentStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/textsize_16"
+        android:textColor="@color/deep_sky_blue"
+        android:gravity="center"/>
+    
+</RelativeLayout>

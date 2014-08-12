@@ -67,8 +67,14 @@
     <dimen name="scrollbar_size">3dip</dimen>
     <dimen name="scrollbar_stroke_v8">3dip</dimen>
     
+    <!-- dialog -->
+    <dimen name="common_dialog_title_height">45dip</dimen>
+    <dimen name="common_dialog_sep_size">0.5dip</dimen>
+    <dimen name="common_dialog_content_minheight">45dip</dimen>
+    <dimen name="common_dialog_btn_height">45dip</dimen>
     
-    
+    <!-- input -->
+    <dimen name="common_input_height">45dip</dimen>
     
     <!-- 
     	common colors

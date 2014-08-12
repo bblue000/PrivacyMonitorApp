@@ -11,15 +11,13 @@
         <EditText
             android:id="@+id/login_username_et"
             style="@style/AppStyle.Login.Input.Username"
-            android:layout_margin="@dimen/common_margin"
-            android:background="@drawable/text_shape" />
+            android:layout_margin="@dimen/common_margin"/>
 
         <EditText
             android:id="@+id/login_password_et"
             style="@style/AppStyle.Login.Input.Password"
             android:layout_below="@id/login_username_et"
             android:layout_margin="@dimen/common_margin"
-            android:background="@drawable/text_shape"
             android:hint="@string/login_password_hint" />
 
         <Button

@@ -7,15 +7,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.HttpStatus;
 import org.ixming.base.common.controller.BaseController;
 import org.ixming.base.utils.android.AndroidUtils;
 import org.ixming.base.utils.android.LogUtils;
 import org.ixming.base.utils.android.ToastUtils;
 
 import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.ixming.privacy.android.common.model.RequestPiecer;
+import com.ixming.privacy.android.common.model.SimpleAjaxCallback;
 import com.ixming.privacy.android.main.model.MonitoredPerson;
 import com.ixming.privacy.android.main.model.RespLocation;
 import com.ixming.privacy.android.main.model.entity.RespLocationResult;
@@ -46,7 +46,7 @@ public class PersonController extends BaseController {
 		mMonitoredPerson = person;
 	}
 	
-	public void requestLoactionData(LocationDataLoadListener listener) {
+	public void requestLocationData(LocationDataLoadListener listener) {
 		if (null != mAjaxCallback) {
 			mAjaxCallback.setLoactionDataLoadListener(null);
 		}
@@ -56,7 +56,7 @@ public class PersonController extends BaseController {
 		AQuery aQuery = new AQuery(PAApplication.getAppContext());
 		aQuery.ajax(String.format(Config.URL_GET_LOCATION,
 					mMonitoredPerson.getDevice_token(),
-					mMonitoredPerson.getNote_name(),
+					RequestPiecer.getUserName(),
 					AndroidUtils.getDeviceId()),
 				RespLocationResult.class, mAjaxCallback);
 	}
@@ -115,41 +115,36 @@ public class PersonController extends BaseController {
 		calculate();
 	}
 	
-	private class AjaxCallbackImpl extends AjaxCallback<RespLocationResult> {
+	private class AjaxCallbackImpl extends SimpleAjaxCallback<RespLocationResult> {
 		
 		private LocationDataLoadListener mLoactionDataLoadListener;
+		public AjaxCallbackImpl() {
+			logTag(TAG);
+		}
 		public void setLoactionDataLoadListener(LocationDataLoadListener loactionDataLoadListener) {
 			mLoactionDataLoadListener = loactionDataLoadListener;
+			token(loactionDataLoadListener);
+		}
+		
+		@SuppressWarnings("unchecked")
+		@Override
+		protected boolean onSuccess(String url, Object object, AjaxStatus status) {
+			if (null != mLoactionDataLoadListener) {
+				setLocationData((List<RespLocation> ) object);
+				mLoactionDataLoadListener.onLocationLoadSuccess();
+			}
+			return true;
 		}
 		
 		@Override
-		public void callback(String url, RespLocationResult result, AjaxStatus status) {
-			LogUtils.d(TAG, "callback code ---> " + status.getCode());
-			LogUtils.d(TAG, "callback msg ---> " + status.getMessage());
-			LogUtils.d(TAG, "callback result ---> " + result);
+		protected boolean onError(AjaxStatus status) {
 			if (null != mLoactionDataLoadListener) {
-				if (status.getCode() == HttpStatus.SC_OK) {
-					try {
-						if (result.isOK()) {
-							setLocationData(result.getValue());
-							mLoactionDataLoadListener.onLocationLoadSuccess();
-						} else {
-							ToastUtils.showToast(result.getMsg());
-							mLoactionDataLoadListener.onLocationLoadFailed();
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-						ToastUtils.showToast(R.string.persion_location_data_obtain_error);
-						mLoactionDataLoadListener.onLocationLoadFailed();
-					}
-					
-				} else {
-					ToastUtils.showToast(status.getMessage());
-					mLoactionDataLoadListener.onLocationLoadFailed();
-				}
+				mLoactionDataLoadListener.onLocationLoadFailed();
+				ToastUtils.showToast(R.string.person_location_data_obtain_error);
 			}
-			status.close();
+			return true;
 		}
+		
 	}
 
 }

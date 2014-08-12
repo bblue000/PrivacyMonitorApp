@@ -22,7 +22,7 @@
 	        android:layout_weight="1.0"
 	        android:singleLine="true"
 	        android:drawableRight="@drawable/dropdown_hint"
-	        android:text="@string/persion_list_select_hint" />
+	        android:text="@string/person_list_select_hint" />
         
     </LinearLayout>
     
@@ -34,7 +34,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/person_list_selected_layout"
         android:layout_alignBottom="@id/person_list_selected_layout"
-        android:text="@string/persion_list_operate_add"/>
+        android:text="@string/person_list_operate_add"/>
     
     <ListView 
         android:id="@+id/person_list_date_lv"
@@ -69,7 +69,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1.0"
-	        android:text="@string/persion_list_operate_delete"
+	        android:text="@string/person_list_operate_delete"
 	        />
         
         <Button 
@@ -79,7 +79,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1.0"
 	        android:layout_marginLeft="@dimen/spacing_10"
-	        android:text="@string/persion_list_operate_update"
+	        android:text="@string/person_list_operate_update"
 	        />
     </LinearLayout>
     

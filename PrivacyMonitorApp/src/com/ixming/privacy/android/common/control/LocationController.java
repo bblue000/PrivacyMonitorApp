@@ -12,6 +12,13 @@ import com.ixming.privacy.android.common.LocalBroadcastIntents.MonitorLocation;
 import com.ixming.privacy.android.common.model.AppSharedUtils;
 import com.ixming.privacy.android.monitoring.service.MainService;
 
+/**
+ * 
+ * 定位相关的控制类
+ * 
+ * @author Yin Yong
+ *
+ */
 public class LocationController extends BaseController {
 	
 	private static LocationController sInsController = new LocationController();
@@ -24,11 +31,9 @@ public class LocationController extends BaseController {
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
 			if (LocalBroadcastIntents.MonitorLocation.ACTION_SETTING_OPEN.equals(action)) {
-				MainService.startMe("SplashController");
-				setCurrentKey(true);
+				MainService.startMe("LocationController");
 			} else if (LocalBroadcastIntents.MonitorLocation.ACTION_SETTING_CLOSE.equals(action)) {
-				MainService.stopMe("SplashController");
-				setCurrentKey(false);
+				MainService.stopMe("LocationController");
 			}
 		}
 	};
@@ -38,7 +43,7 @@ public class LocationController extends BaseController {
 		LocalBroadcasts.registerLocalReceiver(mReceiver,
 				MonitorLocation.ACTION_SETTING_OPEN,
 				MonitorLocation.ACTION_SETTING_CLOSE);
-		obtainLocalKey();
+		obtainLocalValue();
 	}
 	
 	public void checkLocationSetting() {
@@ -53,12 +58,18 @@ public class LocationController extends BaseController {
 		return mLocationSetting;
 	}
 	
-	private void setCurrentKey(boolean value) {
+	public void setCurrentSetting(boolean value) {
 		AppSharedUtils.saveLocationSetting(value);
 		mLocationSetting = value;
+		
+		if (mLocationSetting) {
+			LocalBroadcasts.sendLocalBroadcast(MonitorLocation.ACTION_SETTING_OPEN);
+		} else {
+			LocalBroadcasts.sendLocalBroadcast(MonitorLocation.ACTION_SETTING_CLOSE);
+		}
 	}
 	
-	private void obtainLocalKey() {
+	private void obtainLocalValue() {
 		mLocationSetting = AppSharedUtils.getLocationSetting();
 	}
 }

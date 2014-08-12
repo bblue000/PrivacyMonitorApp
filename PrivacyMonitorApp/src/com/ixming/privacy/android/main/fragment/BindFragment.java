@@ -1,6 +1,5 @@
 package com.ixming.privacy.android.main.fragment;
 
-import org.ixming.base.common.LocalBroadcasts;
 import org.ixming.base.common.activity.BaseFragment;
 import org.ixming.base.view.utils.ViewUtils;
 import org.ixming.inject4android.annotation.OnClickMethodInject;
@@ -15,8 +14,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
-import com.ixming.privacy.android.common.LocalBroadcastIntents.MonitorLocation;
 import com.ixming.privacy.android.common.control.BindController;
+import com.ixming.privacy.android.common.control.LocationController;
 import com.ixming.privacy.android.login.activity.LoginActivity;
 import com.ixming.privacy.android.login.manager.LoginManager;
 import com.ixming.privacy.android.login.manager.LogoutOperationCallback;
@@ -55,11 +54,7 @@ public class BindFragment extends BaseFragment {
 			
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					LocalBroadcasts.sendLocalBroadcast(MonitorLocation.ACTION_SETTING_OPEN);
-				} else {
-					LocalBroadcasts.sendLocalBroadcast(MonitorLocation.ACTION_SETTING_CLOSE);
-				}
+				LocationController.getInstance().setCurrentSetting(isChecked);
 			}
 		});
 	}
