@@ -1,12 +1,15 @@
 package com.ixming.privacy.android.main.model;
 
 public class RespLocation implements Comparable<RespLocation> {
-	// "id": 1,
-	// "device_id": "akdjlaksjdlasjldkjlsajdlajlskjsldjalsjdslkjaldjasldkjal",
-	// "longitude": "987654321",
-	// "latitude": "123456789",
-	// "device_token": "123qwe"
-
+	
+//	id: 104,
+//	device_id: "ac9a60d9-f6b3-39d6-9386-dae23528f9ad",
+//	device_token: "kap0l8",
+//	latitude: "31.244732",
+//	longitude: "121.443873",
+//	address: "上海市普陀区新会路422号",
+//	date_time: 1406804503193
+	
 	private long id;
 	private String device_id;
 	private String device_token;

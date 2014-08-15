@@ -95,6 +95,10 @@ public class PersonListController extends BaseController {
 		if (null != personList) {
 			mMonitoringPersonList.addAll(personList);
 		}
+		// clear current person
+		if (mMonitoringPersonList.isEmpty() && null != getCurrentPersonController()) {
+			setCurrentMonitoringPerson(null);
+		}
 		// data changed
 		broadcastChanged();
 	}

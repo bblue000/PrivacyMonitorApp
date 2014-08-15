@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.ixming.privacy.android.main.adapter.IndexPagerAdapter;
+import com.ixming.privacy.monitor.android.PAApplication;
 import com.ixming.privacy.monitor.android.R;
 
 public class NewMainActivity extends BaseFragmentActivity {
@@ -58,4 +59,10 @@ public class NewMainActivity extends BaseFragmentActivity {
 		return null;
 	}
 	
+	@Override
+	protected void onDestroy() {
+		
+		super.onDestroy();
+		PAApplication.killProcess();
+	}
 }
