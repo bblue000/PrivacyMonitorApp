@@ -2,6 +2,11 @@
 
     <color name="deep_sky_blue">#00bfff</color>
     <color name="sky_blue">#87cefa</color>
+    <color name="button_down">#87cefa</color>
+    <!--  -->
+    <color name="main_color">#0099DD</color>
+    <color name="button_up">#0099DD</color>
     <color name="main_view_person_item_bg">#CCCCCCCC</color>
     <color name="translucent">#00000000</color>
+
 </resources>

@@ -1,87 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/AppStyle.RootLayout">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppStyle.RootLayout" >
 
     <LinearLayout
         android:id="@+id/person_list_selected_layout"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/spacing_50"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/person_list_selected_add_btn"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="@dimen/common_padding"
-        android:layout_marginRight="@dimen/common_padding" 
+        android:layout_marginRight="@dimen/common_padding"
+        android:layout_toLeftOf="@+id/person_list_selected_add_btn"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
-        
+        android:orientation="horizontal" >
+
         <TextView
-	        android:id="@+id/person_list_selected_tv"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1.0"
-	        android:singleLine="true"
-	        android:drawableRight="@drawable/dropdown_hint"
-	        android:text="@string/person_list_select_hint" />
-        
+            android:id="@+id/person_list_selected_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:drawableRight="@drawable/dropdown_hint"
+            android:singleLine="true"
+            android:text="@string/person_list_select_hint" />
     </LinearLayout>
-    
-    <Button 
+
+    <Button
         android:id="@+id/person_list_selected_add_btn"
         style="@style/AppStyle.Common.Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/person_list_selected_layout"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/person_list_selected_layout"
-        android:layout_alignBottom="@id/person_list_selected_layout"
-        android:text="@string/person_list_operate_add"/>
-    
-    <ListView 
+        android:padding="@dimen/common_padding"
+        android:text="@string/person_list_operate_add" />
+
+    <ListView
         android:id="@+id/person_list_date_lv"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/person_list_selected_layout"
         android:layout_above="@+id/person_list_operate_layout"
+        android:layout_below="@id/person_list_selected_layout"
         android:cacheColorHint="@color/transparent"
         android:divider="@drawable/line"
         android:fadingEdge="none"
-        android:scrollbars="none"/>
-    
-    <TextView 
+        android:scrollbars="none" />
+
+    <TextView
         android:id="@+id/person_list_date_empty_tv"
         style="@style/AppStyle.Common.EmptyListHint"
-        android:layout_below="@id/person_list_selected_layout"
         android:layout_above="@+id/person_list_operate_layout"
-        android:text="@string/privacy_location_date_empty_hint"/>
-    
-    
-    <LinearLayout 
+        android:layout_below="@id/person_list_selected_layout"
+        android:text="@string/privacy_location_date_empty_hint" />
+
+    <LinearLayout
         android:id="@+id/person_list_operate_layout"
         style="@style/AppStyle.ContainerLayout.WrapContent"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/spacing_10">
-        
-        <Button 
-	        android:id="@+id/person_list_delete_btn"
-	        style="@style/AppStyle.Common.Btn"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1.0"
-	        android:text="@string/person_list_operate_delete"
-	        />
-        
-        <Button 
-	        android:id="@+id/person_list_update_btn"
-	        style="@style/AppStyle.Common.Btn"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1.0"
-	        android:layout_marginLeft="@dimen/spacing_10"
-	        android:text="@string/person_list_operate_update"
-	        />
+        android:layout_margin="@dimen/spacing_10"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/person_list_delete_btn"
+            style="@style/AppStyle.Common.Btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:padding="@dimen/common_padding"
+            android:text="@string/person_list_operate_delete" />
+
+        <Button
+            android:id="@+id/person_list_update_btn"
+            style="@style/AppStyle.Common.Btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_10"
+            android:layout_weight="1.0"
+            android:padding="@dimen/common_padding"
+            android:text="@string/person_list_operate_update" />
     </LinearLayout>
-    
-    
+
 </RelativeLayout>

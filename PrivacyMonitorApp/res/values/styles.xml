@@ -18,7 +18,7 @@
     <style name="AppStyle.Common.Btn">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">@dimen/main_btn_height</item>
-        <item name="android:background">@drawable/main_button</item>
+        <item name="android:background">@drawable/button_seletor</item>
         <item name="android:textSize">@dimen/textsize_20</item>
         <item name="android:textColor">@color/white</item>
     </style>
@@ -63,7 +63,7 @@
     <style name="AppStyle.Login.Submit">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">@dimen/login_button_height</item>
-        <item name="android:background">@color/sky_blue</item>
+        <item name="android:background">@drawable/button_seletor</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/textsize_24</item>
     </style>

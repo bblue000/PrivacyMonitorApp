@@ -30,7 +30,6 @@ public class ForgotPasswordManager {
 				if (object.getStatus() == 200) {
 					// 找回密码成功
 					ToastUtils.showToast(object.getMsg());
-
 				}
 			}
 			LogUtils.i(getClass(), object.getMsg());
