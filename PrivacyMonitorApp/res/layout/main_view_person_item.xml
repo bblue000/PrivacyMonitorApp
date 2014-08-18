@@ -4,7 +4,7 @@
     style="@style/AppStyle.ContainerLayout.WrapContent"
     android:minHeight="@dimen/spacing_30"
     android:singleLine="true"
-    android:textColor="@color/black"
+    android:textColor="@color/appbase_blue"
     android:textSize="@dimen/textsize_16"
     android:gravity="center_vertical|left"
     android:padding="@dimen/spacing_10">

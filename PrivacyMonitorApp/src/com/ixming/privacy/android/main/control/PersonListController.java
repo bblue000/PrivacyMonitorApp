@@ -69,15 +69,32 @@ public class PersonListController extends BaseController {
 		mCallbackUpdateMonitoringPerson.ajax(mAQuery, person, newName);
 	}
 	
-//	public void deleteMonitoringPerson() {
-//	
-//	}
+	private CallbackDeleteMonitoringPerson mCallbackDeleteMonitoringPerson;
+	public void deleteMonitoringPerson(MonitoredPerson person) {
+		if (null != mCallbackDeleteMonitoringPerson) {
+			mCallbackDeleteMonitoringPerson.cancelMe();
+		}
+		
+		mCallbackDeleteMonitoringPerson = new CallbackDeleteMonitoringPerson();
+		mCallbackDeleteMonitoringPerson.logTag(TAG);
+		mCallbackDeleteMonitoringPerson.ajax(mAQuery, person);
+	}
 	
 	
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	// 本地操作
-	/*package*/ void addMonitoringPerson(MonitoredPerson person) {
+	/*package*/ void onAddMonitoringPerson(MonitoredPerson person) {
 		mMonitoringPersonList.add(person);
+		// data changed
+		broadcastChanged();
+	}
+	/*package*/ void onDeleteMonitoringPerson(MonitoredPerson person) {
+		if (hasCurrentPerson()) {
+			if (getCurrentPersonController().getMonitoringPerson() == person) {
+				setCurrentMonitoringPerson(null);
+			}
+		}
+		mMonitoringPersonList.remove(person);
 		// data changed
 		broadcastChanged();
 	}
@@ -124,6 +141,10 @@ public class PersonListController extends BaseController {
 	
 	public PersonController getCurrentPersonController() {
 		return mCurrentMonitoringPersonController;
+	}
+	
+	public boolean hasCurrentPerson() {
+		return null != getCurrentPersonController();
 	}
 	
 }

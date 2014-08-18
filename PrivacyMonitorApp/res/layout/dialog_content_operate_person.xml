@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/DialogContentContainerStyle"
+    android:padding="@dimen/spacing_10">
+
+    <Button
+        android:id="@+id/person_operate_add_btn"
+        style="@style/AppStyle.Common.Btn"
+        android:text="@string/person_list_operate_add"/>
+
+    <Button
+        android:id="@+id/person_operate_update_btn"
+        style="@style/AppStyle.Common.Btn"
+        android:layout_below="@id/person_operate_add_btn"
+        android:layout_marginTop="@dimen/spacing_10"
+        android:text="@string/person_list_operate_update"/>
+
+    <Button
+        android:id="@+id/person_operate_delete_btn"
+        style="@style/AppStyle.Common.Btn"
+        android:layout_below="@id/person_operate_update_btn"
+        android:layout_marginTop="@dimen/spacing_10"
+        android:text="@string/person_list_operate_delete"/>
+
+</RelativeLayout>

@@ -3,6 +3,6 @@
 
     <corners android:radius="0dp" />
 
-    <solid android:color="@color/button_down" />
+    <solid android:color="@color/appbase_blue_pressed" />
 
 </shape>

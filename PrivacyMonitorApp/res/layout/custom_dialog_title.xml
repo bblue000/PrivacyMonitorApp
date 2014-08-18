@@ -4,7 +4,9 @@
 	style="@style/DialogTitleContainerStyle"
 	android:orientation="vertical">
 	
-    <TextView style="@style/DialogTitleStyle"/>
+    <TextView 
+        android:id="@+id/custom_dialog_title_tv"
+        style="@style/DialogTitleStyle"/>
     
     <View style="@style/DialogHorizontalSep"/>
     

@@ -4,6 +4,6 @@
     <corners android:radius="0dp" />
 
 
-    <solid android:color="@color/button_up" />
+    <solid android:color="@color/appbase_blue" />
 
 </shape>

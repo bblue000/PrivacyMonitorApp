@@ -36,13 +36,17 @@ public class CustomDialogBuilder {
 	private static final int TAG_LISTENER = 0x04000002;
 	private static final int TAG_DIALOG = 0x04000003;
 	public CustomDialogBuilder(Context context) {
+		this(context, R.style.dialog);
+	}
+	
+	public CustomDialogBuilder(Context context, int resId) {
 		mContext = context;
 		mLayoutInflater = LayoutInflater.from(mContext);
 		
 		mRootView = new LinearLayout(mContext);
 		mRootView.setOrientation(LinearLayout.VERTICAL);
 		
-		mDialog = new Dialog(mContext, R.style.dialog);
+		mDialog = new Dialog(mContext, resId);
 		mDialog.setContentView(mRootView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 	}
 	
@@ -73,6 +77,9 @@ public class CustomDialogBuilder {
 		TextView title_TV = (TextView) mContentView.findViewById(R.id.dialog_simple_text_tv);
 		title_TV.setText(text);
 		return this;
+	}
+	public CustomDialogBuilder text(int textResId) {
+		return text(mContext.getString(textResId));
 	}
 	
 	public CustomDialogBuilder content(View view) {

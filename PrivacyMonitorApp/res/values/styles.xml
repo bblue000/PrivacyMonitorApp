@@ -17,7 +17,9 @@
 
     <style name="AppStyle.Common.Btn">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">@dimen/main_btn_height</item>
+<!--         <item name="android:layout_height">@dimen/main_btn_height</item> -->
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/spacing_10</item>
         <item name="android:background">@drawable/button_seletor</item>
         <item name="android:textSize">@dimen/textsize_20</item>
         <item name="android:textColor">@color/white</item>
@@ -130,12 +132,17 @@
         <item name="android:ellipsize">end</item>
     </style>
 
-    <style name="AppStyle.Main.Btn">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">@dimen/main_btn_height</item>
-        <item name="android:background">@drawable/main_button</item>
-        <item name="android:textSize">@dimen/textsize_20</item>
-        <item name="android:textColor">@color/white</item>
+    <style name="OperatePersonAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_dialog_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_dialog_out_to_bottom</item>
+    </style>
+
+    <style name="dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/OperatePersonAnimation</item>
     </style>
 
 </resources>

@@ -4,14 +4,15 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:maxHeight="150dp"
-    android:background="@drawable/dropdown_bg">
+	android:background="@drawable/dropdown_bg">
     
     <ListView 
         android:id="@+id/main_popup_lv"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:cacheColorHint="@color/transparent"
-        android:divider="@drawable/line"
+        android:divider="@drawable/dropdown_divider"
+        android:listSelector="@drawable/dropdown_listselector"
         android:fadingEdge="none"
         android:scrollbars="none"/>
     
@@ -21,7 +22,7 @@
         android:layout_height="wrap_content"
         android:minHeight="@dimen/spacing_30"
         android:textSize="@dimen/textsize_16"
-        android:textColor="@color/black"
+        android:textColor="@color/appbase_blue"
 	    android:gravity="center_vertical|left"
 	    android:padding="@dimen/spacing_10"/>
 

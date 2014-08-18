@@ -25,6 +25,7 @@ public class DropDownPop {
 
 	private final Context mContext;
 	private final PopupWindow mWindow;
+	private final float mWidthScale;
 	
 	private FixedRelativeLayout mLayout;
 	private ListView mListView;
@@ -37,7 +38,13 @@ public class DropDownPop {
 	};
 	
 	public DropDownPop(Context context) {
+		this(context, 1.0F);
+	}
+	
+	public DropDownPop(Context context, float widthScale) {
 		mContext = context;
+		mWidthScale = widthScale;
+		
 		mWindow = new PopupWindow(mContext);
 		LayoutInflater inflater = LayoutInflater.from(mContext);
 		mLayout = (FixedRelativeLayout) inflater.inflate(R.layout.main_popup, null);
@@ -97,7 +104,7 @@ public class DropDownPop {
 		if (view.getWidth() <= 0) {
 			width = AndroidUtils.getDisplayWidth();
 		} else {
-			width = view.getWidth();
+			width = (int) (view.getWidth() * mWidthScale);
 		}
 		
 		mWindow.setWidth(width);

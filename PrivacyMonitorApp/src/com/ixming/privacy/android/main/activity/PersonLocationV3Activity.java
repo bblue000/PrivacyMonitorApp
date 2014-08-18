@@ -177,6 +177,7 @@ public class PersonLocationV3Activity extends BaseActivity implements BaiduMap.O
 		mCurrentOverlay = null;
 		LatLng gotoPos = null;
 		RespLocation locationInfo = null;
+		long nearestTime = datetime;
 		mOverlayManager.removeFromMap();
 		mOverlayManager.clear();
 		int i = 0;
@@ -186,6 +187,7 @@ public class PersonLocationV3Activity extends BaseActivity implements BaiduMap.O
 				break ;
 			}
 			
+			nearestTime = info.getDate_time();
 			if (null != locationInfo && ObjectUtils.equals(locationInfo.getAddress(), info.getAddress())) {
 				continue;
 			}
@@ -212,11 +214,10 @@ public class PersonLocationV3Activity extends BaseActivity implements BaiduMap.O
 		mOverlayManager.addToMap();
 //		mOverlayManager.zoomToSpan();
 		
-		
 		float zoom = Math.max(mBaiduMap.getMaxZoomLevel(), mBaiduMap.getMapStatus().zoom);
 		mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newLatLngZoom(gotoPos, zoom));
 		
-		updateTitleTime(datetime);
+		updateTitleTime(nearestTime);
 	}
 
 	@Override

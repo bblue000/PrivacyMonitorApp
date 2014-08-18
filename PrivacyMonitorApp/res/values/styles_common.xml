@@ -97,8 +97,16 @@
     <style name="DialogTitleContainerStyle" parent="@style/AppStyle.ContainerLayout.WrapContent">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">@dimen/common_dialog_btn_height</item>
-        <item name="android:layout_marginLeft">@dimen/spacing_10</item>
-        <item name="android:layout_marginRight">@dimen/spacing_10</item>
+        <item name="android:layout_marginLeft">@dimen/common_dialog_margin</item>
+        <item name="android:layout_marginRight">@dimen/common_dialog_margin</item>
+        <item name="android:background">@color/white</item>
+    </style>
+    
+    <style name="DialogBtnsContainerStyle" parent="@style/AppStyle.ContainerLayout.WrapContent">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/common_dialog_btn_height</item>
+        <item name="android:layout_marginLeft">@dimen/common_dialog_margin</item>
+        <item name="android:layout_marginRight">@dimen/common_dialog_margin</item>
         <item name="android:background">@color/white</item>
     </style>
     
@@ -106,13 +114,12 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">@dimen/common_dialog_content_minheight</item>
-        <item name="android:layout_marginLeft">@dimen/spacing_10</item>
-        <item name="android:layout_marginRight">@dimen/spacing_10</item>
+        <item name="android:layout_marginLeft">@dimen/common_dialog_margin</item>
+        <item name="android:layout_marginRight">@dimen/common_dialog_margin</item>
         <item name="android:background">@color/white</item>
     </style>
     
     <style name="DialogTitleStyle">
-        <item name="android:id">@+id/custom_dialog_title_tv</item>
         <item name="android:textSize">@dimen/textsize_24</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/deep_sky_blue</item>

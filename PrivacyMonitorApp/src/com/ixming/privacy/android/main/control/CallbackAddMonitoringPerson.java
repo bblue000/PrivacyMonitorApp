@@ -26,7 +26,7 @@ class CallbackAddMonitoringPerson extends SimpleAjaxCallback<MonitoredPersonSing
 	
 	@Override
 	protected boolean onSuccess(String url, Object object, AjaxStatus status) {
-		PersonListController.getInstance().addMonitoringPerson((MonitoredPerson) object);
+		PersonListController.getInstance().onAddMonitoringPerson((MonitoredPerson) object);
 		return true;
 	}
 	
