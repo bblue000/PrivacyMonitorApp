@@ -1,7 +1,6 @@
 <resources>
 
     <color name="deep_sky_blue">#00bfff</color>
-    <color name="sky_blue">#87cefa</color>
     
     <color name="appbase_blue">#0099DD</color>
     <color name="appbase_blue_pressed">#87cefa</color>
