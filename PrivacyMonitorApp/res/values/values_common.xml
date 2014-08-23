@@ -35,6 +35,7 @@
     <dimen name="spacing_20">20dp</dimen>
     <dimen name="spacing_25">25dp</dimen>
     <dimen name="spacing_30">30dp</dimen>
+    <dimen name="spacing_40">40dp</dimen>
     <dimen name="spacing_50">50dp</dimen>
     <dimen name="spacing_60">60dp</dimen>
     <dimen name="spacing_70">70dp</dimen>
@@ -96,7 +97,7 @@
     <color name="rootlayout_bg">#FFFFFFFF</color>
     <!-- 通用的bar颜色，比如tab，scroll bar，title bar等 -->
     <color name="basebar_bg">#FF35B886</color>
-    <color name="scrollbar_bg">#FF35B886</color>
+    <color name="scrollbar_bg">@color/appbase_blue</color>
     
     
     
