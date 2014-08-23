@@ -2,6 +2,7 @@ package org.ixming.base.common;
 
 import android.app.Application;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Process;
 
 public class BaseApplication extends Application {
@@ -13,7 +14,7 @@ public class BaseApplication extends Application {
 	 * @return 整个APP可以使用的Handler（为主线程）
 	 */
 	public static Handler getHandler() {
-		checkNull(sHandler);
+		checkHandler();
 		return sHandler;
 	}
 	
@@ -33,8 +34,13 @@ public class BaseApplication extends Application {
 		}
 	}
 	
+	private static void checkHandler() {
+		if (null == sHandler) {
+			sHandler = new Handler(Looper.getMainLooper());
+		}
+	}
+	
 	public BaseApplication() {
-		sHandler = new Handler();
 		sApplication = this;
 	}
 	

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndroidQuery/AndroidQuery.iml" filepath="$PROJECT_DIR$/AndroidQuery/AndroidQuery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NineOldAndroids/NineOldAndroids.iml" filepath="$PROJECT_DIR$/NineOldAndroids/NineOldAndroids.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PrivacyMonitorApp.iml" filepath="$PROJECT_DIR$/PrivacyMonitorApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PrivacyMonitorApp/PrivacyMonitorApp-PrivacyMonitorApp.iml" filepath="$PROJECT_DIR$/PrivacyMonitorApp/PrivacyMonitorApp-PrivacyMonitorApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UMengApi/UMengApi.iml" filepath="$PROJECT_DIR$/UMengApi/UMengApi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ixming-baseframework-main/ixming-baseframework-main.iml" filepath="$PROJECT_DIR$/ixming-baseframework-main/ixming-baseframework-main.iml" />
+    </modules>
+  </component>
+</project>
+

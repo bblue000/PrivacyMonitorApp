@@ -1,6 +1,5 @@
 package com.ixming.privacy.android.main.activity;
 
-import org.ixming.base.common.activity.BaseFragmentActivity;
 import org.ixming.inject4android.annotation.ViewInject;
 
 import android.graphics.Color;
@@ -11,11 +10,12 @@ import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.View;
 
+import com.ixming.privacy.android.common.activity.MyBaseFragmentActivity;
 import com.ixming.privacy.android.main.adapter.IndexPagerAdapter;
 import com.ixming.privacy.monitor.android.PAApplication;
 import com.ixming.privacy.monitor.android.R;
 
-public class NewMainActivity extends BaseFragmentActivity {
+public class NewMainActivity extends MyBaseFragmentActivity {
 
 	@ViewInject(id = R.id.main_new_vp)
 	private ViewPager mIndex_VP;

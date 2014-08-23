@@ -48,7 +48,7 @@ public class MainService extends Service {
 		}
 		
 		
-		mLocationModule = new LocationModule(this, true);
+		mLocationModule = new LocationModule(PAApplication.getAppContext(), true);
 		mLocateResult = new LocateResult();
 		mLocationModule.startContinuousLocation(mLocateResult);
 	}

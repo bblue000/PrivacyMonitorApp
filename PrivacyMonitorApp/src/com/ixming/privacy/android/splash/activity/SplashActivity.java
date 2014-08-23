@@ -1,7 +1,6 @@
 package com.ixming.privacy.android.splash.activity;
 
 import org.ixming.base.common.LocalBroadcasts;
-import org.ixming.base.common.activity.BaseActivity;
 import org.ixming.base.utils.android.ToastUtils;
 
 import android.content.BroadcastReceiver;
@@ -12,12 +11,14 @@ import android.os.Handler;
 import android.view.View;
 
 import com.ixming.privacy.android.common.LocalBroadcastIntents.DeviceToken;
+import com.ixming.privacy.android.common.activity.MyBaseActivity;
 import com.ixming.privacy.android.common.control.BindController;
+import com.ixming.privacy.android.common.statistics.UMengLog;
 import com.ixming.privacy.android.main.activity.NewMainActivity;
 import com.ixming.privacy.monitor.android.PAApplication;
 import com.ixming.privacy.monitor.android.R;
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends MyBaseActivity {
 
 	// 打开延时，至少2500ms
 	private final int mShortestDelay = 1000;
@@ -75,6 +76,9 @@ public class SplashActivity extends BaseActivity {
 				DeviceToken.ACTION_DEVICE_TOKEN_LOADED,
 				DeviceToken.ACTION_DEVICE_TOKEN_FAILED);
 		PAApplication.getHandler().postDelayed(mShortestJumpRunnable, mShortestDelay);
+		
+		// 启动页面调用
+		UMengLog.onSplash();
 	}
 
 	@Override

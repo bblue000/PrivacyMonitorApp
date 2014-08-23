@@ -7,6 +7,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.util.AQUtility;
 import com.ixming.privacy.android.common.control.LocationController;
 import com.ixming.privacy.android.common.model.AQueryTransformer;
+import com.ixming.privacy.android.common.statistics.UMengLog;
 import com.ixming.privacy.android.splash.activity.SplashActivity;
 
 import android.content.ComponentName;
@@ -25,10 +26,14 @@ public class PAApplication extends BaseApplication {
 		AQUtility.setDebug(true);
 		AjaxCallback.setTransformer(new AQueryTransformer());
 		
+		UMengLog.init();
+		
 		LocationController.getInstance().checkLocationSetting();
 	}
 	
-	
+	/**
+	 * 隐藏APP，并从桌面移除图标
+	 */
 	public static void hideApp() {
 		getAppContext().getPackageManager().setComponentEnabledSetting(
 				new ComponentName(getAppContext(), SplashActivity.class),
@@ -36,6 +41,16 @@ public class PAApplication extends BaseApplication {
 				PackageManager.DONT_KILL_APP);
 		
 		killProcess();
+	}
+	
+	/**
+	 * 重新让A显示在launcher中
+	 */
+	public static void reshowApp() {
+		getAppContext().getPackageManager().setComponentEnabledSetting(
+				new ComponentName(getAppContext(), SplashActivity.class),
+				PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
+				PackageManager.DONT_KILL_APP);
 	}
 	
 }

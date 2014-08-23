@@ -3,7 +3,6 @@ package com.ixming.privacy.android.main.activity;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.ixming.base.common.activity.BaseActivity;
 import org.ixming.base.utils.ObjectUtils;
 import org.ixming.base.utils.android.ToastUtils;
 import org.ixming.base.view.utils.ViewUtils;
@@ -28,6 +27,7 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.overlayutil.OverlayManager;
+import com.ixming.privacy.android.common.activity.MyBaseActivity;
 import com.ixming.privacy.android.main.control.PersonController;
 import com.ixming.privacy.android.main.control.PersonListController;
 import com.ixming.privacy.android.main.model.DatetimeUtils;
@@ -35,7 +35,7 @@ import com.ixming.privacy.android.main.model.RespLocation;
 import com.ixming.privacy.android.main.view.CustomVSeekBar;
 import com.ixming.privacy.monitor.android.R;
 
-public class PersonLocationV3Activity extends BaseActivity implements BaiduMap.OnMapLoadedCallback {
+public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap.OnMapLoadedCallback {
 
 	@ViewInject(id = R.id.person_location_title_tv)
 	private TextView mTitle_TV;
@@ -64,6 +64,7 @@ public class PersonLocationV3Activity extends BaseActivity implements BaiduMap.O
 		return R.layout.person_location;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void initView(View view) {
 		ViewUtils.setViewGone(mTime_SB);

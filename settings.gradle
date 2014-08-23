@@ -1,0 +1,2 @@
+include ':AndroidQuery', ':PrivacyMonitorApp', ':NineOldAndroids', 'UMengApi'
+include ':ixming-baseframework-main'
