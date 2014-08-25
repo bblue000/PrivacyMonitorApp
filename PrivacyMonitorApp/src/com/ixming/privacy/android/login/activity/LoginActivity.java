@@ -19,7 +19,6 @@ import com.androidquery.AQuery;
 import com.ixming.privacy.android.common.LocalBroadcastIntents;
 import com.ixming.privacy.android.login.manager.LoginManager;
 import com.ixming.privacy.android.login.manager.LoginOperationCallback;
-import com.ixming.privacy.android.main.activity.NewMainActivity;
 import com.ixming.privacy.monitor.android.R;
 
 public class LoginActivity extends BaseActivity {
@@ -53,17 +52,13 @@ public class LoginActivity extends BaseActivity {
 	@Override
 	public void initData(View view, Bundle savedInstanceState) {
 		LocalBroadcasts.registerLocalReceiver(mReceiver,
-				LoginManager.LOGIN_ACTION);
+				LocalBroadcastIntents.ACTION_LOGIN);
 		mLoginManager = LoginManager.getInstance();
 	}
 
 	@Override
 	public Handler provideActivityHandler() {
 		return null;
-	}
-
-	private void login() {
-
 	}
 
 	@Override
@@ -112,7 +107,7 @@ public class LoginActivity extends BaseActivity {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
-			if (LoginManager.LOGIN_ACTION.equals(action)) {
+			if (LocalBroadcastIntents.ACTION_LOGIN.equals(action)) {
 				int code = intent.getIntExtra(
 						LoginOperationCallback.EXTRA_RESULT_CODE, 0);
 				switch (code) {

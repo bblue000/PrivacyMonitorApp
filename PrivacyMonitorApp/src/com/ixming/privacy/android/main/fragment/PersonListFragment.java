@@ -299,7 +299,7 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 	private void gotoTarget(long time) {
 		PersonController personController = PersonListController.getInstance().getCurrentPersonController();
 		personController.setCurTime(time);
-		getFragmentActivity().startActivity(PersonLocationV3Activity.class);
+		startActivity(PersonLocationV3Activity.class);
 	}
 	
 	private void userSelCurrentMonitoringPerson(MonitoredPerson person) {

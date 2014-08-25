@@ -1,6 +1,6 @@
 package org.ixming.base.common.activity;
 
-
+import org.ixming.base.common.BaseApplication;
 import org.ixming.base.image.ImageUtil;
 import org.ixming.inject4android.InjectConfigure;
 import org.ixming.inject4android.InjectorUtils;
@@ -55,11 +55,23 @@ public abstract class BaseActivity extends Activity implements ILocalActivity {
 	void prepareInitData(View rootView, Bundle savedInstanceState) {
 	};
 	
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * <p/>
+	 * 默认为{@link BaseApplication#getHandler()}
+	 */
+	@Override
+	public Handler provideActivityHandler() {
+		return BaseApplication.getHandler();
+	}
+	
 	// utilities for injecting
 	/**
-	 * used by {@link #injectSelf()};
+	 * {@inheritDoc}
+	 * 
 	 * <p/>
-	 * default return null.
+	 * 默认返回 null.
 	 */
 	@Override
 	public InjectConfigure provideInjectConfigure() {
@@ -67,7 +79,10 @@ public abstract class BaseActivity extends Activity implements ILocalActivity {
 	}
 		
 	/**
-	 * 初始时，是否主动使用动态注入，默认是使用（true）
+	 * {@inheritDoc}
+	 * 
+	 * <p/>
+	 * 默认是使用（true）
 	 */
 	@Override
 	public boolean useInjectBeforeInitView() {

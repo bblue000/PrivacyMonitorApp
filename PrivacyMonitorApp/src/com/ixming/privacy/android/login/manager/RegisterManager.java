@@ -42,7 +42,7 @@ public class RegisterManager {
 		public void callback(String url, RegisterResult object,
 				AjaxStatus status) {
 			if (status.getCode() == HttpStatus.SC_OK) {
-				LoginManager.getInstance().setmUserInfo(object.getValue());
+				LoginManager.getInstance().setLoginUser(object.getValue());
 				ToastUtils.showToast(result.getMsg());
 			} else {
 				ToastUtils.showToast(result.getMsg());

@@ -8,13 +8,11 @@ interface IInjectableActivity {
 
 	/**
 	 * used by {@link #injectSelf()};
-	 * <p/>
-	 * default return null.
 	 */
 	InjectConfigure provideInjectConfigure() ;
 		
 	/**
-	 * 初始时，是否主动使用动态注入，默认是使用（true）
+	 * 初始时，是否主动使用动态注入
 	 */
 	boolean useInjectBeforeInitView() ;
 	
