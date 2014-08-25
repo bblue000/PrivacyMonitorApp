@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.ixming.base.utils.android.AndroidUtils;
 
-import com.ixming.privacy.android.login.manager.LoginManager;
+import com.ixming.privacy.android.common.control.LocalUserController;
 
 public class RequestPiecer {
 
@@ -16,12 +16,23 @@ public class RequestPiecer {
 		data.put("device_token", AppSharedUtils.getDeviceToken());
 		data.put("app_version", AndroidUtils.getAppVersionName("1.0"));
 
-		LoginManager loginManager = LoginManager.getInstance();
-		if (loginManager.hasUser()) {
-			data.put("username", loginManager.getmUserInfo().getUsername());
-			data.put("user_token", loginManager.getmUserInfo().getUser_token());
+		LocalUserController userController = LocalUserController.getInstance();
+		if (userController.isUserLogining()) {
+			data.put("username", userController.getUsername());
+			data.put("user_token", userController.getUser_token());
 		}
 		return data;
+	}
+	
+	/**
+	 * 此处是为了组合请求
+	 */
+	public static String getUserName() {
+		LocalUserController userController = LocalUserController.getInstance();
+		if (userController.isUserLogining()) {
+			return userController.getUsername();
+		}
+		return "-1";
 	}
 
 	static final String EMPTY_ARRAY = "[]";
@@ -45,11 +56,4 @@ public class RequestPiecer {
 		return data;
 	}
 
-	public static String getUserName() {
-		LoginManager loginManager = LoginManager.getInstance();
-		if (loginManager.hasUser()) {
-			return loginManager.getmUserInfo().getUsername();
-		}
-		return "-1";
-	}
 }
