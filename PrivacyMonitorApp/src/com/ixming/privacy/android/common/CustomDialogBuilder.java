@@ -1,5 +1,7 @@
 package com.ixming.privacy.android.common;
 
+import java.net.URLEncoder;
+
 import org.ixming.base.view.utils.ViewUtils;
 
 import com.ixming.privacy.monitor.android.R;

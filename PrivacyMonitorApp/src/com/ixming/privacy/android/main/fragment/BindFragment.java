@@ -14,6 +14,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import com.androidquery.AQuery;
+import com.bodong.dianjinweb.DianJinPlatform;
 import com.ixming.privacy.android.common.control.BindController;
 import com.ixming.privacy.android.common.control.LocationController;
 import com.ixming.privacy.android.login.activity.LoginActivity;
@@ -32,6 +34,7 @@ public class BindFragment extends BaseFragment {
 	private Button mHide_BT;
 	@ViewInject(id = R.id.device_bind_open_loc_cb)
 	private CheckBox mOpenLoc_CB;
+	AQuery aq;
 
 	@Override
 	public int provideLayoutResId() {
@@ -40,6 +43,13 @@ public class BindFragment extends BaseFragment {
 
 	@Override
 	public void initView(View view) {
+		aq = new AQuery(getActivity());
+		/**
+		 * 初始化点金广告平台
+		 */
+		DianJinPlatform.initialize(getActivity(), 56265,
+				"99ee203fea26f7099ec69ff692a947ec");
+		DianJinPlatform.hideFloatView(getActivity());
 		updateUI();
 	}
 
@@ -49,21 +59,41 @@ public class BindFragment extends BaseFragment {
 	}
 
 	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		DianJinPlatform.destory(getActivity());
+	}
+
+	@Override
 	public void initListener() {
-		mOpenLoc_CB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				LocationController.getInstance().setCurrentSetting(isChecked);
-			}
-		});
+		mOpenLoc_CB
+				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+					@Override
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						LocationController.getInstance().setCurrentSetting(
+								isChecked);
+					}
+				});
+		aq.id(R.id.device_bind_user_free_exchange_btn).clicked(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.device_bind_user_free_exchange_btn:
+			DianJinPlatform.showOfferWall(getActivity());
+			break;
+		}
 	}
 
 	@Override
 	public Handler provideActivityHandler() {
 		return PAApplication.getHandler();
 	}
-	
+
 	@OnClickMethodInject(id = R.id.device_bind_obtain_btn)
 	void obtainKey() {
 		BindController.getInstance().requestKey();
@@ -75,13 +105,13 @@ public class BindFragment extends BaseFragment {
 		getActivity().finish();
 		PAApplication.killProcess();
 	}
-	
+
 	@OnClickMethodInject(id = R.id.device_bind_login_btn)
 	void login() {
 		Intent intent = new Intent(getActivity(), LoginActivity.class);
 		getActivity().startActivity(intent);
 	}
-	
+
 	@OnClickMethodInject(id = R.id.device_bind_logout_btn)
 	void logout() {
 		LoginManager.getInstance().logout(new LogoutOperationCallback() {

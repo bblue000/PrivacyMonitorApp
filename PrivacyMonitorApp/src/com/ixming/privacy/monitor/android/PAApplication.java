@@ -22,15 +22,15 @@ public class PAApplication extends BaseApplication {
 	public void onCreate() {
 		LogUtils.d(TAG, "onCreate process = " + Process.myPid());
 		super.onCreate();
-		
+
 		AQUtility.setDebug(true);
 		AjaxCallback.setTransformer(new AQueryTransformer());
-		
+
 		UMengLog.init();
-		
+
 		LocationController.getInstance().checkLocationSetting();
 	}
-	
+
 	/**
 	 * 隐藏APP，并从桌面移除图标
 	 */
@@ -39,10 +39,9 @@ public class PAApplication extends BaseApplication {
 				new ComponentName(getAppContext(), SplashActivity.class),
 				PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
 				PackageManager.DONT_KILL_APP);
-		
 		killProcess();
 	}
-	
+
 	/**
 	 * 重新让A显示在launcher中
 	 */
@@ -52,5 +51,5 @@ public class PAApplication extends BaseApplication {
 				PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
 				PackageManager.DONT_KILL_APP);
 	}
-	
+
 }

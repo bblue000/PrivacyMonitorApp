@@ -30,6 +30,7 @@ public class RegisterActivity extends BaseActivity {
 	EditText usernameET;
 	EditText passwordET;
 	EditText confimPasswordET;
+	EditText checkcodeET;
 	RegisterController controller;
 
 	@Override
@@ -42,6 +43,7 @@ public class RegisterActivity extends BaseActivity {
 		aq = new AQuery(this);
 		usernameET = aq.id(R.id.login_username_et).getEditText();
 		passwordET = aq.id(R.id.login_password_et).getEditText();
+		checkcodeET = aq.id(R.id.login_checkcode_et).getEditText();
 		confimPasswordET = aq.id(R.id.login_confim_password_et).getEditText();
 		registerReceiver();
 	}
@@ -54,6 +56,7 @@ public class RegisterActivity extends BaseActivity {
 	@Override
 	public void initListener() {
 		aq.id(R.id.register_submit_btn).clicked(this);
+		aq.id(R.id.get_checkcode_btn).clicked(this);
 	}
 
 	private void registerReceiver() {

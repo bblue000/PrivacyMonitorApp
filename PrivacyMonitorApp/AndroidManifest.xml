@@ -23,6 +23,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
         android:name="com.ixming.privacy.monitor.android.PAApplication"
@@ -84,7 +85,7 @@
 
             <!--
             网络状态改变 
-            android:process=":IXMingprivacy"
+            android:process=":IXMingprivacy"
             -->
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -105,7 +106,19 @@
             android:name="com.ixming.privacy.android.monitoring.service.MainService"
             android:enabled="true"
             android:process=":IXMingprivacy" />
+        <!-- dianjin -->
+        <activity
+            android:name="com.bodong.dianjinweb.downloadmanager.DianJinDownloadManager"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity
+            android:name="com.bodong.dianjinweb.web.DianjinWebAcitivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
 
+        <service android:name="com.bodong.dianjinweb.service.DianJinService" />
         <!-- baidu location service -->
         <service
             android:name="com.baidu.location.f"
@@ -115,9 +128,12 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="0xbQi5UXMEAlUcriOfvH3LFt" />
-        
-        <meta-data android:value="53f6f5ddfd98c54ce0006288" android:name="UMENG_APPKEY" />
-		<meta-data android:value="100" android:name="UMENG_CHANNEL" />
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="53f6f5ddfd98c54ce0006288" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="100" />
     </application>
 
 </manifest>

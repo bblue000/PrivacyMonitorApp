@@ -2,10 +2,10 @@
 <resources>
 
     <dimen name="progress_overlay_size">30dp</dimen>
-    
     <dimen name="login_input_height">50dp</dimen>
-    
     <dimen name="login_button_height">50dp</dimen>
+    <dimen name="checkcode_button_width">100dp</dimen>
+    <dimen name="checkcode_button_height">50dp</dimen>
     <dimen name="main_btn_height">50dp</dimen>
     <dimen name="main_title_height">@dimen/spacing_50</dimen>
     <dimen name="main_title_textsize">@dimen/textsize_20</dimen>

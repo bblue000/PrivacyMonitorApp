@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">了如指掌</string>
-    <string name="login_username_hint">用户名/电子邮箱</string>
+    <string name="login_username_hint">手机号</string>
+    <string name="login_checkcode_hint">验证码</string>
     <string name="login_email_hint">电子邮箱</string>
     <string name="login_password_hint">密码</string>
     <string name="login_confim_password_hint">确认密码</string>
@@ -20,6 +21,7 @@
     <string name="login_retrieve_password">找回密码</string>
     <string name="login_forgot_password">忘记密码</string>
     <string name="login_register">注册</string>
+    <string name="register_get_checkcode">获取验证码</string>
     <string name="login_register_success">注册成功！</string>
     <!-- tabs -->
     <string name="tab_main_index">首页</string>
@@ -38,18 +40,14 @@
     <string name="person_list_operate_update">更新</string>
     <string name="person_list_operate_delete">删除</string>
     <string name="person_location_data_obtain_error">获取失败</string>
-    
     <string name="person_operate_title">@string/person_list_operate</string>
-    
     <string name="person_operate_delete_text">确认删除%s吗？</string>
-    
     <string name="person_operate_add_title">@string/app_name</string>
     <string name="person_operate_add_device_token_hint">输入位置标识码</string>
     <string name="person_operate_add_name_hint">输入备注名</string>
     <string name="person_operate_add_btn">添加</string>
     <string name="person_operate_add_device_token_empty_tip">请输入标识码</string>
     <string name="person_operate_add_name_empty_tip">请输入备注名</string>
-    
     <string name="person_operate_update_title">@string/app_name</string>
     <string name="person_operate_update_name_hint">输入备注名</string>
     <string name="person_operate_update_name_empty_tip">输入备注名</string>
@@ -71,8 +69,6 @@
     <string name="device_bind_user_expire_tip">注：用户到期将无法查看他人位置信息，不影响被查找。</string>
     <string name="device_bind_user_charge">充值</string>
     <string name="device_bind_user_free_exchange">免费拿积分</string>
-    
-    
     <string name="main_view_person_hint">选择查看对象</string>
     <string name="main_view_person_progress_hint">正在加载...</string>
     <string name="main_view_person_current">当前对象：%1$s</string>

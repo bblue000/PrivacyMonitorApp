@@ -15,13 +15,31 @@
             android:background="@drawable/text_shape" />
 
         <EditText
+            android:id="@+id/login_checkcode_et"
+            style="@style/AppStyle.Login.Input.Checkcode"
+            android:layout_below="@id/login_username_et"
+            android:layout_margin="@dimen/common_margin"
+            android:background="@drawable/text_shape" />
+
+        <Button
+            android:id="@+id/get_checkcode_btn"
+            android:layout_width="@dimen/checkcode_button_width"
+            android:layout_height="@dimen/checkcode_button_height"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/login_username_et"
+            android:layout_margin="@dimen/common_margin"
+            android:background="@drawable/button_seletor"
+            android:text="@string/register_get_checkcode"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize_16" />
+
+        <EditText
             android:id="@+id/login_password_et"
             style="@style/AppStyle.Login.Input.Password"
-            android:layout_below="@id/login_username_et"
+            android:layout_below="@id/login_checkcode_et"
             android:layout_margin="@dimen/common_margin"
             android:background="@drawable/text_shape"
             android:hint="@string/login_password_hint" />
-
 
         <EditText
             android:id="@+id/login_confim_password_et"
