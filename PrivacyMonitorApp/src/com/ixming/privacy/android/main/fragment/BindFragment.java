@@ -120,7 +120,7 @@ public class BindFragment extends BaseFragment {
 	
 	@OnClickMethodInject(id = R.id.device_bind_login_btn)
 	void login() {
-		getFragmentActivity().startActivity(LoginActivity.class);
+		startActivity(LoginActivity.class);
 	}
 	
 	@OnClickMethodInject(id = R.id.device_bind_logout_btn)

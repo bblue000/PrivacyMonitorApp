@@ -1,15 +1,16 @@
 package org.ixming.base.common.activity;
 
+import org.ixming.base.common.BaseApplication;
 import org.ixming.base.utils.android.LogUtils;
 import org.ixming.inject4android.InjectConfigure;
 import org.ixming.inject4android.InjectorUtils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public abstract class BaseFragment extends Fragment implements ILocalFragment {
 	/**
 	 * 持有该Fragment的FragmentActivity的引用
 	 */
-	protected FragmentActivity fragmentActivity;
+	protected BaseFragmentActivity fragmentActivity;
 	/**
 	 * 这是一个Handler，由
 	 */
@@ -106,7 +107,7 @@ public abstract class BaseFragment extends Fragment implements ILocalFragment {
 		// 给一些变量赋值
 		context = getActivity();
 		appContext = context.getApplicationContext();
-		fragmentActivity = getActivity();
+		fragmentActivity = (BaseFragmentActivity) getActivity();
 		handler = provideActivityHandler();
 
 		if (useInjectBeforeInitView()) {
@@ -138,37 +139,38 @@ public abstract class BaseFragment extends Fragment implements ILocalFragment {
 	 */
 	void prepareInitData(View rootView, Bundle savedInstanceState) {
 	};
+	
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * <p/>
+	 * 默认为{@link BaseApplication#getHandler()}
+	 */
+	@Override
+	public Handler provideActivityHandler() {
+		return BaseApplication.getHandler();
+	}
 
 	// >>>>>>>>>>>>>>>>>>>>>>>>
 	// 在onCreate中细分的步骤 end
 
-	// TODO 获取内部的View
-	/**
-	 * this method returns the pure root View.
-	 */
-	public final View getRootView() {
-		ensureRootViewCreated();
-		return mRootView;
-	}
-
-	@SuppressWarnings("unchecked")
-	public final <T extends View>T findViewById(int id) {
-		ensureRootViewCreated();
-		return (T) mRootView.findViewById(id);
-	}
-	
 	// utilities for injecting
 	/**
-	 * used by {@link #injectSelf()};
+	 * {@inheritDoc}
+	 * 
 	 * <p/>
-	 * default return null.
+	 * 默认返回 null.
 	 */
+	@Override
 	public InjectConfigure provideInjectConfigure() {
 		return null;
 	}
-	
+		
 	/**
-	 * 初始时，是否主动使用动态注入，默认是使用（true）
+	 * {@inheritDoc}
+	 * 
+	 * <p/>
+	 * 默认是使用（true）
 	 */
 	@Override
 	public boolean useInjectBeforeInitView() {
@@ -205,6 +207,20 @@ public abstract class BaseFragment extends Fragment implements ILocalFragment {
 		InjectorUtils.instanceBuildFrom(configure).inject(target, rootView);
 	}
 	
+	// TODO 获取内部的View
+	/**
+	 * this method returns the pure root View.
+	 */
+	public final View getRootView() {
+		ensureRootViewCreated();
+		return mRootView;
+	}
+
+	@SuppressWarnings("unchecked")
+	public final <T extends View>T findViewById(int id) {
+		ensureRootViewCreated();
+		return (T) mRootView.findViewById(id);
+	}
 	
 	// TODO >>>>>>>>>>>>>>>>>>>>>>>
 	// 设置onClick监听事件
@@ -249,10 +265,6 @@ public abstract class BaseFragment extends Fragment implements ILocalFragment {
 
 	@Override
 	public void onClick(View v) {
-	}
-	
-	public boolean onBackPressed() {
-		return false;
 	}
 	
 	protected final void ensureRootViewCreated() {
@@ -303,8 +315,74 @@ public abstract class BaseFragment extends Fragment implements ILocalFragment {
 		super.onPause();
 	}
 	
-	public BaseFragmentActivity getFragmentActivity() {
-		return (BaseFragmentActivity) fragmentActivity;
+	/**
+	 * [已修改] 没有任何效果，使用{@link #superStartActivity(Intent)} <br/>
+	 * <br/>
+	 * {@inheritDoc}
+	 */
+	@Deprecated
+	@Override
+	public void startActivity(Intent intent) {
+		fragmentActivity.superStartActivity(intent);
+	}
+
+	/**
+	 * [已修改] 没有任何效果，使用{@link #superStartActivityForResult(Intent, int)} <br/>
+	 * <br/>
+	 * 
+	 * {@inheritDoc}
+	 */
+	@Deprecated
+	@Override
+	public void startActivityForResult(Intent intent, int requestCode) {
+		fragmentActivity.superStartActivityForResult(intent, requestCode);
+	}
+
+	/**
+	 * [推荐使用] 启动新的Activity
+	 */
+	@Override
+	public void startActivity(Class<? extends Activity> clz) {
+		fragmentActivity.startActivity(clz);
+	}
+
+	@Override
+	public void startActivity(Class<? extends Activity> clz, int flags) {
+		fragmentActivity.startActivity(clz, flags);
+	}
+
+	/**
+	 * [推荐使用] 启动新的Activity，并等待结果回调
+	 */
+	@Override
+	public void startActivityForResult(Class<? extends Activity> clz,
+			int requestCode) {
+		fragmentActivity.startActivityForResult(clz, requestCode);
+	}
+
+	/**
+	 * [已修改] 结束当前Activity <br/>
+	 * <br/>
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void finish() {
+		fragmentActivity.finish();
+	}
+
+	@Override
+	public final void superStartActivity(Intent intent) {
+		fragmentActivity.superStartActivity(intent);
+	}
+
+	@Override
+	public final void superStartActivityForResult(Intent intent, int requestCode) {
+		fragmentActivity.superStartActivityForResult(intent, requestCode);
+	}
+
+	@Override
+	public final void superFinish() {
+		fragmentActivity.superFinish();
 	}
 	
 }
