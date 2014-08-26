@@ -21,4 +21,8 @@ public class RegisterController {
 		manger.register(username, password, checkcode);
 	}
 
+	public void getCheckcode(String mobile) {
+		manger.getCheckcode(mobile);
+	}
+
 }

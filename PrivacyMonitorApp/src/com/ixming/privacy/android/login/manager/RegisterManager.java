@@ -12,8 +12,8 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.ixming.privacy.android.common.Dialogs;
+import com.ixming.privacy.android.common.model.ResponseData.CheckcodeResult;
 import com.ixming.privacy.android.common.model.ResponseData.RegisterResult;
-import com.ixming.privacy.android.login.model.UserInfo;
 import com.ixming.privacy.monitor.android.Config;
 import com.ixming.privacy.monitor.android.PAApplication;
 
@@ -38,6 +38,27 @@ public class RegisterManager {
 		aq.ajax(Config.URL_POST_REGISTER, map, RegisterResult.class,
 				mAjaxCallback);
 
+	}
+
+	public void getCheckcode(String mobile) {
+		AjaxCallback<CheckcodeResult> callback = new AjaxCallback<CheckcodeResult>() {
+			@Override
+			public void callback(String url, CheckcodeResult object,
+					AjaxStatus status) {
+				if (status.getCode() == HttpStatus.SC_OK) {
+					if (object.getStatus() == 200) {
+
+						// ToastUtils.showToast(result.getMsg());
+					} else {
+						ToastUtils.showToast(result.getMsg());
+					}
+				} else {
+					ToastUtils.showToast(result.getMsg());
+				}
+			}
+		};
+		aq.ajax(String.format(Config.URL_GET_CHECKCODE, mobile),
+				CheckcodeResult.class, callback);
 	}
 
 	private class AjaxCallbackImpl extends AjaxCallback<RegisterResult> {

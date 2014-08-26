@@ -8,7 +8,9 @@ public class Config {
 	public static final String SHAREPRE_PREFIX = "SP_NAME_MAIN_";
 	// private static final String URL_PREFIX =
 	// "http://10.101.2.60:8080/findlocation";// "http://10.101.2.60";
-	private static final String URL_PREFIX = "http://121.40.105.126:8080/findlocation";
+	// private static final String URL_PREFIX =
+	// "http://121.40.105.126:8080/findlocation";
+	private static final String URL_PREFIX = "http://192.168.2.100:8080/findlocation";
 	// private static final String URL_PREFIX =
 	// "http://10.101.100.85:8080/findlocation";// "http://10.101.2.60";
 
@@ -41,6 +43,10 @@ public class Config {
 	public static final String URL_GET_LISTENERS = URL_PREFIX
 			+ "/listeners/%s/%s";
 
+	/**
+	 * 获取验证码
+	 */
+	public static final String URL_GET_CHECKCODE = URL_PREFIX + "/checkcode/%s";
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>
 	// put
 	/**

@@ -124,10 +124,12 @@ public class RegisterActivity extends BaseActivity {
 
 	private void getCheckcode() {
 		if (count == TIMER_COUNT) {
-			if (Utils.checkMobile(usernameET.getText().toString())) {
+			String mobile = usernameET.getText().toString();
+			if (Utils.checkMobile(mobile)) {
 				handler.sendEmptyMessageDelayed(UPDATE_TIME_MSG, 1000);
 				getCheckcodeBT.setBackgroundResource(R.color.gray);
 				count--;
+				controller.getCheckcode(mobile);
 			} else {
 				usernameET
 						.setError(getString(R.string.login_username_format_error));

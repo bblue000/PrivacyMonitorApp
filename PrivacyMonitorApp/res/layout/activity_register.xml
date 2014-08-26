@@ -15,31 +15,39 @@
             android:background="@drawable/text_shape"
             android:maxLength="11" />
 
-        <EditText
-            android:id="@+id/login_checkcode_et"
-            style="@style/AppStyle.Login.Input.Checkcode"
-            android:layout_below="@id/login_username_et"
-            android:layout_margin="@dimen/common_margin"
-            android:background="@drawable/text_shape"
-            android:inputType="number"
-            android:maxLength="4" />
-
-        <Button
-            android:id="@+id/get_checkcode_btn"
-            android:layout_width="@dimen/checkcode_button_width"
+        <LinearLayout
+            android:id="@+id/login_checkcode_ll"
+            android:layout_width="fill_parent"
             android:layout_height="@dimen/checkcode_button_height"
-            android:layout_alignParentRight="true"
             android:layout_below="@id/login_username_et"
             android:layout_margin="@dimen/common_margin"
-            android:background="@drawable/button_seletor"
-            android:text="@string/register_get_checkcode"
-            android:textColor="@color/white"
-            android:textSize="@dimen/textsize_14" />
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/login_checkcode_et"
+                style="@style/AppStyle.Login.Input.Checkcode"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                android:background="@drawable/text_shape"
+                android:inputType="number"
+                android:maxLength="4" />
+
+            <Button
+                android:id="@+id/get_checkcode_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@drawable/button_seletor"
+                android:text="@string/register_get_checkcode"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize_14" />
+        </LinearLayout>
 
         <EditText
             android:id="@+id/login_password_et"
             style="@style/AppStyle.Login.Input.Password"
-            android:layout_below="@id/login_checkcode_et"
+            android:layout_below="@id/login_checkcode_ll"
             android:layout_margin="@dimen/common_margin"
             android:background="@drawable/text_shape"
             android:hint="@string/login_password_hint" />
