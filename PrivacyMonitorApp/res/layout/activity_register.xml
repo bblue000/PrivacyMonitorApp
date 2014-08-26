@@ -12,14 +12,17 @@
             android:id="@+id/login_username_et"
             style="@style/AppStyle.Login.Input.Username"
             android:layout_margin="@dimen/common_margin"
-            android:background="@drawable/text_shape" />
+            android:background="@drawable/text_shape"
+            android:maxLength="11" />
 
         <EditText
             android:id="@+id/login_checkcode_et"
             style="@style/AppStyle.Login.Input.Checkcode"
             android:layout_below="@id/login_username_et"
             android:layout_margin="@dimen/common_margin"
-            android:background="@drawable/text_shape" />
+            android:background="@drawable/text_shape"
+            android:inputType="number"
+            android:maxLength="4" />
 
         <Button
             android:id="@+id/get_checkcode_btn"
@@ -31,7 +34,7 @@
             android:background="@drawable/button_seletor"
             android:text="@string/register_get_checkcode"
             android:textColor="@color/white"
-            android:textSize="@dimen/textsize_16" />
+            android:textSize="@dimen/textsize_14" />
 
         <EditText
             android:id="@+id/login_password_et"

@@ -52,7 +52,7 @@
     </style>
 
     <style name="AppStyle.Login.Input.Username">
-        <item name="android:inputType">text</item>
+        <item name="android:inputType">number</item>
         <item name="android:digits">@string/login_input_digits</item>
         <item name="android:hint">@string/login_username_hint</item>
     </style>

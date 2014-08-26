@@ -21,17 +21,20 @@ public class RegisterManager {
 	AQuery aq;
 	public static final String REGISTER_SUCCESS_ACTION = "com.find.REGISTER_SUCCESS_ACTION";
 	private AjaxCallbackImpl mAjaxCallback;
+	Dialog dialog;
 
 	public RegisterManager() {
 		aq = new AQuery(PAApplication.getAppContext());
 	}
 
-	public void register(String username, String password) {
+	public void register(String username, String password, String checkcode) {
 		mAjaxCallback = new AjaxCallbackImpl();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("username", username);
 		map.put("password", password);
-		final Dialog dialog = Dialogs.showProgress();
+		map.put("type", 0);
+		map.put("checkcode", checkcode);
+		dialog = Dialogs.showProgress();
 		aq.ajax(Config.URL_POST_REGISTER, map, RegisterResult.class,
 				mAjaxCallback);
 
@@ -41,9 +44,14 @@ public class RegisterManager {
 		@Override
 		public void callback(String url, RegisterResult object,
 				AjaxStatus status) {
+			dialog.dismiss();
 			if (status.getCode() == HttpStatus.SC_OK) {
-				LoginManager.getInstance().setLoginUser(object.getValue());
-				ToastUtils.showToast(result.getMsg());
+				if (object.getStatus() == 200) {
+					LoginManager.getInstance().setLoginUser(object.getValue());
+					ToastUtils.showToast(result.getMsg());
+				} else {
+					ToastUtils.showToast(result.getMsg());
+				}
 			} else {
 				ToastUtils.showToast(result.getMsg());
 			}

@@ -15,14 +15,17 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.androidquery.AQuery;
 import com.ixming.privacy.android.login.controll.RegisterController;
 import com.ixming.privacy.android.login.manager.LoginManager;
 import com.ixming.privacy.android.login.manager.RegisterManager;
+import com.ixming.privacy.android.utils.Utils;
 import com.ixming.privacy.monitor.android.R;
 
 public class RegisterActivity extends BaseActivity {
@@ -31,7 +34,12 @@ public class RegisterActivity extends BaseActivity {
 	EditText passwordET;
 	EditText confimPasswordET;
 	EditText checkcodeET;
+	Button getCheckcodeBT;
 	RegisterController controller;
+	final int TIMER_COUNT = 60;
+	int count = TIMER_COUNT;
+	final int UPDATE_TIME_MSG = 1;
+	String checkcodeText = "";
 
 	@Override
 	public int provideLayoutResId() {
@@ -45,18 +53,22 @@ public class RegisterActivity extends BaseActivity {
 		passwordET = aq.id(R.id.login_password_et).getEditText();
 		checkcodeET = aq.id(R.id.login_checkcode_et).getEditText();
 		confimPasswordET = aq.id(R.id.login_confim_password_et).getEditText();
+		getCheckcodeBT = aq.id(R.id.get_checkcode_btn).getButton();
 		registerReceiver();
 	}
 
 	@Override
 	public void initData(View view, Bundle savedInstanceState) {
 		controller = RegisterController.getInstance();
+		checkcodeText = getResources()
+				.getString(R.string.send_checkcode_prompt);
 	}
 
 	@Override
 	public void initListener() {
 		aq.id(R.id.register_submit_btn).clicked(this);
 		aq.id(R.id.get_checkcode_btn).clicked(this);
+		getCheckcodeBT.setOnClickListener(this);
 	}
 
 	private void registerReceiver() {
@@ -74,32 +86,53 @@ public class RegisterActivity extends BaseActivity {
 			Log.i("RegisterActivity", "onclick register!!");
 			register();
 			break;
+		case R.id.get_checkcode_btn:
+			getCheckcode();
+			break;
 		}
+
 	}
 
 	private void register() {
 		String username = usernameET.getText().toString();
 		String password = passwordET.getText().toString();
+		String checkcode = checkcodeET.getText().toString();
 		String confimPassword = confimPasswordET.getText().toString();
 		if (StringUtils.isEmpty(username)) {
-			ToastUtils.showLongToast(R.string.login_username_empty);
+			usernameET.setError(getString(R.string.login_username_empty));
 			return;
 		}
 		if (StringUtils.isEmpty(password)) {
-			ToastUtils.showLongToast(R.string.login_password_empty);
+			passwordET.setError(getString(R.string.login_password_empty));
 			return;
 		}
 		if (!password.equals(confimPassword)) {
-			LogUtils.i(getClass(), "password:" + password + "confimPassword:"
-					+ confimPassword);
-			ToastUtils.showLongToast(R.string.login_confim_password_error);
+			passwordET
+					.setError(getString(R.string.login_confim_password_error));
 			return;
 		}
-		if (!isEmail(username)) {
-			ToastUtils.showLongToast(R.string.login_email_error);
+		if (StringUtils.isEmpty(checkcode)) {
+			checkcodeET.setError(getString(R.string.login_checkcode_empty));
 			return;
 		}
-		controller.register(username, password);
+		if (checkcode.length() != 4) {
+			checkcodeET.setError(getString(R.string.login_checkcode_error));
+			return;
+		}
+		controller.register(username, password, checkcode);
+	}
+
+	private void getCheckcode() {
+		if (count == TIMER_COUNT) {
+			if (Utils.checkMobile(usernameET.getText().toString())) {
+				handler.sendEmptyMessageDelayed(UPDATE_TIME_MSG, 1000);
+				getCheckcodeBT.setBackgroundResource(R.color.gray);
+				count--;
+			} else {
+				usernameET
+						.setError(getString(R.string.login_username_format_error));
+			}
+		}
 	}
 
 	public boolean isEmail(String strEmail) {
@@ -112,7 +145,30 @@ public class RegisterActivity extends BaseActivity {
 	@Override
 	public Handler provideActivityHandler() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				super.handleMessage(msg);
+				switch (msg.what) {
+				case UPDATE_TIME_MSG:
+					if (count > 0) {
+						getCheckcodeBT.setText(checkcodeText.replace("%s",
+								count + ""));
+						sendEmptyMessageDelayed(UPDATE_TIME_MSG, 1000);
+						count--;
+					} else {
+						getCheckcodeBT.setText(R.string.register_get_checkcode);
+						getCheckcodeBT
+								.setBackgroundResource(R.drawable.button_seletor);
+						count = TIMER_COUNT;
+					}
+					break;
+
+				default:
+					break;
+				}
+			}
+		};
 	}
 
 	BroadcastReceiver receiver = new BroadcastReceiver() {
