@@ -3,7 +3,9 @@ package org.ixming.base.common.adapter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import org.ixming.base.utils.android.AndroidUtils;
@@ -183,6 +185,11 @@ implements AdapterChangeable<D>{
 		}
 	}
 	
+	private AbsDataAdapter<D, H> notifyAndReturnSelf() {
+		notifyDataSetChanged();
+		return this;
+	}
+	
 	@Override
 	public AbsDataAdapter<D, H> setData(Collection<D> c) {
 		ensureNotFinalized();
@@ -193,7 +200,7 @@ implements AdapterChangeable<D>{
 		}
 		final int newCount = getCount();
 		postDataSetChanged(oldCount, newCount);
-		return this;
+		return notifyAndReturnSelf();
 	}
 	
 	/**
@@ -204,6 +211,9 @@ implements AdapterChangeable<D>{
 		return Collections.unmodifiableList(mContentList);
 	}
 	
+	/**
+	 * 允许子类获得内部的List
+	 */
 	protected final List<D> getContentList() {
 		ensureNotFinalized();
 		return mContentList;
@@ -212,13 +222,31 @@ implements AdapterChangeable<D>{
 	@Override
 	public final AbsDataAdapter<D, H> removeData(int position) {
 		ensureNotFinalized();
-		if (position >= 0 && position < mContentList.size()) {
+		if (position > -1 && position < mContentList.size()) {
 			final int oldCount = getCount();
 			mContentList.remove(position);
 			final int newCount = getCount();
 			postDataSetChanged(oldCount, newCount);
 		}
-		return this;
+		return notifyAndReturnSelf();
+	}
+	
+	@Override
+	public final AbsDataAdapter<D, H> removeData(int from, int to) {
+		ensureNotFinalized();
+		if (from > -1 && from < mContentList.size()) {
+			final int oldCount = getCount();
+			ListIterator<D> ite = mContentList.listIterator(from);
+			
+			for (int i = from; i < Math.min(Math.max(from, to), oldCount); i++) {
+				ite.next();
+				ite.remove();
+			}
+			
+			final int newCount = getCount();
+			postDataSetChanged(oldCount, newCount);
+		}
+		return notifyAndReturnSelf();
 	}
 
 	@Override
@@ -230,9 +258,9 @@ implements AdapterChangeable<D>{
 			final int newCount = getCount();
 			postDataSetChanged(oldCount, newCount);
 		}
-		return this;
+		return notifyAndReturnSelf();
 	}
-
+	
 	@Override
 	public final AbsDataAdapter<D, H> appendDataList(Collection<D> c) {
 		ensureNotFinalized();
@@ -242,7 +270,7 @@ implements AdapterChangeable<D>{
 			final int newCount = getCount();
 			postDataSetChanged(oldCount, newCount);
 		}
-		return this;
+		return notifyAndReturnSelf();
 	}
 
 	@Override
@@ -251,7 +279,7 @@ implements AdapterChangeable<D>{
 		if (null != m) {
 			appendDataList(m.values());
 		}
-		return this;
+		return notifyAndReturnSelf();
 	}
 
 	
@@ -264,7 +292,7 @@ implements AdapterChangeable<D>{
 			final int newCount = getCount();
 			postDataSetChanged(oldCount, newCount);
 		}
-		return this;
+		return notifyAndReturnSelf();
 	}
 	
 	@Override
@@ -276,7 +304,7 @@ implements AdapterChangeable<D>{
 			final int newCount = getCount();
 			postDataSetChanged(oldCount, newCount);
 		}
-		return this;
+		return notifyAndReturnSelf();
 	}
 	
 	@Override
@@ -285,10 +313,11 @@ implements AdapterChangeable<D>{
 		if (null != m) {
 			prependDataList(m.values());
 		}
-		return this;
+		return notifyAndReturnSelf();
 	}
 	
-	public AbsDataAdapter<D, H> update(int position, D t) {
+	@Override
+	public final AbsDataAdapter<D, H> update(int position, D t) {
 		ensureNotFinalized();
 		if (position > -1 && position < getCount()) {
 			final int oldCount = getCount();
@@ -296,15 +325,30 @@ implements AdapterChangeable<D>{
 			final int newCount = getCount();
 			postDataSetChanged(oldCount, newCount);
 		}
-		return this;
+		return notifyAndReturnSelf();
 	}
 	
-	protected void injectView(Object target, View contentView) {
-		InjectorUtils.instanceBuildFrom(InjectConfigure.InjectViewConfigure).inject(target, contentView);
+	@Override
+	public final AbsDataAdapter<D, H> update(int fromPos, Collection<D> c) {
+		ensureNotFinalized();
+		if (fromPos > -1 && fromPos < getCount() && null != c) {
+			final int oldCount = getCount();
+			Iterator<D> it = c.iterator();
+			for (int i = fromPos; i < oldCount && it.hasNext(); i++) {
+				mContentList.set(i, it.next());
+			}
+			final int newCount = getCount();
+			postDataSetChanged(oldCount, newCount);
+		}
+		return notifyAndReturnSelf();
 	}
 	
-	protected void injectRes(Object target) {
-		InjectorUtils.instanceBuildFrom(InjectConfigure.InjectResConfigure)
-			.inject(target, null, getContext());
+	/**
+	 * 注入Holder
+	 * @param target 目标注入对象
+	 * @param contentView 查找子View
+	 */
+	protected void injectHolder(Object target, View contentView) {
+		InjectorUtils.instanceBuildFrom(InjectConfigure.InjectAllConfigure).inject(target, contentView);
 	}
 }

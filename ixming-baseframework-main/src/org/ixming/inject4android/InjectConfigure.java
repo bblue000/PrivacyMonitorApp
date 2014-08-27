@@ -68,6 +68,11 @@ public class InjectConfigure {
 	 * 只注入资源的配置
 	 */
 	public static final InjectConfigure InjectResConfigure;
+	
+	/**
+	 * 注入View和资源的配置
+	 */
+	public static final InjectConfigure InjectViewAndResConfigure;
 
 	/**
 	 * 只注入Click监听器的配置
@@ -88,6 +93,10 @@ public class InjectConfigure {
 		
 		InjectOnClickMethodsConfigure = new SpecInjectConfigure()
 			.setToAllInternal(false).injectOnClickMethodsInternal(true);
+		
+		
+		InjectViewAndResConfigure = new SpecInjectConfigure()
+			.setToAllInternal(false).injectViewsInternal(true).injectViewsInternal(true);
 	}
 	
 	// 设置客户端是否需要动态注入成员变量对应的Res资源

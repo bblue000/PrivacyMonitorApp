@@ -216,6 +216,7 @@ public class ImageDownloadListener implements OnDownloadListener {
 		_setImageToView(view, drawable, type);
 	}
 
+	@SuppressWarnings("deprecation")
 	private static void _setImageToView(View view, Drawable drawable, int type) {
 		synchronized (view) {
 			if (type == ImageUtil.IMAGE_SRC && view instanceof ImageView) {

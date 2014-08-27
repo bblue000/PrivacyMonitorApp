@@ -3,6 +3,8 @@ package org.ixming.base.file;
 import java.io.File;
 import java.util.Set;
 
+import org.ixming.base.common.BaseApplication;
+
 import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
@@ -49,8 +51,8 @@ public abstract class FileManager {
 	 * @param defType 设置默认的存储类型
 	 * @see {@link StorageType}
 	 */
-	public static void initAppConfig(Context context, StorageType defType) {
-		sApplicationContext = context.getApplicationContext();
+	public static void initAppConfig(StorageType defType) {
+		sApplicationContext = BaseApplication.getAppContext();
 		getAppFileManager();
 		if (null != defType) {
 			sPreferredStorageType = defType;
@@ -63,7 +65,8 @@ public abstract class FileManager {
 	 */
 	public synchronized static FileManager getAppFileManager() {
 		if (null == sApplicationContext) {
-			throw new UnsupportedOperationException("FileManager hasn't initialized!");
+			sApplicationContext = BaseApplication.getAppContext();
+//			throw new UnsupportedOperationException("FileManager hasn't initialized!");
 		}
 		if (null == sDataInstance) {
 			sDataInstance = new DataFileManager(sApplicationContext);
@@ -196,6 +199,7 @@ public abstract class FileManager {
 	 * 文件夹总大小
 	 * @param path 文件路径（必须为文件夹）
 	 */
+	@SuppressWarnings("deprecation")
 	public static long sizeOfByAndroidStatFs(String path) {
 		StatFs statFs = new StatFs(path);
 		long blockSize = statFs.getBlockSize();
@@ -208,6 +212,7 @@ public abstract class FileManager {
 	 * 文件夹可用空间大小
 	 * @param path 文件路径（必须为文件夹）
 	 */
+	@SuppressWarnings("deprecation")
 	public static long sizeOfFreeByAndroidStatFs(String path) {
 		StatFs statFs = new StatFs(path);
 		long blockSize = statFs.getBlockSize();

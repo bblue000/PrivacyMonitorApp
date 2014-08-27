@@ -35,7 +35,7 @@ public class TimeSpan {
 		synchronized (TIME_TAGS) {
 			long endTime = System.currentTimeMillis();
 			long startPr = 0;
-			Long start = TIME_TAGS.get(tag);
+			Long start = TIME_TAGS.remove(tag);
 			if (null != start) {
 				startPr = start.longValue();
 				return endTime - startPr;

@@ -26,17 +26,14 @@ public class InjectorUtils {
 
 	final String TAG = InjectorUtils.class.getSimpleName();
 
-	private static InjectorUtils mSingleton = null;
+	private static InjectConfigure sDefaultConfigure = InjectConfigure.InjectAllConfigure;
+	private static InjectorUtils mSingleton = new InjectorUtils(sDefaultConfigure);
 	/**
 	 * 当应用想要以单例模式处理——所有用到本工具的地方，都配用同一套InjectConfigure设置
 	 */
 	public static synchronized InjectorUtils buildAsSingleton(InjectConfigure configure) {
-		if (null == mSingleton) {
+		if (!mSingleton.mConfigure.equals(configure)) {
 			mSingleton = new InjectorUtils(configure);
-		} else {
-			if (!mSingleton.mConfigure.equals(configure)) {
-				mSingleton = new InjectorUtils(configure);
-			}
 		}
 		return mSingleton;
 	}
@@ -51,7 +48,7 @@ public class InjectorUtils {
 	 * </p>
 	 */
 	public static InjectorUtils defaultInstance() {
-		return null == mSingleton ? new InjectorUtils(new InjectConfigure()) : mSingleton;
+		return mSingleton;
 	}
 
 	/**
@@ -62,14 +59,10 @@ public class InjectorUtils {
 	}
 	
 	private final InjectConfigure mConfigure;
-	InjectorUtils() {
-		this(new InjectConfigure());
-	}
-
 	InjectorUtils(InjectConfigure configure) {
 		if (null == configure) {
 			// new default
-			configure = new InjectConfigure();
+			configure = sDefaultConfigure;
 		}
 		mConfigure = configure;
 	}
@@ -190,6 +183,7 @@ public class InjectorUtils {
 			}
 		}
 		// force GC
-		System.gc();
+		// the efficiency of gc is terrible
+		// System.gc();
 	}
 }

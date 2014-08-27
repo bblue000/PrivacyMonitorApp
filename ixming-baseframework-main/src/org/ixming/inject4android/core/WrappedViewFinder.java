@@ -11,6 +11,8 @@ interface IViewFinder {
 
 class WrappedViewFinder {
 
+	private final int INIT_SIZE = 5;
+	
 	// 提供查找View的接口
 	private IViewFinder mViewFinder;
 	
@@ -65,11 +67,11 @@ class WrappedViewFinder {
 		}
 		// 将结果放入到缓存
 		if (null == mChildViewCache) {
-			mChildViewCache = new SparseArray<SparseArray<View>>();
+			mChildViewCache = new SparseArray<SparseArray<View>>(INIT_SIZE);
 		}
 
 		if (null == childViewCacheOfParent) {
-			childViewCacheOfParent = new SparseArray<View>();
+			childViewCacheOfParent = new SparseArray<View>(INIT_SIZE);
 			mChildViewCache.put(parentId, childViewCacheOfParent);
 		}
 		childViewCacheOfParent.put(id, targetView);

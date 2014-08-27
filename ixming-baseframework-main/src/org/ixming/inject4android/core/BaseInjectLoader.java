@@ -58,7 +58,7 @@ class ViewInjectLoader extends BaseInjectLoader {
  * @version 1.0
  */
 public abstract class BaseInjectLoader
-implements IViewFinder, IInterfaces {
+implements IViewFinder, IInjectorInterfaces {
 	
 	final String TAG = BaseInjectLoader.class.getSimpleName();
 	

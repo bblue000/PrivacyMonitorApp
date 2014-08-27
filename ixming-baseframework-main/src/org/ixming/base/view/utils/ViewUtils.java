@@ -15,6 +15,7 @@ public class ViewUtils {
 
 	private ViewUtils() { }
 	
+	@SuppressWarnings("deprecation")
 	public static RelativeLayout newTransparentRelativeLayout(Context context) {
 		RelativeLayout layout = new RelativeLayout(context);
 		layout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,

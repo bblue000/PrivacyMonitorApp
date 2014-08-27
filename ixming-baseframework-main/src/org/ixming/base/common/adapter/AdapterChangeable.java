@@ -21,6 +21,14 @@ interface AdapterChangeable<T> {
 	AdapterChangeable<T> removeData(int position);
 	
 	/**
+	 * remove the specific item of data from, then refresh adapter view,
+	 * and then call notifyDataSetChanged
+	 * @param from position of the item in the adapter view, included
+	 * @param to position of the item in the adapter view, excluded
+	 */
+	AdapterChangeable<T> removeData(int from, int to);
+	
+	/**
 	 * append single item to the AdapterView, and then call notifyDataSetChanged
 	 * @param t new data to append
 	 */
@@ -64,4 +72,10 @@ interface AdapterChangeable<T> {
 	 * @param m new data Map to append
 	 */
 	AdapterChangeable<T> update(int position, T t);
+	
+	/**
+	 * update items from the specific position with data in collection c
+	 * @param m new data Map to append
+	 */
+	AdapterChangeable<T> update(int fromPos, Collection<T> c);
 }

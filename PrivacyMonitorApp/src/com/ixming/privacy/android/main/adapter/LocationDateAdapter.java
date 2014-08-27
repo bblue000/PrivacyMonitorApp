@@ -31,7 +31,7 @@ LocationDateAdapter.ViewHolder> {
 	@Override
 	protected ViewHolder newHolder(int position, View contentView) {
 		ViewHolder holder = new ViewHolder();
-		injectView(holder, contentView);
+		injectHolder(holder, contentView);
 		return holder;
 	}
 

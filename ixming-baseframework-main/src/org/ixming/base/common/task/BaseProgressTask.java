@@ -2,7 +2,6 @@ package org.ixming.base.common.task;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.ixming.base.taskcenter.callback.OnLoadListener;
 import org.ixming.base.taskcenter.entity.ReqBean;
 import org.ixming.base.taskcenter.task.BaseTask;
 
