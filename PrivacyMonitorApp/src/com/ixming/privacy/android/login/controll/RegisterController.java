@@ -17,7 +17,12 @@ public class RegisterController {
 		return instance;
 	}
 
-	public void register(String username, String password) {
-		manger.register(username, password);
+	public void register(String username, String password, String checkcode) {
+		manger.register(username, password, checkcode);
 	}
+
+	public void getCheckcode(String mobile) {
+		manger.getCheckcode(mobile);
+	}
+
 }

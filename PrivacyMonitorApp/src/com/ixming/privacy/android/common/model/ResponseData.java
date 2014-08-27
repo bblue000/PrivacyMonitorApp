@@ -13,4 +13,7 @@ public class ResponseData {
 
 	public class ForgotPasswordResult extends BasicResponseData<String> {
 	}
+
+	public class CheckcodeResult extends BasicResponseData<String> {
+	}
 }

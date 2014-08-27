@@ -17,7 +17,7 @@
 
     <style name="AppStyle.Common.Btn">
         <item name="android:layout_width">fill_parent</item>
-<!--         <item name="android:layout_height">@dimen/main_btn_height</item> -->
+        <!-- <item name="android:layout_height">@dimen/main_btn_height</item> -->
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">@dimen/spacing_10</item>
         <item name="android:background">@drawable/button_seletor</item>
@@ -52,9 +52,14 @@
     </style>
 
     <style name="AppStyle.Login.Input.Username">
-        <item name="android:inputType">text</item>
+        <item name="android:inputType">number</item>
         <item name="android:digits">@string/login_input_digits</item>
         <item name="android:hint">@string/login_username_hint</item>
+    </style>
+
+    <style name="AppStyle.Login.Input.Checkcode">
+        <item name="android:inputType">text</item>
+        <item name="android:hint">@string/login_checkcode_hint</item>
     </style>
 
     <style name="AppStyle.Login.Input.Password">
@@ -137,12 +142,12 @@
         <item name="android:windowExitAnimation">@anim/slide_dialog_out_to_bottom</item>
     </style>
 
-    <!--<style name="dialog" parent="@android:style/Theme.Dialog">-->
-        <!--<item name="android:windowFrame">@null</item>-->
-        <!--<item name="android:windowNoTitle">true</item>-->
-        <!--<item name="android:backgroundDimAmount">0.6</item>-->
-        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
-        <!--<item name="android:windowAnimationStyle">@style/OperatePersonAnimation</item>-->
-    <!--</style>-->
+    <!-- <style name="dialog" parent="@android:style/Theme.Dialog"> -->
+    <!-- <item name="android:windowFrame">@null</item> -->
+    <!-- <item name="android:windowNoTitle">true</item> -->
+    <!-- <item name="android:backgroundDimAmount">0.6</item> -->
+    <!-- <item name="android:windowBackground">@android:color/transparent</item> -->
+    <!-- <item name="android:windowAnimationStyle">@style/OperatePersonAnimation</item> -->
+    <!-- </style> -->
 
 </resources>
