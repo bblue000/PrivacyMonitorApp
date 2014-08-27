@@ -7,9 +7,9 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.ixming.privacy.android.common.model.ResponseData.PayInfoResult;
-import com.ixming.privacy.android.common.model.SimpleAjaxCallback;
 import com.ixming.privacy.monitor.android.Config;
 import com.ixming.privacy.monitor.android.PAApplication;
 
@@ -27,9 +27,10 @@ public class BindManager {
 	 * 请求 剩余时间
 	 */
 	public void requestDate() {
-		SimpleAjaxCallback<PayInfoResult> callback = new SimpleAjaxCallback<PayInfoResult>() {
+		AjaxCallback<PayInfoResult> callback = new AjaxCallback<PayInfoResult>() {
+
 			@Override
-			protected boolean onSuccess(String url, Object object,
+			public void callback(String url, PayInfoResult object,
 					AjaxStatus status) {
 				if (status.getCode() == HttpStatus.SC_OK) {
 					PayInfoResult result = (PayInfoResult) object;
@@ -41,13 +42,6 @@ public class BindManager {
 						handler.sendMessage(msg);
 					}
 				}
-				return super.onSuccess(url, object, status);
-			}
-
-			@Override
-			protected boolean onError(AjaxStatus status) {
-				// TODO Auto-generated method stub
-				return super.onError(status);
 			}
 		};
 		String device_id = Utils.getDeviceId(PAApplication.getAppContext());
