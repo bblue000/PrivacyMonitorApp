@@ -32,11 +32,12 @@ public class LoginManager {
 	AQuery aq;
 	AjaxCallbackImpl ajaxCallback;
 	private LocalUserController mLocalUserController;
+
 	private LoginManager() {
 		aq = new AQuery(PAApplication.getAppContext());
 		mLocalUserController = LocalUserController.getInstance();
 	}
-	
+
 	public void setLoginUser(UserInfo userInfo) {
 		mLocalUserController.setUserInfo(userInfo);
 		if (mLocalUserController.isUserLogining()) {
@@ -67,8 +68,7 @@ public class LoginManager {
 		public void callback(String url, LoginResult object, AjaxStatus status) {
 			if (status.getCode() == HttpStatus.SC_OK) {
 				if (object.getStatus() == 200) {
-					// mUserInfo = object.getValue();
-					LocalUserController.getInstance().setUserInfo(object.getValue());
+					LoginManager.getInstance().setLoginUser(object.getValue());
 				}
 				ToastUtils.showLongToast(result.getMsg());
 			} else {
@@ -76,12 +76,12 @@ public class LoginManager {
 			}
 		}
 	}
-	
+
 	private synchronized void onLoginSuccess() {
-		LocalBroadcasts
-			.sendLocalBroadcast(new Intent(LocalBroadcastIntents.ACTION_LOGIN)
-						.putExtra(LoginOperationCallback.EXTRA_RESULT_CODE,
-								LoginOperationCallback.CODE_SUCCESS));
+		LocalBroadcasts.sendLocalBroadcast(new Intent(
+				LocalBroadcastIntents.ACTION_LOGIN).putExtra(
+				LoginOperationCallback.EXTRA_RESULT_CODE,
+				LoginOperationCallback.CODE_SUCCESS));
 	}
 
 	private synchronized void onLoginFailed(int code) {

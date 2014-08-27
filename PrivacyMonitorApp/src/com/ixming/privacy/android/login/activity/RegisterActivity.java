@@ -174,14 +174,13 @@ public class RegisterActivity extends BaseActivity {
 	}
 
 	BroadcastReceiver receiver = new BroadcastReceiver() {
-
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			LogUtils.i(getClass(), "execute  onReceive !!!");
 			String action = intent.getAction();
 			if (RegisterManager.REGISTER_SUCCESS_ACTION.equals(action)) {
-				ToastUtils.showLongToast(R.string.login_register_success);
 				RegisterActivity.this.finish();
+				ToastUtils.showLongToast(R.string.login_register_success);
 				// 清理所有其他Activity
 			}
 		}
