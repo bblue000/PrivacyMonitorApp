@@ -90,18 +90,59 @@
                     android:layout_centerVertical="true"
                     android:text="@string/device_bind_hide_app" />
             </RelativeLayout>
+            <!-- 剩余时间 -->
 
+            <RelativeLayout
+                android:id="@+id/device_bind_device_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/device_bind_hide_layout"
+                android:layout_marginTop="@dimen/spacing_20" >
+
+                <LinearLayout
+                    android:id="@+id/device_bind_user_expire_layout"
+                    style="@style/AppStyle.ContainerLayout.WrapContent"
+                    android:layout_height="@dimen/spacing_40"
+                    android:layout_marginTop="@dimen/spacing_10"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/device_bind_device_expire_hint_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left|center_vertical"
+                        android:text="@string/device_bind_user_expire_hint"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textsize_18" />
+                    <TextView
+                        android:id="@+id/device_bind_device_expire_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left|center_vertical"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textsize_18" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/device_bind_device_free_exchange_btn"
+                    style="@style/AppStyle.Common.Btn"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/spacing_10"
+                    android:gravity="center"
+                    android:text="@string/device_bind_user_free_exchange"
+                    android:textSize="@dimen/textsize_14" />
+            </RelativeLayout>
             <!-- 用户信息 -->
             <!-- style="@style/AppStyle.ContainerLayout.WrapContent" -->
-
-    
 
             <RelativeLayout
                 android:id="@+id/device_bind_user_info_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/device_bind_hide_layout"
-                android:layout_marginTop="@dimen/spacing_20" >
+                android:layout_marginTop="@dimen/spacing_20"
+                android:visibility="gone" >
 
                 <TextView
                     android:id="@+id/device_bind_user_info_title_tv"
@@ -225,7 +266,8 @@
         android:id="@+id/device_bind_login_state_layout"
         style="@style/AppStyle.ContainerLayout.WrapContent"
         android:layout_alignParentBottom="true"
-        android:padding="@dimen/spacing_10" >
+        android:padding="@dimen/spacing_10"
+        android:visibility="gone" >
 
         <Button
             android:id="@+id/device_bind_login_btn"

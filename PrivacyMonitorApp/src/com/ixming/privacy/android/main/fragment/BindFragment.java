@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -26,6 +27,7 @@ import com.ixming.privacy.android.common.control.LocalUserController;
 import com.ixming.privacy.android.common.control.LocationController;
 import com.ixming.privacy.android.login.activity.LoginActivity;
 import com.ixming.privacy.android.login.manager.LoginManager;
+import com.ixming.privacy.android.main.manager.BindManager;
 import com.ixming.privacy.monitor.android.PAApplication;
 import com.ixming.privacy.monitor.android.R;
 
@@ -39,7 +41,7 @@ public class BindFragment extends BaseFragment {
 	@ViewInject(id = R.id.device_bind_open_loc_cb)
 	private CheckBox mOpenLoc_CB;
 	AQuery aq;
-
+	BindManager manager;
 	// 隐藏应用
 	@ViewInject(id = R.id.device_bind_hide_layout)
 	private View mHideApp_Layout;
@@ -57,6 +59,8 @@ public class BindFragment extends BaseFragment {
 	private TextView mUsername_TV;
 	@ViewInject(id = R.id.device_bind_user_expire_tv)
 	private TextView mExpire_TV;
+	@ViewInject(id = R.id.device_bind_device_expire_tv)
+	private TextView mDeviceExpire_TV;
 
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 
@@ -93,6 +97,8 @@ public class BindFragment extends BaseFragment {
 		LocalBroadcasts.registerLocalReceiver(mReceiver,
 				LocalBroadcastIntents.ACTION_LOGIN,
 				LocalBroadcastIntents.ACTION_LOGOUT);
+		manager = new BindManager(handler);
+		manager.requestDate();
 	}
 
 	@Override
@@ -129,7 +135,17 @@ public class BindFragment extends BaseFragment {
 
 	@Override
 	public Handler provideActivityHandler() {
-		return PAApplication.getHandler();
+		return new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				switch (msg.what) {
+				case BindManager.DEVICE_DATA_MSG:
+					String date = (String) msg.obj;
+					mDeviceExpire_TV.setText(date);
+					break;
+				}
+			}
+		};
 	}
 
 	@OnClickMethodInject(id = R.id.device_bind_obtain_btn)
@@ -167,21 +183,25 @@ public class BindFragment extends BaseFragment {
 
 		}
 
+		/**
+		 * 该代码 1.0不放开
+		 */
 		// user info的显示逻辑
-		LocalUserController userController = LocalUserController.getInstance();
-		if (userController.isUserLogining()) {
-			// 设置user name
-			mUsername_TV.setText(userController.getUsername());
-			// 设置到期时间
-			
-			ViewUtils.setViewVisible(mUserInfo_Layout);
-			ViewUtils.setViewVisible(logout_BT);
-			ViewUtils.setViewGone(login_BT);
-		} else {
-			ViewUtils.setViewGone(mUserInfo_Layout);
-			ViewUtils.setViewVisible(login_BT);
-			ViewUtils.setViewGone(logout_BT);
-		}
+		// LocalUserController userController =
+		// LocalUserController.getInstance();
+		// if (userController.isUserLogining()) {
+		// // 设置user name
+		// mUsername_TV.setText(userController.getUsername());
+		// // 设置到期时间
+		//
+		// ViewUtils.setViewVisible(mUserInfo_Layout);
+		// ViewUtils.setViewVisible(logout_BT);
+		// ViewUtils.setViewGone(login_BT);
+		// } else {
+		// ViewUtils.setViewGone(mUserInfo_Layout);
+		// ViewUtils.setViewVisible(login_BT);
+		// ViewUtils.setViewGone(logout_BT);
+		// }
 
 		mKeyInput_ET.setFocusable(true);
 		mKeyInput_ET.setFocusableInTouchMode(false);

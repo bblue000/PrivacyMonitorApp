@@ -61,7 +61,7 @@
     <string name="device_bind_top_hint">通过标识码可以查询该设备的位置</string>
     <string name="device_bind_warning">警告：请勿将标识码告诉陌生人</string>
     <string name="device_bind_obtain_key">获取定位标识</string>
-    <string name="device_bind_hide_app_hint">把应用变消失</string>
+    <string name="device_bind_hide_app_hint">应用后台隐藏运行</string>
     <string name="device_bind_hide_app">隐藏应用</string>
     <string name="device_bind_key_hint">填写标识码</string>
     <string name="device_bind_obtain_error">获取失败</string>
@@ -72,7 +72,7 @@
     <string name="device_bind_user_expire_hint">到期时间：</string>
     <string name="device_bind_user_expire_tip">注：用户到期将无法查看他人位置信息，不影响被查找。</string>
     <string name="device_bind_user_charge">充值</string>
-    <string name="device_bind_user_free_exchange">免费拿积分</string>
+    <string name="device_bind_user_free_exchange">获取免费时间</string>
     <string name="main_view_person_hint">选择查看对象</string>
     <string name="main_view_person_progress_hint">正在加载...</string>
     <string name="main_view_person_current">当前对象：%1$s</string>
