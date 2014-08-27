@@ -45,6 +45,10 @@ public class BindFragment extends BaseFragment {
 	private View mHideApp_Layout;
 	@ViewInject(id = R.id.device_bind_hide_btn)
 	private Button mHideApp_BT;
+	@ViewInject(id = R.id.device_bind_login_btn)
+	private Button login_BT;
+	@ViewInject(id = R.id.device_bind_logout_btn)
+	private Button logout_BT;
 
 	// 用户信息布局
 	@ViewInject(id = R.id.device_bind_user_info_layout)
@@ -148,6 +152,7 @@ public class BindFragment extends BaseFragment {
 	@OnClickMethodInject(id = R.id.device_bind_logout_btn)
 	void logout() {
 		LoginManager.getInstance().logout();
+		updateUI();
 	}
 
 	private void updateUI() {
@@ -155,9 +160,11 @@ public class BindFragment extends BaseFragment {
 		if (BindController.getInstance().hasDeviceToken()) {
 			mKeyInput_ET.setText(BindController.getInstance().getDeviceToken());
 			ViewUtils.setViewVisible(mHideApp_Layout);
+
 		} else {
 			mKeyInput_ET.setText(null);
 			ViewUtils.setViewGone(mHideApp_Layout);
+
 		}
 
 		// user info的显示逻辑
@@ -165,13 +172,15 @@ public class BindFragment extends BaseFragment {
 		if (userController.isUserLogining()) {
 			// 设置user name
 			mUsername_TV.setText(userController.getUsername());
-			// 设置积分
-
 			// 设置到期时间
-
+			
 			ViewUtils.setViewVisible(mUserInfo_Layout);
+			ViewUtils.setViewVisible(logout_BT);
+			ViewUtils.setViewGone(login_BT);
 		} else {
 			ViewUtils.setViewGone(mUserInfo_Layout);
+			ViewUtils.setViewVisible(login_BT);
+			ViewUtils.setViewGone(logout_BT);
 		}
 
 		mKeyInput_ET.setFocusable(true);

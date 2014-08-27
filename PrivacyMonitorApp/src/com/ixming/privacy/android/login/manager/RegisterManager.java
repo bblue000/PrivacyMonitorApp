@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.HttpStatus;
+import org.ixming.base.common.LocalBroadcasts;
 import org.ixming.base.utils.android.ToastUtils;
 
 import android.app.Dialog;
@@ -69,6 +70,7 @@ public class RegisterManager {
 			if (status.getCode() == HttpStatus.SC_OK) {
 				if (object.getStatus() == 200) {
 					LoginManager.getInstance().setLoginUser(object.getValue());
+					LocalBroadcasts.sendLocalBroadcast(REGISTER_SUCCESS_ACTION);
 					ToastUtils.showToast(result.getMsg());
 				} else {
 					ToastUtils.showToast(result.getMsg());

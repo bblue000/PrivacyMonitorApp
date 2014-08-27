@@ -35,6 +35,7 @@ public class LocalUserController extends BaseController {
 			mUserInfo.setUsername(userInfo.getUsername());
 			mUserInfo.setUser_token(userInfo.getUser_token());
 			mUserInfo.setEmail(userInfo.getEmail());
+			storeToShare();
 		}
 	}
 	
