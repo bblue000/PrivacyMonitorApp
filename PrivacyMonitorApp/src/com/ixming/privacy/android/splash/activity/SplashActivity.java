@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.ixming.privacy.android.common.LocalBroadcastIntents.DeviceToken;
@@ -78,7 +79,7 @@ public class SplashActivity extends MyBaseActivity {
 		PAApplication.getHandler().postDelayed(mShortestJumpRunnable, mShortestDelay);
 		
 		// 启动页面调用
-		UMengLog.onSplash();
+		UMengLog.onSplash(this);
 	}
 
 	@Override
@@ -96,6 +97,14 @@ public class SplashActivity extends MyBaseActivity {
 	@Override
 	public void onClick(View v) {
 		
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			return false;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 }

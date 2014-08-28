@@ -57,8 +57,8 @@ public class UMengLog {
 	 * 
 	 * 您需要在程序的入口 Activity 中添加
 	 */
-	public static void onSplash() {
-		MobclickAgent.updateOnlineConfig(context);
+	public static void onSplash(Activity splash) {
+		MobclickAgent.updateOnlineConfig(splash);
 	}
 	
 	/**
