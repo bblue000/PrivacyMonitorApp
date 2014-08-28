@@ -16,4 +16,8 @@ public class ResponseData {
 
 	public class CheckcodeResult extends BasicResponseData<String> {
 	}
+
+	public class PayInfoResult extends BasicResponseData<String> {
+
+	}
 }

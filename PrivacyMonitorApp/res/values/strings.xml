@@ -45,7 +45,7 @@
     <string name="person_list_operate_delete">删除</string>
     <string name="person_location_data_obtain_error">获取失败</string>
     <string name="person_operate_title">@string/person_list_operate</string>
-    <string name="person_operate_delete_text">确认删除%s吗？</string>
+    <string name="person_operate_delete_text">确认删除“%s”吗？</string>
     <string name="person_operate_add_title">@string/app_name</string>
     <string name="person_operate_add_device_token_hint">输入位置标识码</string>
     <string name="person_operate_add_name_hint">输入备注名</string>
@@ -61,8 +61,9 @@
     <string name="device_bind_top_hint">通过标识码可以查询该设备的位置</string>
     <string name="device_bind_warning">警告：请勿将标识码告诉陌生人</string>
     <string name="device_bind_obtain_key">获取定位标识</string>
-    <string name="device_bind_hide_app_hint">把应用变消失</string>
+    <string name="device_bind_hide_app_hint">应用后台隐藏运行</string>
     <string name="device_bind_hide_app">隐藏应用</string>
+    <string name="device_bind_hide_app_tip">应用隐藏后将不会出现在桌面\n是否确认隐藏？</string>
     <string name="device_bind_key_hint">填写标识码</string>
     <string name="device_bind_obtain_error">获取失败</string>
     <string name="device_bind_open_location_hint">开启定位</string>
@@ -72,7 +73,8 @@
     <string name="device_bind_user_expire_hint">到期时间：</string>
     <string name="device_bind_user_expire_tip">注：用户到期将无法查看他人位置信息，不影响被查找。</string>
     <string name="device_bind_user_charge">充值</string>
-    <string name="device_bind_user_free_exchange">免费拿积分</string>
+    <string name="device_bind_user_free_exchange">获取免费时间</string>
+    
     <string name="main_view_person_hint">选择查看对象</string>
     <string name="main_view_person_progress_hint">正在加载...</string>
     <string name="main_view_person_current">当前对象：%1$s</string>

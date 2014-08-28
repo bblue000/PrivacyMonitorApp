@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 消息设置 标题 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/DialogTitleContainerStyle"
 	android:orientation="vertical">
 	
@@ -8,6 +8,7 @@
         android:id="@+id/custom_dialog_title_tv"
         style="@style/DialogTitleStyle"/>
     
-    <View style="@style/DialogHorizontalSep"/>
+    <View style="@style/DialogHorizontalSep"
+        android:layout_alignParentBottom="true"/>
     
-</LinearLayout>
+</RelativeLayout>

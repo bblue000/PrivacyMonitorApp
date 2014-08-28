@@ -2,7 +2,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dialog_simple_text_content_rl"
-    style="@style/DialogContentContainerStyle">
+    style="@style/DialogContentContainerStyle"
+    android:padding="@dimen/spacing_10">
 
     <TextView
         android:id="@+id/dialog_simple_text_tv"
