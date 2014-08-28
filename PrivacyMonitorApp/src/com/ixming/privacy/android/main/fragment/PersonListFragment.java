@@ -297,13 +297,13 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 	}
 	
 	private void gotoTarget(long time) {
-		PersonController personController = PersonListController.getInstance().getCurrentPersonController();
+		PersonController personController = mPersonListController.getCurrentPersonController();
 		personController.setCurTime(time);
 		startActivity(PersonLocationV3Activity.class);
 	}
 	
 	private void userSelCurrentMonitoringPerson(MonitoredPerson person) {
-		PersonListController.getInstance().setCurrentMonitoringPerson(person);
+		mPersonListController.setCurrentMonitoringPerson(person);
 		
 		setPersonSelName(person);
 		
@@ -322,13 +322,19 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 	
 	private void loadLocationData() {
 		// request current monitoring person's data
-		PersonController personController = PersonListController.getInstance().getCurrentPersonController();
+		PersonController personController = mPersonListController.getCurrentPersonController();
 		if (null == personController) {
 			
 		} else {
 			// 隐藏列表和列表为空时的界面
 			hideCurrentMonitoringTmp();
-			personController.requestLocationData(this);
+			
+			if (PersonListController.TEST) {
+				onLocationLoadSuccess();
+			} else {
+				personController.requestLocationData(this);
+			}
+			
 		}
 	}
 	

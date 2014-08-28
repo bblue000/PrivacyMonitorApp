@@ -1,18 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/AppStyle.ContainerLayout.WrapContent"
-    android:orientation="vertical" >
+	android:orientation="vertical" >
     
-	<TextView 
-	    android:id="@+id/privacy_location_date_item_datetime_tv"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:minHeight="@dimen/spacing_30"
-	    android:padding="@dimen/spacing_10"
-	    android:layout_alignParentTop="true"
-	    android:layout_alignParentLeft="true"
-	    android:textSize="@dimen/textsize_18"
-	    android:textColor="@color/black"
-	    android:text="2014-01-22 19:30:44"/>
+    <LinearLayout 
+        android:id="@+id/privacy_location_date_item_datetime_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+		android:background="@drawable/person_location_date_list_item_bg_selector">
+        
+        <TextView 
+		    android:id="@+id/privacy_location_date_item_day_tv"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:gravity="center_vertical|left"
+		    android:textSize="44sp"
+		    android:textColor="@color/black"
+		    android:text="22"/>
+        
+        <TextView 
+		    android:id="@+id/privacy_location_date_item_month_tv"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="5dp"
+		    android:gravity="center_vertical|left"
+		    android:textSize="20sp"
+		    android:textColor="@color/black"
+		    android:textStyle="bold"
+		    android:text="8月"/>
+        
+        <TextView 
+		    android:id="@+id/privacy_location_date_item_year_tv"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="25dp"
+		    android:gravity="center_vertical|left"
+		    android:textSize="16sp"
+		    android:textColor="@color/color_88888888"
+		    android:text="2014年"/>
+        
+    </LinearLayout>
     
+    
+<!-- 	<TextView  -->
+<!-- 	    android:id="@+id/privacy_location_date_item_datetime_tv" -->
+<!-- 	    android:layout_width="fill_parent" -->
+<!-- 	    android:layout_height="@dimen/spacing_50" -->
+<!-- 	    android:layout_alignParentTop="true" -->
+<!-- 	    android:layout_alignParentLeft="true" -->
+<!-- 	    android:gravity="center_vertical|left" -->
+<!-- 	    android:textSize="@dimen/textsize_18" -->
+<!-- 	    android:textColor="@color/black" -->
+<!-- 	    android:text="2014-01-22 19:30:44"/> -->
+	
+	<View 
+	    android:layout_width="@dimen/spacing_1"
+	    android:layout_height="fill_parent"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignTop="@id/privacy_location_date_item_datetime_layout"
+	    android:layout_above="@+id/person_location_date_item_bottom_sep"
+	    android:layout_marginTop="@dimen/spacing_15"
+	    android:background="@drawable/person_location_date_list_right_shadow"/>
+	
+	<View 
+	    android:id="@+id/person_location_date_item_bottom_sep"
+	    android:layout_width="fill_parent"
+	    android:layout_height="@dimen/spacing_2_5"
+	    android:layout_marginLeft="@dimen/spacing_50"
+	    android:layout_alignBottom="@id/privacy_location_date_item_datetime_layout"
+	    android:background="@drawable/person_location_date_list_bottom_shadow"/>
+	    
 </RelativeLayout>

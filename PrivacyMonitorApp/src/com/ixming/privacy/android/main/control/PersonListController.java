@@ -16,6 +16,9 @@ import com.ixming.privacy.monitor.android.PAApplication;
 public class PersonListController extends BaseController {
 
 	private static final String TAG = PersonListController.class.getSimpleName();
+	
+	public static final boolean TEST = false;
+	
 	private static final PersonListController sInstance = new PersonListController();
 	public static PersonListController getInstance() {
 		return sInstance;
@@ -27,10 +30,11 @@ public class PersonListController extends BaseController {
 	
 	private AQuery mAQuery;
 	private PersonListController() {
-//		mMonitoringPersonList.add(new MonitoredPerson("123", "迷失的老人"));
-//		mMonitoringPersonList.add(new MonitoredPerson("123", "花心的老公"));
-//		mMonitoringPersonList.add(new MonitoredPerson("123", "美丽的老婆"));
-		
+		if (TEST) {
+			mMonitoringPersonList.add(new MonitoredPerson("123", "迷失的老人"));
+			mMonitoringPersonList.add(new MonitoredPerson("123", "花心的老公"));
+			mMonitoringPersonList.add(new MonitoredPerson("123", "美丽的老婆"));
+		}
 		mAQuery = new AQuery(PAApplication.getAppContext());
 	}
 	
@@ -38,6 +42,10 @@ public class PersonListController extends BaseController {
 	// API 操作
 	private CallbackAddMonitoringPerson mCallbackAddMonitoringPerson;
 	public void addMonitoringPerson(String name, String device_token) {
+		if (PersonListController.TEST) {
+			return ;
+		}
+		
 		if (null != mCallbackAddMonitoringPerson) {
 			mCallbackAddMonitoringPerson.cancelMe();
 		}
@@ -49,6 +57,10 @@ public class PersonListController extends BaseController {
 	
 	private CallbackRequestMonitoringPerson mCallbackRequestMonitoringPerson;
 	public void requestMonitoringPerson() {
+		if (PersonListController.TEST) {
+			return ;
+		}
+		
 		if (null != mCallbackRequestMonitoringPerson) {
 			mCallbackRequestMonitoringPerson.cancelMe();
 		}
@@ -60,6 +72,10 @@ public class PersonListController extends BaseController {
 	
 	private CallbackUpdateMonitoringPerson mCallbackUpdateMonitoringPerson;
 	public void updateMonitoringPerson(MonitoredPerson person, String newName) {
+		if (PersonListController.TEST) {
+			return ;
+		}
+		
 		if (null != mCallbackUpdateMonitoringPerson) {
 			mCallbackUpdateMonitoringPerson.cancelMe();
 		}
@@ -71,6 +87,10 @@ public class PersonListController extends BaseController {
 	
 	private CallbackDeleteMonitoringPerson mCallbackDeleteMonitoringPerson;
 	public void deleteMonitoringPerson(MonitoredPerson person) {
+		if (PersonListController.TEST) {
+			return ;
+		}
+		
 		if (null != mCallbackDeleteMonitoringPerson) {
 			mCallbackDeleteMonitoringPerson.cancelMe();
 		}

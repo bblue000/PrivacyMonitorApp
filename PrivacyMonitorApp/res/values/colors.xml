@@ -4,8 +4,12 @@
     
     <color name="appbase_blue">#0099DD</color>
     <color name="appbase_blue_pressed">#87cefa</color>
-    <color name="appbase_blue_disable">#aaaaaa</color>
+    <color name="appbase_blue_disable">#ffaaaaaa</color>
     <color name="sky_blue">#87cefa</color>
+    
+    <color name="color_CCCCCCCC">#CCCCCCCC</color>
+    <color name="color_88888888">#88888888</color>
+    <color name="color_33333333">#33333333</color>
     
     <color name="main_view_person_item_bg">#CCCCCCCC</color>
 

@@ -3,6 +3,7 @@ package com.ixming.privacy.android.main.control;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,9 +45,17 @@ public class PersonController extends BaseController {
 	private MonitoredPerson	mMonitoredPerson;
 	protected PersonController(MonitoredPerson person) {
 		mMonitoredPerson = person;
+		// for testing
+		if (PersonListController.TEST) {
+			calculate();
+		}
 	}
 	
 	public void requestLocationData(LocationDataLoadListener listener) {
+		if (PersonListController.TEST) {
+			return ;
+		}
+		
 		if (null != mAjaxCallback) {
 			mAjaxCallback.setLoactionDataLoadListener(null);
 		}
@@ -85,6 +94,10 @@ public class PersonController extends BaseController {
 	private void calculate() {
 		mDateTimeData.clear();
 		if (mLocationInfoList.isEmpty()) {
+			if (PersonListController.TEST) {
+				mDateTimeData.put(new Date().getTime(), null);
+				mDateTimeData.put(new Date().getTime(), null);
+			}
 			return ;
 		}
 		long lastDay = 0;

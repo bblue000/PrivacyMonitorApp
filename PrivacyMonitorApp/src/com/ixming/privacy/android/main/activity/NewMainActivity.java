@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.ixming.privacy.android.common.activity.MyBaseFragmentActivity;
@@ -64,5 +65,16 @@ public class NewMainActivity extends MyBaseFragmentActivity {
 		
 		super.onDestroy();
 		PAApplication.killProcess();
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (mIndex_VP.getCurrentItem() > 0) {
+				mIndex_VP.setCurrentItem(0, true);
+				return true;
+			}
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }
