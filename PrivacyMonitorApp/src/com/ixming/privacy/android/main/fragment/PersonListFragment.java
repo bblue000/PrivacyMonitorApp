@@ -135,7 +135,7 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 				mMonitoredPersonAdapter = new MonitoredPersonAdapter(context);
 			}
 			mMonitoredPersonAdapter.setData(mPersonListController.getMonitoringPersonList());
-			mSelPersonDropDownPop.showAsDropDown(mPersonSel_Layout, mMonitoredPersonAdapter,
+			mSelPersonDropDownPop.showAsDropDown(mTop_Layout, mPersonSel_Layout, mMonitoredPersonAdapter,
 					getString(R.string.person_list_empty_tip), this);
 		}
 	}

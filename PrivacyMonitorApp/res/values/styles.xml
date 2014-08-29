@@ -137,11 +137,18 @@
         <item name="android:ellipsize">end</item>
     </style>
 
-    <style name="OperatePersonAnimation">
-        <item name="android:windowEnterAnimation">@anim/slide_dialog_in_from_bottom</item>
-        <item name="android:windowExitAnimation">@anim/slide_dialog_out_to_bottom</item>
+    
+    <style name="AppStyle.Bind">
+        
     </style>
-
+    
+    <style name="AppStyle.Bind.HintTextAppearance">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:textSize">@dimen/textsize_18</item>
+        <item name="android:gravity">left|center_vertical</item>
+    </style>
     <!-- <style name="dialog" parent="@android:style/Theme.Dialog"> -->
     <!-- <item name="android:windowFrame">@null</item> -->
     <!-- <item name="android:windowNoTitle">true</item> -->

@@ -52,8 +52,8 @@ public class DropDownPop {
 		mEmptyView = (TextView) mLayout.findViewById(R.id.main_popup_empty_tv);
 		
 		mLayout.setMaxHeight(AndroidUtils.getDisplayHeight() / 2);
-		// should contain this statement
-		mWindow.setBackgroundDrawable(new BitmapDrawable());
+		// should contain this statement。否则会有黑色背景
+		mWindow.setBackgroundDrawable(new BitmapDrawable(context.getResources()));
 		
 		mWindow.setTouchable(true);
 		mWindow.setFocusable(true);
@@ -97,14 +97,22 @@ public class DropDownPop {
 	 * @param listener
 	 */
 	public void showAsDropDown(View view, ListAdapter adapter, String empty, OnItemClickListener listener) {
+		showAsDropDown(view, view, adapter, empty, listener);
+	}
+	
+	public void showAsDropDown(View dropDownLay, View widthLay, ListAdapter adapter, OnItemClickListener listener) {
+		showAsDropDown(dropDownLay, widthLay, adapter, null, listener);
+	}
+	
+	public void showAsDropDown(View dropDownLay, View widthLay, ListAdapter adapter, String empty, OnItemClickListener listener) {
 		if (mWindow.isShowing()) {
 			mWindow.dismiss();
 		}
 		int width;
-		if (view.getWidth() <= 0) {
+		if (widthLay.getWidth() <= 0) {
 			width = AndroidUtils.getDisplayWidth();
 		} else {
-			width = (int) (view.getWidth() * mWidthScale);
+			width = (int) (widthLay.getWidth() * mWidthScale);
 		}
 		
 		mWindow.setWidth(width);
@@ -121,7 +129,14 @@ public class DropDownPop {
 		checkListData();
 		
 //		mWindow.setAnimationStyle(R.style.DropDownWindowAnimation);
-		mWindow.showAsDropDown(view);
+		mWindow.showAsDropDown(dropDownLay, offsetX(dropDownLay, widthLay), 0);
+	}
+	
+	private int offsetX(View dropDownLay, View widthLay) {
+		if (dropDownLay == widthLay) {
+			return 0;
+		}
+		return ViewUtils.getViewScreenRect(widthLay).left - ViewUtils.getViewScreenRect(dropDownLay).left;
 	}
 	
 	private void checkListData() {

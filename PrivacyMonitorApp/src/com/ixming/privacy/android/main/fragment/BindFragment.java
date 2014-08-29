@@ -156,7 +156,7 @@ public class BindFragment extends BaseFragment {
 			.title(R.string.dialog_prompt)
 			.text(R.string.device_bind_hide_app_tip)
 			.leftBtn(R.string.confirm, listener)
-			.rightBtn(R.string.cancel, listener)
+			.rightBtn(R.string.cancel, null)
 			.build().show();
 		
 	}

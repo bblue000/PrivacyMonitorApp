@@ -2,7 +2,7 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main_view_person_name_tv"
     style="@style/AppStyle.ContainerLayout.WrapContent"
-    android:minHeight="@dimen/spacing_30"
+    android:minHeight="@dimen/spacing_50"
     android:singleLine="true"
     android:textColor="@color/appbase_blue"
     android:textSize="@dimen/textsize_16"

@@ -19,8 +19,7 @@
     <TextView 
         android:id="@+id/main_popup_empty_tv"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/spacing_30"
+        android:layout_height="@dimen/spacing_50"
         android:textSize="@dimen/textsize_16"
         android:textColor="@color/appbase_blue"
 	    android:gravity="center_vertical|left"

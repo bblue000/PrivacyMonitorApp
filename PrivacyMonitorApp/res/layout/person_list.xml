@@ -87,7 +87,6 @@
         
     </RelativeLayout>
 	    
-
     <ListView
         android:id="@+id/person_list_date_lv"
         android:layout_width="fill_parent"
