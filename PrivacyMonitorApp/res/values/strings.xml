@@ -55,6 +55,7 @@
     <string name="person_operate_update_title">@string/app_name</string>
     <string name="person_operate_update_name_hint">输入备注名</string>
     <string name="person_operate_update_name_empty_tip">输入备注名</string>
+    <string name="person_operate_update_name_same_tip">备注名未发生变化</string>
     <string name="person_operate_update_btn">确认修改</string>
 
     <!-- device bind -->
@@ -67,6 +68,7 @@
     <string name="device_bind_key_hint">填写标识码</string>
     <string name="device_bind_obtain_error">获取失败</string>
     <string name="device_bind_open_location_hint">开启定位</string>
+    <string name="device_bind_location_freq_hint">定位频率</string>
     <string name="device_bind_user_info_title">用户信息</string>
     <string name="device_bind_user_name_hint">用户名：</string>
     <string name="device_bind_user_exchange_hint">用户积分：</string>

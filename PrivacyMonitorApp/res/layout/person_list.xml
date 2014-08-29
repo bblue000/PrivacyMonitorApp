@@ -10,6 +10,7 @@
         <com.ixming.privacy.android.main.view.PADrawerLayout
             android:id="@+id/person_list_selected_layout"
             style="@style/AppStyle.ContainerLayout.WrapContent"
+            android:layout_height="@dimen/spacing_50"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
@@ -20,7 +21,7 @@
             <LinearLayout
                 android:id="@+id/person_list_selected_inner_layout"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/spacing_50"
+                android:layout_height="fill_parent"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
@@ -39,7 +40,7 @@
             <LinearLayout 
 	            android:id="@+id/person_list_top_operate_layout"
 	           	android:layout_width="fill_parent"
-		        android:layout_height="@dimen/spacing_50"
+		        android:layout_height="fill_parent"
 		        android:orientation="horizontal" 
 	        	android:layout_gravity="right"
 	        	>
@@ -86,7 +87,6 @@
         
     </RelativeLayout>
 	    
-
     <ListView
         android:id="@+id/person_list_date_lv"
         android:layout_width="fill_parent"

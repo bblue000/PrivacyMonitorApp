@@ -1,6 +1,7 @@
 package org.ixming.base.view.utils;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
@@ -15,6 +16,18 @@ public class ViewUtils {
 
 	private ViewUtils() { }
 	
+	private static final ThreadLocal<Rect> sRectPool = new ThreadLocal<Rect>() {
+		@Override
+		protected Rect initialValue() {
+			return new Rect();
+		}
+		
+		public Rect get() {
+			Rect rect = super.get();
+			rect.setEmpty();
+			return rect;
+		};
+	};
 	@SuppressWarnings("deprecation")
 	public static RelativeLayout newTransparentRelativeLayout(Context context) {
 		RelativeLayout layout = new RelativeLayout(context);
@@ -72,4 +85,11 @@ public class ViewUtils {
 		return (0x1 << 30) - 1;
 	}
 	
+	public static Rect getViewScreenRect(View view) {
+		Rect rect = sRectPool.get();
+		if (null != view) {
+			view.getGlobalVisibleRect(rect);
+		}
+		return rect;
+	}
 }

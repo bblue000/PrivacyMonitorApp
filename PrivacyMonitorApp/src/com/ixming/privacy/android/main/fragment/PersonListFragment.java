@@ -2,6 +2,7 @@ package com.ixming.privacy.android.main.fragment;
 
 import org.ixming.base.common.LocalBroadcasts;
 import org.ixming.base.common.activity.BaseFragment;
+import org.ixming.base.utils.android.ToastUtils;
 import org.ixming.base.view.utils.ViewUtils;
 import org.ixming.inject4android.annotation.OnClickMethodInject;
 import org.ixming.inject4android.annotation.ViewInject;
@@ -11,7 +12,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -32,7 +32,6 @@ import com.ixming.privacy.android.main.control.PersonListController;
 import com.ixming.privacy.android.main.control.PersonController;
 import com.ixming.privacy.android.main.model.MonitoredPerson;
 import com.ixming.privacy.android.main.view.PADrawerLayout;
-import com.ixming.privacy.monitor.android.PAApplication;
 import com.ixming.privacy.monitor.android.R;
 
 public class PersonListFragment extends BaseFragment
@@ -79,8 +78,8 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
 			
-			if (MonitoringPerson.ACTION_DATA_CHANGED.equals(action)) {
-				resetSelCurrentMonitoringPerson();
+			if (MonitoringPerson.ACTION_SELECT_PERSON_CHANGED.equals(action)) {
+				resetSelCurrentMonitoringPerson(true);
 			}
 		}
 	};
@@ -101,18 +100,19 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 		mPersonListController = PersonListController.getInstance();
 		
 		LocalBroadcasts.registerLocalReceiver(mReceiver,
-				MonitoringPerson.ACTION_DATA_CHANGED,
-				MonitoringPerson.ACTION_DATA_INVALIDATE);
+				MonitoringPerson.ACTION_DATA_LIST_CHANGED,
+				MonitoringPerson.ACTION_DATA_LIST_INVALIDATE,
+				MonitoringPerson.ACTION_SELECT_PERSON_CHANGED);
 		
 		mSelPersonDropDownPop = new DropDownPop(context);
 		
 		mLocationDateAdapter = new LocationDateAdapter(context);
 		mPersonDate_LV.setAdapter(mLocationDateAdapter);
 		
-		resetSelCurrentMonitoringPerson();
+		resetSelCurrentMonitoringPerson(false);
 		
 		// request my monitoring person
-		PersonListController.getInstance().requestMonitoringPerson();
+		mPersonListController.requestMonitoringPerson();
 	}
 
 	@Override
@@ -120,11 +120,6 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 		mPersonDate_LV.setOnItemClickListener(this);
 	}
 
-	@Override
-	public Handler provideActivityHandler() {
-		return PAApplication.getHandler();
-	}
-	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
@@ -139,8 +134,8 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 			if (null == mMonitoredPersonAdapter) {
 				mMonitoredPersonAdapter = new MonitoredPersonAdapter(context);
 			}
-			mMonitoredPersonAdapter.setData(PersonListController.getInstance().getMonitoringPersonList());
-			mSelPersonDropDownPop.showAsDropDown(mPersonSel_Layout, mMonitoredPersonAdapter,
+			mMonitoredPersonAdapter.setData(mPersonListController.getMonitoringPersonList());
+			mSelPersonDropDownPop.showAsDropDown(mTop_Layout, mPersonSel_Layout, mMonitoredPersonAdapter,
 					getString(R.string.person_list_empty_tip), this);
 		}
 	}
@@ -157,7 +152,7 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 		if (mPersonSel_Layout.isDrawerVisible(Gravity.RIGHT)) {
 			hideDrawer();
 		} else {
-			mPersonSel_Layout.openDrawer(Gravity.RIGHT);
+			showDrawer();
 		}
 		
 	}
@@ -165,6 +160,12 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 	private void hideDrawer() {
 		if (mPersonSel_Layout.isDrawerVisible(Gravity.RIGHT)) {
 			mPersonSel_Layout.closeDrawer(Gravity.RIGHT);
+		}
+	}
+	
+	private void showDrawer() {
+		if (!mPersonSel_Layout.isDrawerVisible(Gravity.RIGHT)) {
+			mPersonSel_Layout.openDrawer(Gravity.RIGHT);
 		}
 	}
 	
@@ -199,7 +200,8 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 					}
 					return true;
 				}
-			});
+			})
+			.rightBtn(R.string.cancel, null);
 		
 		customDialogBuilder.build().show();
 	}
@@ -231,6 +233,10 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 				public boolean triggerDismiss() {
 					if (TextUtils.isEmpty(name_ET.getText())) {
 						name_ET.setError(getString(R.string.person_operate_update_name_empty_tip));
+						return false;
+					}
+					if (name_ET.getText().toString().equals(person.getName())) {
+						name_ET.setError(getString(R.string.person_operate_update_name_same_tip));
 						return false;
 					}
 					return true;
@@ -267,7 +273,7 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 	}
 	
 	private void updateCurrentMonitoringUI() {
-		if (null == PersonListController.getInstance().getCurrentPersonController()) {
+		if (!mPersonListController.hasCurrentPerson()) {
 			ViewUtils.setViewGone(mPersonDate_LV);
 			ViewUtils.setViewGone(mPersonDateEmpty_TV);
 		} else {
@@ -292,7 +298,7 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 		if (parent == mPersonDate_LV) {
 			gotoTarget(mLocationDateAdapter.getItem(position));
 		} else {
-			userSelCurrentMonitoringPerson(mMonitoredPersonAdapter.getItem(position));
+			mPersonListController.setCurrentMonitoringPerson(mMonitoredPersonAdapter.getItem(position));
 		}
 	}
 	
@@ -300,16 +306,6 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 		PersonController personController = mPersonListController.getCurrentPersonController();
 		personController.setCurTime(time);
 		startActivity(PersonLocationV3Activity.class);
-	}
-	
-	private void userSelCurrentMonitoringPerson(MonitoredPerson person) {
-		mPersonListController.setCurrentMonitoringPerson(person);
-		
-		setPersonSelName(person);
-		
-		updateCurrentMonitoringUI();
-		
-		loadLocationData();
 	}
 	
 	private void setPersonSelName(MonitoredPerson person) {
@@ -338,7 +334,7 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 		}
 	}
 	
-	private void resetSelCurrentMonitoringPerson() {
+	private void resetSelCurrentMonitoringPerson(boolean loadData) {
 		// 更新数据
 		MonitoredPerson person = null;
 		if (mPersonListController.hasCurrentPerson()) {
@@ -353,6 +349,10 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 		
 		mLocationDateAdapter.notifyDataSetChanged();
 		updateCurrentMonitoringUI();
+		
+		if (loadData) {
+			loadLocationData();
+		}
 	}
 	
 	@Override
@@ -368,9 +368,11 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 
 	@Override
 	public void onLocationLoadFailed() {
-		mLocationDateAdapter.setData(null);
-		mLocationDateAdapter.notifyDataSetChanged();
+		// TODO 未必需要删除原先的数据，保留原先状态即可
+//		mLocationDateAdapter.setData(null);
+//		mLocationDateAdapter.notifyDataSetChanged();
 		updateCurrentMonitoringUI();
+		ToastUtils.showToast(R.string.person_location_data_obtain_error);
 	}
 
 }

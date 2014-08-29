@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.ixming.base.common.LocalBroadcasts;
 import org.ixming.base.common.controller.BaseController;
+import org.ixming.base.utils.ObjectUtils;
 
 import com.androidquery.AQuery;
 import com.ixming.privacy.android.common.LocalBroadcastIntents.MonitoringPerson;
@@ -106,38 +107,54 @@ public class PersonListController extends BaseController {
 	/*package*/ void onAddMonitoringPerson(MonitoredPerson person) {
 		mMonitoringPersonList.add(person);
 		// data changed
-		broadcastChanged();
+		broadcastDataListChanged();
+		
+		// 自动转到新增的用户
+		setCurrentMonitoringPerson(person, false);
 	}
+	
 	/*package*/ void onDeleteMonitoringPerson(MonitoredPerson person) {
-		if (hasCurrentPerson()) {
-			if (getCurrentPersonController().getMonitoringPerson() == person) {
-				setCurrentMonitoringPerson(null);
-			}
-		}
+		// 删除当前的person
 		mMonitoringPersonList.remove(person);
+		mMonitoringPersonControllerMap.remove(person);
 		// data changed
-		broadcastChanged();
+		broadcastDataListChanged();
+		
+		// 因为当前的对象被删除，重新选择一项
+		chooseADefaultMonitoringPerson();
 	}
 	
-	/*package*/ void broadcastChanged() {
-		LocalBroadcasts.sendLocalBroadcast(MonitoringPerson.ACTION_DATA_CHANGED);
+	/*package*/ void broadcastDataListChanged() {
+		LocalBroadcasts.sendLocalBroadcast(MonitoringPerson.ACTION_DATA_LIST_CHANGED);
 	}
 	
-	/*package*/ void broadcastInvalidate() {
-		LocalBroadcasts.sendLocalBroadcast(MonitoringPerson.ACTION_DATA_INVALIDATE);
+	/*package*/ void broadcastDataListInvalidate() {
+		LocalBroadcasts.sendLocalBroadcast(MonitoringPerson.ACTION_DATA_LIST_INVALIDATE);
+	}
+	
+	/*package*/ void broadcastSelectPersonChanged() {
+		LocalBroadcasts.sendLocalBroadcast(MonitoringPerson.ACTION_SELECT_PERSON_CHANGED);
 	}
 	
 	/*package*/ void setMonitoringPersonList(List<MonitoredPerson> personList) {
 		mMonitoringPersonList.clear();
+		mMonitoringPersonControllerMap.clear();
 		if (null != personList) {
 			mMonitoringPersonList.addAll(personList);
 		}
-		// clear current person
-		if (mMonitoringPersonList.isEmpty() && null != getCurrentPersonController()) {
-			setCurrentMonitoringPerson(null);
-		}
 		// data changed
-		broadcastChanged();
+		broadcastDataListChanged();
+		
+		chooseADefaultMonitoringPerson();
+	}
+	
+	private void chooseADefaultMonitoringPerson() {
+		if (mMonitoringPersonList.isEmpty()) {
+			setCurrentMonitoringPerson(null, false);
+		} else {
+			// choose first
+			setCurrentMonitoringPerson(mMonitoringPersonList.get(0), false);
+		}
 	}
 	
 	public List<MonitoredPerson> getMonitoringPersonList() {
@@ -145,9 +162,20 @@ public class PersonListController extends BaseController {
 	}
 	
 	public void setCurrentMonitoringPerson(MonitoredPerson person) {
+		setCurrentMonitoringPerson(person, true);
+	}
+	
+	private void setCurrentMonitoringPerson(MonitoredPerson person, boolean byUser) {
+		MonitoredPerson old = null;
+		MonitoredPerson cur = null;
+		if (null != mCurrentMonitoringPersonController) {
+			old = mCurrentMonitoringPersonController.getMonitoringPerson();
+		}
+		
 		if (null == person || !mMonitoringPersonList.contains(person)) {
 			// clear current data
 			mCurrentMonitoringPersonController = null;
+			cur = null;
 		} else {
 			PersonController controller = mMonitoringPersonControllerMap.get(person);
 			if (null == controller) {
@@ -156,6 +184,11 @@ public class PersonListController extends BaseController {
 			}
 			
 			mCurrentMonitoringPersonController = controller;
+			cur = person;
+		}
+		
+		if (byUser || !ObjectUtils.equals(old, cur)) {
+			broadcastSelectPersonChanged();
 		}
 	}
 	

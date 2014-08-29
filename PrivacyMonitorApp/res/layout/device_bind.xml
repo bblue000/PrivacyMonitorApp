@@ -44,39 +44,47 @@
 
                 <TextView
                     android:id="@+id/device_bind_open_loc_tv"
+                    style="@style/AppStyle.Bind.HintTextAppearance"
                     android:layout_width="fill_parent"
-                    android:layout_height="@dimen/spacing_50"
+                    android:layout_height="@dimen/spacing_40"
                     android:layout_alignParentLeft="true"
                     android:layout_toLeftOf="@+id/device_bind_open_loc_cb"
-                    android:gravity="left|center_vertical"
-                    android:text="@string/device_bind_open_location_hint"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsize_18" />
+                    android:text="@string/device_bind_open_location_hint" />
 
                 <CheckBox
                     android:id="@+id/device_bind_open_loc_cb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_alignTop="@id/device_bind_open_loc_tv"
+                    android:layout_alignBottom="@id/device_bind_open_loc_tv"
                     android:layout_centerVertical="true"
                     android:background="@null"
                     android:button="@drawable/switcher_selector" />
             </RelativeLayout>
 
-            
+            <!-- 设置定位频率 -->
+            <TextView
+                android:id="@+id/device_bind_loc_freq_tv"
+                style="@style/AppStyle.Bind.HintTextAppearance"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/spacing_40"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/device_bind_open_loc_layout"
+                android:layout_marginTop="@dimen/spacing_20" 
+                android:text="@string/device_bind_location_freq_hint"/>
+
             <!-- 隐藏APP -->
             <TextView
                 android:id="@+id/device_bind_hide_hint_tv"
+                style="@style/AppStyle.Bind.HintTextAppearance"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/spacing_40"
-                android:layout_below="@id/device_bind_open_loc_layout"
+                android:layout_below="@id/device_bind_loc_freq_tv"
            	 	android:layout_marginTop="@dimen/spacing_20"
                 android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@+id/device_bind_hide_btn"
-                android:gravity="left|center_vertical"
-                android:text="@string/device_bind_hide_app_hint"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textsize_18" />
+                android:text="@string/device_bind_hide_app_hint"/>
             
             <Button
                 android:id="@+id/device_bind_hide_btn"
@@ -105,12 +113,11 @@
 
                 <TextView
                     android:id="@+id/device_bind_device_expire_hint_tv"
+                    style="@style/AppStyle.Bind.HintTextAppearance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left|center_vertical"
-                    android:text="@string/device_bind_user_expire_hint"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsize_18" />
+                    android:text="@string/device_bind_user_expire_hint"/>
 
                 <TextView
                     android:id="@+id/device_bind_device_expire_tv"
@@ -132,7 +139,17 @@
                 android:gravity="center"
                 android:text="@string/device_bind_user_free_exchange"
                 android:textSize="@dimen/textsize_14" />
-                
+              
+            <TextView
+                android:id="@+id/device_bind_user_expire_tip_tv"
+                style="@style/AppStyle.MainIndex.Warning"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/device_bind_user_expire_layout"
+                android:layout_marginTop="@dimen/spacing_15"
+                android:gravity="left|center_vertical"
+                android:text="@string/device_bind_user_expire_tip"
+                android:textSize="@dimen/textsize_18" />
             <!-- 用户信息 -->
             <!-- style="@style/AppStyle.ContainerLayout.WrapContent" -->
 

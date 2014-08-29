@@ -47,14 +47,18 @@ public interface LocalBroadcastIntents {
 	public interface MonitoringPerson {
 		
 		/**
-		 * 本地数据变化，界面相应地更新
+		 * 本地查看对象列表变化，界面相应地更新
 		 */
-		String ACTION_DATA_CHANGED = "com.ixming.privacy.android.MonitoringPerson.ACTION_DATA_CHANGED";
+		String ACTION_DATA_LIST_CHANGED = "com.ixming.privacy.android.MonitoringPerson.ACTION_DATA_LIST_CHANGED";
 		
 		/**
-		 * 需要从服务器重新请求数据
+		 * 本地查看对象列表发生变化，需要从服务器重新请求数据
 		 */
-		String ACTION_DATA_INVALIDATE = "com.ixming.privacy.android.MonitoringPerson.ACTION_DATA_INVALIDATE";
+		String ACTION_DATA_LIST_INVALIDATE = "com.ixming.privacy.android.MonitoringPerson.ACTION_DATA_LIST_INVALIDATE";
 		
+		/**
+		 * 本地选择对象发生变化
+		 */
+		String ACTION_SELECT_PERSON_CHANGED = "com.ixming.privacy.android.MonitoringPerson.ACTION_SELECT_PERSON_CHANGED";
 	}
 }

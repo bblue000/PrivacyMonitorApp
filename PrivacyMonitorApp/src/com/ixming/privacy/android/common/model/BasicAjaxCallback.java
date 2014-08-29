@@ -8,6 +8,8 @@ public class BasicAjaxCallback<T> extends AjaxCallback<T> {
 
 	public BasicAjaxCallback() {
 		encoding(IOConstants.DEF_CHARSET);
+		timeout(AQueryConfig.TIME_OUT);
+		retry(AQueryConfig.RETRY);
 	}
 	
 }

@@ -11,7 +11,6 @@ import java.util.Map;
 import org.ixming.base.common.controller.BaseController;
 import org.ixming.base.utils.android.AndroidUtils;
 import org.ixming.base.utils.android.LogUtils;
-import org.ixming.base.utils.android.ToastUtils;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
@@ -22,7 +21,6 @@ import com.ixming.privacy.android.main.model.RespLocation;
 import com.ixming.privacy.android.main.model.entity.RespLocationResult;
 import com.ixming.privacy.monitor.android.Config;
 import com.ixming.privacy.monitor.android.PAApplication;
-import com.ixming.privacy.monitor.android.R;
 
 public class PersonController extends BaseController {
 	
@@ -153,7 +151,6 @@ public class PersonController extends BaseController {
 		protected boolean onError(AjaxStatus status) {
 			if (null != mLoactionDataLoadListener) {
 				mLoactionDataLoadListener.onLocationLoadFailed();
-				ToastUtils.showToast(R.string.person_location_data_obtain_error);
 			}
 			return true;
 		}
