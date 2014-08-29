@@ -15,8 +15,8 @@ public class Config {
 	/**
 	 * 本机测试地址
 	 */
-	// private static final String URL_PREFIX =
-	// "http://10.101.145.236:8080/findlocation";
+//	 private static final String URL_PREFIX =
+//	 "http://10.101.145.236:8080/findlocation";
 	// private static final String URL_PREFIX =
 	// "http://10.101.100.85:8080/findlocation";// "http://10.101.2.60";
 

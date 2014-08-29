@@ -1,8 +1,10 @@
 package com.ixming.privacy.android.main.fragment;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 import org.ixming.base.common.LocalBroadcasts;
 import org.ixming.base.common.activity.BaseFragment;
-import org.ixming.base.view.utils.ViewUtils;
 import org.ixming.inject4android.annotation.OnClickMethodInject;
 import org.ixming.inject4android.annotation.ViewInject;
 
@@ -14,6 +16,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -51,12 +54,12 @@ public class BindFragment extends BaseFragment {
 	private Button logout_BT;
 
 	// 用户信息布局
-//	@ViewInject(id = R.id.device_bind_user_info_layout)
-//	private View mUserInfo_Layout;
-//	@ViewInject(id = R.id.device_bind_user_name_tv)
-//	private TextView mUsername_TV;
-//	@ViewInject(id = R.id.device_bind_user_expire_tv)
-//	private TextView mExpire_TV;
+	// @ViewInject(id = R.id.device_bind_user_info_layout)
+	// private View mUserInfo_Layout;
+	// @ViewInject(id = R.id.device_bind_user_name_tv)
+	// private TextView mUsername_TV;
+	// @ViewInject(id = R.id.device_bind_user_expire_tv)
+	// private TextView mExpire_TV;
 	@ViewInject(id = R.id.device_bind_device_expire_tv)
 	private TextView mDeviceExpire_TV;
 
@@ -127,8 +130,12 @@ public class BindFragment extends BaseFragment {
 			public void handleMessage(Message msg) {
 				switch (msg.what) {
 				case BindManager.DEVICE_DATA_MSG:
-					String date = (String) msg.obj;
-					mDeviceExpire_TV.setText(date);
+					long theDate = (Long) msg.obj;
+					Date date = new Date(theDate);
+					SimpleDateFormat format = new SimpleDateFormat(
+							"yyyy-MM-dd HH:mm:ss");
+					String reTime = format.format(date);
+					mDeviceExpire_TV.setText(reTime);
 					break;
 				}
 			}
@@ -143,7 +150,7 @@ public class BindFragment extends BaseFragment {
 	@OnClickMethodInject(id = R.id.device_bind_hide_btn)
 	void hideApp() {
 		DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				if (which == CustomDialogBuilder.BUTTON_LEFT) {
@@ -153,13 +160,11 @@ public class BindFragment extends BaseFragment {
 				}
 			}
 		};
-		new CustomDialogBuilder(context)
-			.title(R.string.dialog_prompt)
-			.text(R.string.device_bind_hide_app_tip)
-			.leftBtn(R.string.confirm, listener)
-			.rightBtn(R.string.cancel, listener)
-			.build().show();
-		
+		new CustomDialogBuilder(context).title(R.string.dialog_prompt)
+				.text(R.string.device_bind_hide_app_tip)
+				.leftBtn(R.string.confirm, listener)
+				.rightBtn(R.string.cancel, listener).build().show();
+
 	}
 
 	@OnClickMethodInject(id = R.id.device_bind_login_btn)
@@ -172,7 +177,7 @@ public class BindFragment extends BaseFragment {
 		LoginManager.getInstance().logout();
 		updateUI();
 	}
-	
+
 	@OnClickMethodInject(id = R.id.device_bind_user_free_exchange_btn)
 	// 获取免费时间
 	void gotoFreeExchange() {

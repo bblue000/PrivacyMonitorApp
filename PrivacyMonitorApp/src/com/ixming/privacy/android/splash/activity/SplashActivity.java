@@ -35,7 +35,7 @@ public class SplashActivity extends MyBaseActivity {
 			}
 		}
 	};
-	
+
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -47,16 +47,16 @@ public class SplashActivity extends MyBaseActivity {
 				ToastUtils.showToast("获取device_token失败");
 				finish();
 			} else {
-				
+
 			}
 		}
 	};
-	
+
 	@Override
 	public boolean useInjectBeforeInitView() {
 		return false;
 	};
-	
+
 	@Override
 	public int provideLayoutResId() {
 		return R.layout.activity_splash;
@@ -64,7 +64,7 @@ public class SplashActivity extends MyBaseActivity {
 
 	@Override
 	public void initView(View view) {
-		
+
 	}
 
 	@Override
@@ -76,8 +76,9 @@ public class SplashActivity extends MyBaseActivity {
 		LocalBroadcasts.registerLocalReceiver(mReceiver,
 				DeviceToken.ACTION_DEVICE_TOKEN_LOADED,
 				DeviceToken.ACTION_DEVICE_TOKEN_FAILED);
-		PAApplication.getHandler().postDelayed(mShortestJumpRunnable, mShortestDelay);
-		
+		PAApplication.getHandler().postDelayed(mShortestJumpRunnable,
+				mShortestDelay);
+
 		// 启动页面调用
 		UMengLog.onSplash(this);
 	}
@@ -93,12 +94,12 @@ public class SplashActivity extends MyBaseActivity {
 		PAApplication.getHandler().removeCallbacks(mShortestJumpRunnable);
 		LocalBroadcasts.unregisterLocalReceiver(mReceiver);
 	}
-	
+
 	@Override
 	public void onClick(View v) {
-		
+
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {

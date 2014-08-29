@@ -73,8 +73,7 @@
     <string name="device_bind_user_expire_hint">到期时间：</string>
     <string name="device_bind_user_expire_tip">注：用户到期将无法查看他人位置信息，不影响被查找。</string>
     <string name="device_bind_user_charge">充值</string>
-    <string name="device_bind_user_free_exchange">获取免费时间</string>
-    
+    <string name="device_bind_user_free_exchange">免费获取时间</string>
     <string name="main_view_person_hint">选择查看对象</string>
     <string name="main_view_person_progress_hint">正在加载...</string>
     <string name="main_view_person_current">当前对象：%1$s</string>

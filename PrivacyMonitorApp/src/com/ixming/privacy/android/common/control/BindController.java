@@ -86,7 +86,6 @@ public class BindController extends BaseController {
 				mAjaxCallback);
 	}
 
-
 	private void obtainLocalKey() {
 		mDeviceToken = AppSharedUtils.getDeviceToken();
 	}
