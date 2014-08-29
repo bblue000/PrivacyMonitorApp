@@ -2,7 +2,6 @@ package com.ixming.privacy.android.main.fragment;
 
 import org.ixming.base.common.LocalBroadcasts;
 import org.ixming.base.common.activity.BaseFragment;
-import org.ixming.base.view.utils.ViewUtils;
 import org.ixming.inject4android.annotation.OnClickMethodInject;
 import org.ixming.inject4android.annotation.ViewInject;
 

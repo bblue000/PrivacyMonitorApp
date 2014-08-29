@@ -26,7 +26,7 @@ class CallbackUpdateMonitoringPerson extends SimpleAjaxCallback<MonitoredPersonS
 	@Override
 	protected boolean onSuccess(String url, Object object, AjaxStatus status) {
 		mPerson.setName(mNewName);
-		PersonListController.getInstance().broadcastChanged();
+		PersonListController.getInstance().broadcastDataListChanged();
 		return true;
 	}
 	

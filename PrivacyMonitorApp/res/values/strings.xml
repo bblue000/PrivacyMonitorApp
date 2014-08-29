@@ -55,6 +55,7 @@
     <string name="person_operate_update_title">@string/app_name</string>
     <string name="person_operate_update_name_hint">输入备注名</string>
     <string name="person_operate_update_name_empty_tip">输入备注名</string>
+    <string name="person_operate_update_name_same_tip">备注名未发生变化</string>
     <string name="person_operate_update_btn">确认修改</string>
 
     <!-- device bind -->

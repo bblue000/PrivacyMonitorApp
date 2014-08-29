@@ -9,6 +9,7 @@
         style="@style/AppStyle.Common.InputEdit"
         android:background="@drawable/text_shape_deep_blue"
         android:hint="@string/person_operate_add_device_token_hint"
+        android:digits="@string/login_input_digits"
         />
 
     <EditText 

@@ -2,6 +2,8 @@ package com.ixming.privacy.android.main.model;
 
 import java.io.Serializable;
 
+import org.ixming.base.utils.ObjectUtils;
+
 /**
  * 被监测的对象
  * 
@@ -93,6 +95,25 @@ public class MonitoredPerson implements Serializable {
 		return "MonitoredPerson [id=" + id + ", username=" + username
 				+ ", device_id=" + device_id + ", name=" + name
 				+ ", device_token=" + device_token + "]";
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof MonitoredPerson)) {
+			return false;
+		}
+		
+		if (o == this) {
+			return true;
+		}
+		
+		MonitoredPerson another = (MonitoredPerson) o;
+		return ObjectUtils.equals(name, another.name)
+				&& id == another.id
+				&& ObjectUtils.equals(username, another.username)
+				&& ObjectUtils.equals(device_token, another.device_token)
+				&& ObjectUtils.equals(device_id, another.device_id)
+				;
 	}
 	
 }
