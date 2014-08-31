@@ -11,12 +11,12 @@ public class Config {
 	/**
 	 * 服务器地址
 	 */
-	private static final String URL_PREFIX = "http://121.40.105.126:8080/findlocation";
+	// private static final String URL_PREFIX =
+	// "http://121.40.105.126:8080/findlocation";
 	/**
 	 * 本机测试地址
 	 */
-//	 private static final String URL_PREFIX =
-//	 "http://10.101.145.236:8080/findlocation";
+	private static final String URL_PREFIX = "http://192.168.2.100:8080/findlocation";
 	// private static final String URL_PREFIX =
 	// "http://10.101.100.85:8080/findlocation";// "http://10.101.2.60";
 
@@ -52,6 +52,10 @@ public class Config {
 	 * 获取设备剩余可使用时间
 	 */
 	public static final String URL_GET_PAYINFO = URL_PREFIX + "/payinfo/%s/%s";
+	/**
+	 * 增加时间
+	 */
+	public static final String URL_PUT_PAYINFO = URL_PREFIX + "/payinfo/%s/%s";
 	/**
 	 * 获取验证码
 	 */

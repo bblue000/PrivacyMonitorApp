@@ -1,9 +1,20 @@
 package com.ixming.privacy.android.common.dianjin;
 
-import org.ixming.base.utils.android.LogUtils;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.apache.http.HttpStatus;
+import org.ixming.base.utils.android.LogUtils;
+import org.ixming.base.utils.android.Utils;
+
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.bodong.dianjinweb.DianJinPlatform;
 import com.bodong.dianjinweb.listener.AppActiveListener;
+import com.ixming.privacy.android.common.model.ResponseData.PayInfoResult;
+import com.ixming.privacy.monitor.android.Config;
+import com.ixming.privacy.monitor.android.PAApplication;
 
 public class DianjinUtils {
 	public static void initCallBack() {
@@ -11,15 +22,24 @@ public class DianjinUtils {
 			@Override
 			public void onSuccess(long arg0) {
 				LogUtils.i(getClass(), "execute dianjin callBack onSuccess!!!!");
-				LogUtils.i(getClass(), "execute dianjin callBack reward):"
-						+ arg0);
-				LogUtils.i(getClass(), "execute dianjin callBack reward):"
-						+ arg0);
-				LogUtils.i(getClass(), "execute dianjin callBack reward):"
-						+ arg0);
-				LogUtils.i(getClass(), "execute dianjin callBack reward):"
-						+ arg0);
-
+				AQuery aq = new AQuery(PAApplication.getAppContext());
+				AjaxCallback<PayInfoResult> callback = new AjaxCallback<PayInfoResult>() {
+					@Override
+					public void callback(String url, PayInfoResult object,
+							AjaxStatus status) {
+						if (status.getCode() == HttpStatus.SC_OK) {
+							LogUtils.d(DianjinUtils.class, "request result msg"
+									+ object.getMsg());
+						}
+					}
+				};
+				callback.method(AQuery.METHOD_PUT);
+				long time = arg0 * 60 * 1000;
+				String device_id = Utils.getDeviceId(PAApplication
+						.getAppContext());
+				Map<String, String> params = new HashMap<String, String>();
+				aq.ajax(String.format(Config.URL_PUT_PAYINFO, device_id, time),
+						params, PayInfoResult.class, callback);
 			}
 
 			@Override

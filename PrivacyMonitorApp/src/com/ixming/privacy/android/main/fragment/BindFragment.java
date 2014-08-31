@@ -29,6 +29,7 @@ import com.ixming.privacy.android.common.CustomDialogBuilder;
 import com.ixming.privacy.android.common.LocalBroadcastIntents;
 import com.ixming.privacy.android.common.control.BindController;
 import com.ixming.privacy.android.common.control.LocationController;
+import com.ixming.privacy.android.common.dianjin.DianjinUtils;
 import com.ixming.privacy.android.login.activity.LoginActivity;
 import com.ixming.privacy.android.login.manager.LoginManager;
 import com.ixming.privacy.android.main.manager.BindManager;
@@ -89,6 +90,7 @@ public class BindFragment extends BaseFragment {
 		DianJinPlatform.initialize(getActivity(), 56265,
 				"99ee203fea26f7099ec69ff692a947ec");
 		DianJinPlatform.hideFloatView(getActivity());
+		DianjinUtils.initCallBack();
 		updateUI();
 	}
 
