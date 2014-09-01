@@ -11,9 +11,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -118,6 +120,37 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 	@Override
 	public void initListener() {
 		mPersonDate_LV.setOnItemClickListener(this);
+		
+		// 背景布局事件
+		final View.OnTouchListener rootViewTouchListener = new View.OnTouchListener() {
+			private Rect mRect = new Rect();
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if (isDrawerOpen()) {
+					if (mRect.isEmpty()) {
+						mPersonSel_Layout.getGlobalVisibleRect(mRect);
+					}
+					if (!mRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+						hideDrawer();
+						return true;
+					}
+				}
+				return false;
+			}
+		};
+		getRootView().setOnTouchListener(rootViewTouchListener);
+		
+		mPersonDate_LV.setOnTouchListener(new View.OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if (isDrawerOpen()) {
+					// 如果抽屉布局已经打开，则转发给背景布局
+					return rootViewTouchListener.onTouch(v, event);
+				}
+				return false;
+			}
+		});
 	}
 
 	@Override
@@ -158,15 +191,19 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 	}
 	
 	private void hideDrawer() {
-		if (mPersonSel_Layout.isDrawerVisible(Gravity.RIGHT)) {
+		if (isDrawerOpen()) {
 			mPersonSel_Layout.closeDrawer(Gravity.RIGHT);
 		}
 	}
 	
 	private void showDrawer() {
-		if (!mPersonSel_Layout.isDrawerVisible(Gravity.RIGHT)) {
+		if (!isDrawerOpen()) {
 			mPersonSel_Layout.openDrawer(Gravity.RIGHT);
 		}
+	}
+	
+	private boolean isDrawerOpen() {
+		return mPersonSel_Layout.isDrawerVisible(Gravity.RIGHT);
 	}
 	
 	@OnClickMethodInject(id = R.id.person_list_top_operate_add_btn, parentId = R.id.person_list_top_operate_layout)
