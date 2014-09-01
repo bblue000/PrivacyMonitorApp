@@ -46,7 +46,7 @@
         android:layout_alignParentLeft="true"
         >
         
-	    <com.ixming.privacy.android.main.view.CustomVSeekBar
+	    <com.zhaoni.findyou.android.main.view.CustomVSeekBar
 	        android:id="@+id/person_location_datetime_sb"
 	        android:layout_width="10dp"
 	        android:layout_height="fill_parent"

@@ -7,7 +7,7 @@
         style="@style/AppStyle.ContainerLayout.WrapContent"
         android:padding="@dimen/spacing_10" >
 
-        <com.ixming.privacy.android.main.view.PADrawerLayout
+        <com.zhaoni.findyou.android.main.view.PADrawerLayout
             android:id="@+id/person_list_selected_layout"
             style="@style/AppStyle.ContainerLayout.WrapContent"
             android:layout_height="@dimen/spacing_50"
@@ -70,7 +70,7 @@
 		            android:text="@string/person_list_operate_delete" />
 	            
 	        </LinearLayout>
-        </com.ixming.privacy.android.main.view.PADrawerLayout>
+        </com.zhaoni.findyou.android.main.view.PADrawerLayout>
 
         <ImageView
             android:id="@+id/person_list_operate_btn"

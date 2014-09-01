@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ixming.privacy.monitor.android"
+    package="com.zhaoni.findyou.android"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="14" />
-
-    <!-- permissions for baidu location -->
+    
+	<!-- permissions for baidu location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -24,15 +24,15 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-
+    
     <application
-        android:name="com.ixming.privacy.monitor.android.PAApplication"
+        android:name=".PAApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme.Activity" >
         <activity
-            android:name="com.ixming.privacy.android.splash.activity.SplashActivity"
+            android:name=".splash.activity.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Activity.Launcher" >
             <intent-filter>
@@ -42,35 +42,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ixming.privacy.android.login.activity.ForgotPasswordActivity"
+            android:name=".login.activity.ForgotPasswordActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.ixming.privacy.android.login.activity.RegisterActivity"
+            android:name=".login.activity.RegisterActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.ixming.privacy.android.login.activity.LoginActivity"
+            android:name=".login.activity.LoginActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.ixming.privacy.android.main.activity.NewMainActivity"
+            android:name=".main.activity.NewMainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.ixming.privacy.android.main.activity.PersonLocationV3Activity"
+            android:name=".main.activity.PersonLocationV3Activity"
             android:label="@string/app_name"
             android:launchMode="singleTask" />
 
         <receiver
-            android:name="com.ixming.privacy.android.monitoring.service.BootReceiver"
+            android:name=".monitoring.service.BootReceiver"
             android:process=":IXMingprivacy" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.ixming.privacy.android.monitoring.service.TriggerActionsReceiver"
+            android:name=".monitoring.service.TriggerActionsReceiver"
             android:process=":IXMingprivacy" >
 
             <!-- 开关机 -->
@@ -98,12 +98,12 @@
         </receiver>
 
         <provider
-            android:name="com.ixming.privacy.android.monitoring.db.LocalDBProvider"
-            android:authorities="com.ixming.privacy.android.main.db.provider"
+            android:name="com.zhaoni.findyou.android.monitoring.db.LocalDBProvider"
+            android:authorities="com.zhaoni.findyou.android.monitoring.db.provider"
             android:exported="false" />
 
         <service
-            android:name="com.ixming.privacy.android.monitoring.service.MainService"
+            android:name=".monitoring.service.MainService"
             android:enabled="true"
             android:process=":IXMingprivacy" />
         <!-- dianjin -->
@@ -136,4 +136,5 @@
             android:value="100" />
     </application>
 
+    
 </manifest>

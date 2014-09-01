@@ -1,6 +1,5 @@
 <resources>
 
-    <color name="deep_sky_blue">#00bfff</color>
     
     <color name="appbase_blue">#0099DD</color>
     <color name="appbase_blue_pressed">#87cefa</color>
@@ -11,6 +10,7 @@
     <color name="color_88888888">#88888888</color>
     <color name="color_33333333">#33333333</color>
     
+    <color name="deep_sky_blue">@color/appbase_blue</color>
     <color name="main_view_person_item_bg">#CCCCCCCC</color>
 
 </resources>
