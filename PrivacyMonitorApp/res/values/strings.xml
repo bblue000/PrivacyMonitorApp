@@ -29,11 +29,13 @@
     <string name="send_checkcode_prompt">重新发送（%s）</string>
     <!-- tabs -->
     <string name="tab_main_index">首页</string>
-    <string name="tab_device_bind">设置</string>
+    <string name="tab_settings">设置</string>
+    <string name="tab_about">关于</string>
 
     <string-array name="tabs">
         <item>@string/tab_main_index</item>
-        <item>@string/tab_device_bind</item>
+        <item>@string/tab_settings</item>
+        <item>@string/tab_about</item>
     </string-array>
 
     <!-- index -->
@@ -76,6 +78,15 @@
     <string name="device_bind_user_expire_tip">注：用户到期将无法查看他人位置信息，不影响被查找。</string>
     <string name="device_bind_user_charge">充值</string>
     <string name="device_bind_user_free_exchange">免费获取时间</string>
+    
+    
+    <!-- about -->
+    <string name="about_feedback">意见反馈</string>
+    <string name="about_upgrade">下载更新</string>
+    <string name="about_us">关于我们</string>
+    
+    
+    
     <string name="main_view_person_hint">选择查看对象</string>
     <string name="main_view_person_progress_hint">正在加载...</string>
     <string name="main_view_person_current">当前对象：%1$s</string>

@@ -88,7 +88,7 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 	
 	@Override
 	public int provideLayoutResId() {
-		return R.layout.person_list;
+		return R.layout.fragment_person_list;
 	}
 
 	@Override

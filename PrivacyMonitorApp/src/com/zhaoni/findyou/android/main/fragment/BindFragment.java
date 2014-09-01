@@ -87,7 +87,7 @@ public class BindFragment extends BaseFragment {
 
 	@Override
 	public int provideLayoutResId() {
-		return R.layout.device_bind;
+		return R.layout.fragment_settings;
 	}
 
 	@Override

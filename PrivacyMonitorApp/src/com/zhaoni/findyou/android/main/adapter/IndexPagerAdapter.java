@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 
 import com.zhaoni.findyou.android.R;
+import com.zhaoni.findyou.android.main.fragment.AboutFragment;
 import com.zhaoni.findyou.android.main.fragment.BindFragment;
 import com.zhaoni.findyou.android.main.fragment.PersonListFragment;
 
@@ -27,6 +28,8 @@ public class IndexPagerAdapter extends FragmentPagerAdapter implements OnPageCha
 			return new PersonListFragment();
 		case 1:
 			return new BindFragment();
+		case 2:
+			return new AboutFragment();
 		}
 		return null;
 	}
