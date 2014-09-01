@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.HttpStatus;
+import org.ixming.base.common.LocalBroadcasts;
 import org.ixming.base.utils.android.LogUtils;
 import org.ixming.base.utils.android.Utils;
+
+import android.content.Intent;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -17,6 +20,9 @@ import com.ixming.privacy.monitor.android.Config;
 import com.ixming.privacy.monitor.android.PAApplication;
 
 public class DianjinUtils {
+	public static final String DIANJIN_NEW_DATE_KEY = "DIANJIN_NEW_DATE_KEY";
+	public static final String DIANJIN_ACTIVED_SUCCESSS_ACTION = "DIANJIN_ACTIVED_SUCCESSS_ACTION";
+
 	public static void initCallBack() {
 		DianJinPlatform.setAppActivedListener(new AppActiveListener() {
 			@Override
@@ -30,9 +36,18 @@ public class DianjinUtils {
 						if (status.getCode() == HttpStatus.SC_OK) {
 							LogUtils.d(DianjinUtils.class, "request result msg"
 									+ object.getMsg());
+							Intent intent = new Intent();
+							intent.setAction(DIANJIN_ACTIVED_SUCCESSS_ACTION);
+							if (object.getValue() != null) {
+								intent.putExtra(DIANJIN_NEW_DATE_KEY, object
+										.getValue().getDate());
+
+							}
+							LocalBroadcasts.sendLocalBroadcast(intent);
 						}
 					}
 				};
+
 				callback.method(AQuery.METHOD_PUT);
 				long time = arg0 * 60 * 1000;
 				String device_id = Utils.getDeviceId(PAApplication

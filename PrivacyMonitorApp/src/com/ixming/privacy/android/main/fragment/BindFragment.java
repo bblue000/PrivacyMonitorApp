@@ -73,7 +73,16 @@ public class BindFragment extends BaseFragment {
 			if (LocalBroadcastIntents.ACTION_LOGIN.equals(action)
 					|| LocalBroadcastIntents.ACTION_LOGOUT.equals(action)) {
 				updateUI();
+			} else if (DianjinUtils.DIANJIN_ACTIVED_SUCCESSS_ACTION
+					.equals(action)) {
+				long date = intent.getLongExtra(
+						DianjinUtils.DIANJIN_NEW_DATE_KEY, 0);
+				Message msg = handler.obtainMessage();
+				msg.what = BindManager.DEVICE_DATA_MSG;
+				msg.obj = date;
+				handler.sendMessage(msg);
 			}
+
 		}
 	};
 
@@ -98,7 +107,9 @@ public class BindFragment extends BaseFragment {
 	public void initData(View view, Bundle savedInstanceState) {
 		LocalBroadcasts.registerLocalReceiver(mReceiver,
 				LocalBroadcastIntents.ACTION_LOGIN,
-				LocalBroadcastIntents.ACTION_LOGOUT);
+				LocalBroadcastIntents.ACTION_LOGOUT,
+				DianjinUtils.DIANJIN_ACTIVED_SUCCESSS_ACTION);
+
 		manager = new BindManager(handler);
 		manager.requestDate();
 	}
