@@ -205,6 +205,9 @@ public class BindFragment extends BaseFragment {
 			mKeyInput_ET.setText(null);
 
 		}
+		
+		// 设置是否开启定位
+		mOpenLoc_CB.setChecked(LocationController.getInstance().getLocationSetting());
 
 		/**
 		 * 该代码 1.0不放开

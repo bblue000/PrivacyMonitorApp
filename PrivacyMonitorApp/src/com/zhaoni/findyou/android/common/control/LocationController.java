@@ -44,6 +44,9 @@ public class LocationController extends BaseController {
 				MonitorLocation.ACTION_SETTING_OPEN,
 				MonitorLocation.ACTION_SETTING_CLOSE);
 		obtainLocalValue();
+		
+		// TODO service may not be started
+//		checkLocationSetting();
 	}
 	
 	public void checkLocationSetting() {

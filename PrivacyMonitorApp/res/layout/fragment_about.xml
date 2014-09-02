@@ -3,6 +3,7 @@
     style="@style/AppStyle.ScrollBar.Vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/rootlayout_bg"
     android:padding="@dimen/spacing_10" >
 
     <RelativeLayout style="@style/AppStyle.ContainerLayout.WrapContent" >

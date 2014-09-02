@@ -26,7 +26,7 @@ public class AppSharedUtils {
 	}
 	
 	public static boolean getLocationSetting() {
-		return PreferenceUtils.getValue(PAApplication.getAppContext(), MAIN, LOCATION_SETTING, false);
+		return PreferenceUtils.getValue(PAApplication.getAppContext(), MAIN, LOCATION_SETTING, true);
 	}
 	
 }
