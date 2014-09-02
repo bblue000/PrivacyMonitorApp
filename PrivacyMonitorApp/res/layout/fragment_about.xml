@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppStyle.ScrollBar.Vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/rootlayout_bg"
+    android:padding="@dimen/spacing_10" >
+
+    <RelativeLayout style="@style/AppStyle.ContainerLayout.WrapContent" >
+
+        <Button
+            android:id="@+id/about_feedback_btn"
+            style="@style/AppStyle.Common.Btn"
+            android:text="@string/about_feedback" />
+
+        <Button
+            android:id="@+id/about_upgrade_btn"
+            style="@style/AppStyle.Common.Btn"
+            android:layout_below="@id/about_feedback_btn"
+            android:layout_marginTop="10dp"
+            android:text="@string/about_upgrade" />
+    </RelativeLayout>
+
+</ScrollView>
