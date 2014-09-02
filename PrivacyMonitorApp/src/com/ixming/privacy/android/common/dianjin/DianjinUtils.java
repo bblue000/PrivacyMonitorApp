@@ -40,7 +40,7 @@ public class DianjinUtils {
 							intent.setAction(DIANJIN_ACTIVED_SUCCESSS_ACTION);
 							if (object.getValue() != null) {
 								intent.putExtra(DIANJIN_NEW_DATE_KEY, object
-										.getValue().getDate());
+										.getValue().getExpirationdate());
 
 							}
 							LocalBroadcasts.sendLocalBroadcast(intent);

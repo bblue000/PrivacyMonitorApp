@@ -39,7 +39,7 @@ public class BindManager {
 						PayInfo payinfo = result.getValue();
 						Message msg = handler.obtainMessage();
 						msg.what = DEVICE_DATA_MSG;
-						msg.obj = payinfo.getDate();
+						msg.obj = payinfo.getExpirationdate();
 						handler.sendMessage(msg);
 					}
 				}

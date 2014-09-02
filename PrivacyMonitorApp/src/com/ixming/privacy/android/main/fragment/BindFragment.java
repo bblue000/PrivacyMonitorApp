@@ -96,8 +96,8 @@ public class BindFragment extends BaseFragment {
 		/**
 		 * 初始化点金广告平台
 		 */
-		DianJinPlatform.initialize(getActivity(), 56265,
-				"99ee203fea26f7099ec69ff692a947ec");
+		DianJinPlatform.initialize(getActivity(), 57132,
+				"10358b1bd5915b5e931d77d820a17247");
 		DianJinPlatform.hideFloatView(getActivity());
 		DianjinUtils.initCallBack();
 		updateUI();
