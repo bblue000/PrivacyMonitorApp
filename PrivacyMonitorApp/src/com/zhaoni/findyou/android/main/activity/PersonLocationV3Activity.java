@@ -3,7 +3,6 @@ package com.zhaoni.findyou.android.main.activity;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.ixming.base.utils.ObjectUtils;
 import org.ixming.base.utils.android.ToastUtils;
 import org.ixming.base.view.utils.ViewUtils;
 import org.ixming.inject4android.annotation.ViewInject;
@@ -135,6 +134,10 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 						* progress) / max;
 				invalidateUI(datetime);
 			}
+
+			@Override
+			public void onCursorPositionChanged(CustomVSeekBar seekBar, int yPosInGlobal) {
+			}
 		});
 	}
 
@@ -177,6 +180,7 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 		
 		mCurrentOverlay = null;
 		LatLng gotoPos = null;
+		@SuppressWarnings("unused")
 		RespLocation locationInfo = null;
 		long nearestTime = datetime;
 		mOverlayManager.removeFromMap();
@@ -189,9 +193,9 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 			}
 			
 			nearestTime = info.getDate_time();
-			if (null != locationInfo && ObjectUtils.equals(locationInfo.getAddress(), info.getAddress())) {
-				continue;
-			}
+//			if (null != locationInfo && ObjectUtils.equals(locationInfo.getAddress(), info.getAddress())) {
+//				continue;
+//			}
 			
 			if (null != mCurrentOverlay) {
 //				mBaiduMap.addOverlay(mCurrentOverlay.icon(mOverlayManager.mOtherMarker));

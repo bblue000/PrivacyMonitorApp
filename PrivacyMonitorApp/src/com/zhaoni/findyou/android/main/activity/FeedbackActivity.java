@@ -1,32 +1,24 @@
-package com.zhaoni.findyou.android.main.fragment;
+package com.zhaoni.findyou.android.main.activity;
 
-import org.ixming.base.common.activity.BaseFragment;
-import org.ixming.base.utils.android.AndroidUtils;
+import org.ixming.base.common.activity.BaseActivity;
 import org.ixming.inject4android.annotation.OnClickMethodInject;
-import org.ixming.inject4android.annotation.ViewInject;
+
+import com.zhaoni.findyou.android.R;
+import com.zhaoni.findyou.android.common.CustomDialogBuilder;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
-import com.zhaoni.findyou.android.R;
-import com.zhaoni.findyou.android.common.CustomDialogBuilder;
-import com.zhaoni.findyou.android.main.activity.FeedbackActivity;
+public class FeedbackActivity extends BaseActivity {
 
-public class AboutFragment extends BaseFragment {
-
-	@ViewInject(id = R.id.about_version_tv)
-	private TextView mVersion_TV;
-	
 	@Override
 	public int provideLayoutResId() {
-		return R.layout.fragment_about;
+		return R.layout.activity_feedback;
 	}
 
 	@Override
 	public void initView(View view) {
-		mVersion_TV.setText(getString(R.string.about_version_regex, AndroidUtils.getAppVersionName("1.0")));
 	}
 
 	@Override
@@ -37,14 +29,10 @@ public class AboutFragment extends BaseFragment {
 	public void initListener() {
 	}
 	
-	@OnClickMethodInject(id = R.id.about_feedback_btn)
-	void gotoFeedback() {
-		startActivity(FeedbackActivity.class);
-	}
-	
-	@OnClickMethodInject(id = R.id.about_upgrade_btn)
-	void gotoUpgrade() {
+	@OnClickMethodInject(id = R.id.feedback_confirm_btn)
+	void submit() {
 		// 此处检测
+		checkUpgrade();
 	}
 	
 	// 检测有新版本后调用

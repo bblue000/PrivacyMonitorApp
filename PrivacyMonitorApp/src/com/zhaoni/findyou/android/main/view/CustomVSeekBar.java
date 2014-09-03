@@ -55,6 +55,7 @@ public class CustomVSeekBar extends ViewGroup {
 		init();
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void init() {
 		mDensity = getResources().getDisplayMetrics().density;
 		
@@ -190,11 +191,15 @@ public class CustomVSeekBar extends ViewGroup {
 			case MotionEvent.ACTION_DOWN:
 			case MotionEvent.ACTION_MOVE:
 			case MotionEvent.ACTION_UP:
+				float eventY = event.getY();
 				float y = Math.min(Math.max(event.getY() - mProgressBarRect.left, 0), mProgressBarRect.width());
+				float deltaY = y - eventY;
 				int i = 0;
 				i = /*getMax() - */(int) (mProgressBar.getMax() * y / mProgressBarRect.width());
 				mProgressBar.setProgress(i);
-				
+				if (null != mOnSeekBarChangeListener) {
+					mOnSeekBarChangeListener.onCursorPositionChanged(this, (int) (event.getRawY() + deltaY));
+				}
 				onSizeChanged(getWidth(), getHeight(), 0, 0);
 				break;
 
@@ -247,5 +252,7 @@ public class CustomVSeekBar extends ViewGroup {
          */
         void onProgressChanged(CustomVSeekBar seekBar, int progress, int max);
     
+        
+        void onCursorPositionChanged(CustomVSeekBar seekBar, int yPosInGlobal);
     }
 }

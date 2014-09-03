@@ -23,4 +23,26 @@ public class DatetimeUtils {
 		return sFormatter_Time.format(datetime);
 	}
 	
+	public static String simpleFixTime(long datetime) {
+		long sec = datetime / 1000L;
+		if (sec == 0L) {
+			return sec + "秒";
+		}
+		long min = sec / 60L;
+		if (min == 0L) {
+			return sec + "秒";
+		}
+		long halfHour = min / 30L;
+		if (halfHour == 0L) {
+			return min + "分钟";
+		} else if (halfHour == 1L) {
+			return "半小时";
+		}
+		long hour = min / 60L;
+		if (hour == 0L) {
+			return min + "分钟";
+		}
+		return hour + "小时";
+	}
+	
 }

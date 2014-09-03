@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/location_interval_tv"
+    style="@style/AppStyle.ContainerLayout.WrapContent"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:singleLine="true"
+    android:textColor="@color/appbase_blue"
+    android:textSize="@dimen/textsize_16"
+    android:gravity="center">
+    
+</TextView>

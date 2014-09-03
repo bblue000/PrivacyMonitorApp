@@ -17,25 +17,30 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bodong.dianjinweb.DianJinPlatform;
 import com.zhaoni.findyou.android.PAApplication;
 import com.zhaoni.findyou.android.R;
 import com.zhaoni.findyou.android.common.CustomDialogBuilder;
+import com.zhaoni.findyou.android.common.DropDownPop;
 import com.zhaoni.findyou.android.common.LocalBroadcastIntents;
 import com.zhaoni.findyou.android.common.control.BindController;
 import com.zhaoni.findyou.android.common.control.LocationController;
 import com.zhaoni.findyou.android.common.dianjin.DianjinUtils;
 import com.zhaoni.findyou.android.login.activity.LoginActivity;
 import com.zhaoni.findyou.android.login.manager.LoginManager;
+import com.zhaoni.findyou.android.main.adapter.LocationIntervalAdapter;
 import com.zhaoni.findyou.android.main.manager.BindManager;
+import com.zhaoni.findyou.android.main.model.DatetimeUtils;
 
-public class BindFragment extends BaseFragment {
+public class BindFragment extends BaseFragment implements ListView.OnItemClickListener {
 
 	@ViewInject(id = R.id.device_bind_obtain_et)
 	private EditText mKeyInput_ET;
@@ -62,6 +67,9 @@ public class BindFragment extends BaseFragment {
 	// private TextView mExpire_TV;
 	@ViewInject(id = R.id.device_bind_device_expire_tv)
 	private TextView mDeviceExpire_TV;
+	
+	@ViewInject(id = R.id.device_bind_loc_freq_value_tv)
+	private TextView mLocationInterval_TV;
 
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 
@@ -195,7 +203,32 @@ public class BindFragment extends BaseFragment {
 	void gotoFreeExchange() {
 		DianJinPlatform.showOfferWall(getActivity());
 	}
-
+	
+	
+	private DropDownPop mLocationIntervalDrop;
+	private LocationIntervalAdapter mLocationIntervalAdapter;
+	@OnClickMethodInject(id = R.id.device_bind_loc_freq_value_tv)
+	void chooseFreq() {
+		if (null == mLocationIntervalDrop) {
+			mLocationIntervalDrop = new DropDownPop(context);
+		}
+		if (null == mLocationIntervalAdapter) {
+			mLocationIntervalAdapter = new LocationIntervalAdapter(context);
+		}
+		if (mLocationIntervalDrop.isShowing()) {
+			mLocationIntervalDrop.dismiss();
+		} else {
+			mLocationIntervalDrop.showAsDropDown(mLocationInterval_TV, mLocationIntervalAdapter, this);
+		}
+	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		LocationController.getInstance().setLocationInterval(mLocationIntervalAdapter.getItem(position));
+		updateUI();
+	}
+	
 	private void updateUI() {
 		// device token的显示逻辑
 		if (BindController.getInstance().hasDeviceToken()) {
@@ -209,6 +242,7 @@ public class BindFragment extends BaseFragment {
 		// 设置是否开启定位
 		mOpenLoc_CB.setChecked(LocationController.getInstance().getLocationSetting());
 
+		mLocationInterval_TV.setText(DatetimeUtils.simpleFixTime(LocationController.getInstance().getLocationInterval()));
 		/**
 		 * 该代码 1.0不放开
 		 */

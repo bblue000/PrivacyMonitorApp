@@ -65,22 +65,38 @@
 
             <!-- 设置定位频率 -->
             <TextView
-                android:id="@+id/device_bind_loc_freq_tv"
+                android:id="@+id/device_bind_loc_freq_hint_tv"
                 style="@style/AppStyle.Bind.HintTextAppearance"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/spacing_40"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@id/device_bind_open_loc_layout"
-                android:layout_marginTop="@dimen/spacing_20" 
+                android:layout_toLeftOf="@+id/device_bind_loc_freq_value_tv"
+                android:layout_marginTop="@dimen/spacing_20"
                 android:text="@string/device_bind_location_freq_hint"/>
-
+            
+            <TextView
+                android:id="@+id/device_bind_loc_freq_value_tv"
+                style="@style/AppStyle.Bind.ValueTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/device_bind_open_loc_layout"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/device_bind_loc_freq_hint_tv"
+                android:layout_alignBottom="@id/device_bind_loc_freq_hint_tv"
+                android:layout_alignLeft="@+id/device_bind_hide_btn"
+                android:layout_alignRight="@+id/device_bind_hide_btn"
+                android:drawableRight="@drawable/dropdown_hint"
+                android:gravity="center"
+                android:text="@string/device_bind_location_freq_hint"/>
+            
             <!-- 隐藏APP -->
             <TextView
                 android:id="@+id/device_bind_hide_hint_tv"
                 style="@style/AppStyle.Bind.HintTextAppearance"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/spacing_40"
-                android:layout_below="@id/device_bind_loc_freq_tv"
+                android:layout_below="@id/device_bind_loc_freq_hint_tv"
            	 	android:layout_marginTop="@dimen/spacing_20"
                 android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@+id/device_bind_hide_btn"

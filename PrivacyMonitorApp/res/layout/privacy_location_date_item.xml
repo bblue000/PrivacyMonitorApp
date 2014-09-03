@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/AppStyle.ContainerLayout.WrapContent"
-	android:orientation="vertical" >
+	android:orientation="vertical" 
+	android:background="@color/white">
     
     <LinearLayout 
         android:id="@+id/privacy_location_date_item_datetime_layout"
         android:layout_width="fill_parent"
-        android:layout_height="70dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:gravity="bottom"
 		android:background="@drawable/person_location_date_list_item_bg_selector">
@@ -28,33 +30,35 @@
 		    android:gravity="center_vertical|left"
 		    android:textSize="20sp"
 		    android:textColor="@color/black"
-		    android:textStyle="bold"
 		    android:text="8月"/>
         
-        <TextView 
-		    android:id="@+id/privacy_location_date_item_year_tv"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_marginLeft="25dp"
-		    android:gravity="center_vertical|left"
-		    android:textSize="16sp"
-		    android:textColor="@color/color_88888888"
-		    android:text="2014年"/>
-        
+        <com.zhaoni.findyou.android.main.view.AlwaysFocusableTextView
+	        android:id="@+id/privacy_location_date_item_loc_tv"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="25dp"
+	        android:layout_marginRight="5dp"
+	        android:singleLine="true"
+	        android:ellipsize="marquee"
+	        android:marqueeRepeatLimit="marquee_forever"
+	        android:gravity="center_vertical|right"
+	        android:textColor="@color/appbase_blue"
+	        android:textSize="16sp"
+	        android:text="111111"/>
+	        
     </LinearLayout>
     
+    <TextView 
+	    android:id="@+id/privacy_location_date_item_year_tv"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignTop="@id/privacy_location_date_item_datetime_layout"
+	    android:layout_marginLeft="55dp"
+	    android:gravity="center_vertical|left"
+	    android:textSize="16sp"
+	    android:textColor="@color/color_88888888"
+	    android:text="2014年"/>
     
-<!-- 	<TextView  -->
-<!-- 	    android:id="@+id/privacy_location_date_item_datetime_tv" -->
-<!-- 	    android:layout_width="fill_parent" -->
-<!-- 	    android:layout_height="@dimen/spacing_50" -->
-<!-- 	    android:layout_alignParentTop="true" -->
-<!-- 	    android:layout_alignParentLeft="true" -->
-<!-- 	    android:gravity="center_vertical|left" -->
-<!-- 	    android:textSize="@dimen/textsize_18" -->
-<!-- 	    android:textColor="@color/black" -->
-<!-- 	    android:text="2014-01-22 19:30:44"/> -->
-	
 	<View 
 	    android:layout_width="@dimen/spacing_1"
 	    android:layout_height="fill_parent"

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppStyle.RootLayout">
+
+    <RelativeLayout 
+        android:id="@+id/feedback_title_rlt"
+        style="@style/AppStyle.ContainerLayout.WrapContent"
+        android:layout_height="@dimen/main_title_height">
+        
+        <TextView 
+            style="@style/AppStyle.Common.Title"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="@string/feedback_title"/>
+        
+        <Button 
+            android:id="@+id/feedback_confirm_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/feedback_confirm_selector"/>
+        
+        <View 
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/appbase_blue"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+    
+    <EditText 
+        android:id="@+id/feedback_et"
+        style="@style/AppStyle.Common.InputEdit"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/feedback_title_rlt"
+        android:layout_marginTop="@dimen/spacing_10"
+        android:layout_marginLeft="@dimen/spacing_10"
+        android:layout_marginRight="@dimen/spacing_10"
+        android:singleLine="false"
+        android:padding="10dp"
+        android:background="@drawable/text_shape_deep_blue"
+        android:gravity="left|top"
+        android:hint="@string/feedback_hint"
+        android:textSize="18sp"/>
+    
+    <EditText 
+        android:id="@+id/feedback_contact_et"
+        style="@style/AppStyle.Common.InputEdit"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/feedback_et"
+        android:layout_marginTop="@dimen/spacing_10"
+        android:layout_marginLeft="@dimen/spacing_10"
+        android:layout_marginRight="@dimen/spacing_10"
+        android:singleLine="false"
+        android:padding="10dp"
+        android:background="@drawable/text_shape_deep_blue"
+        android:gravity="center_vertical|left"
+        android:hint="@string/feedback_contact_hint"
+        android:textSize="18sp"/>
+    
+<!--     <Button  -->
+<!--         android:id="@+id/feedback_submit_btn" -->
+<!--         style="@style/AppStyle.Common.Btn" -->
+<!--         android:layout_width="fill_parent" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_alignParentBottom="true" -->
+<!--         android:layout_marginLeft="@dimen/spacing_10" -->
+<!--         android:layout_marginRight="@dimen/spacing_10" -->
+<!--         android:layout_marginBottom="@dimen/spacing_10" -->
+<!--         android:text="@string/feedback_submit"/> -->
+    
+</RelativeLayout>

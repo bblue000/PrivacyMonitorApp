@@ -12,7 +12,7 @@
         <android.support.v4.view.PagerTabStrip  
             android:id="@+id/main_new_pts"  
             android:layout_width="match_parent"  
-            android:layout_height="@dimen/spacing_50"   
+            android:layout_height="@dimen/main_title_height"   
             android:layout_gravity="top"/>  
         
     </android.support.v4.view.ViewPager>

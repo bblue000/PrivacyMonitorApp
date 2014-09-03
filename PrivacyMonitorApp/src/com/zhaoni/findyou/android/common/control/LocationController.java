@@ -21,6 +21,14 @@ import com.zhaoni.findyou.android.monitoring.service.MainService;
  */
 public class LocationController extends BaseController {
 	
+	public static final long[] INTERVALS = {
+			2 * 60 * 1000L, // 2分钟
+			5 * 60 * 1000L,	// 5分钟
+			10 * 60 * 1000L, // 10分钟
+			30 * 60 * 1000L, // 30分钟
+			60 * 60 * 1000L // 1小时
+	};
+	public static final long DEFAULT_INTERVAL = INTERVALS[0];
 	private static LocationController sInsController = new LocationController();
 	public static LocationController getInstance() {
 		return sInsController;
@@ -39,6 +47,7 @@ public class LocationController extends BaseController {
 	};
 	
 	private boolean mLocationSetting;
+	private long mLocationInterval;
 	private LocationController() {
 		LocalBroadcasts.registerLocalReceiver(mReceiver,
 				MonitorLocation.ACTION_SETTING_OPEN,
@@ -72,7 +81,17 @@ public class LocationController extends BaseController {
 		}
 	}
 	
+	public void setLocationInterval(long value) {
+		AppSharedUtils.saveLocationInterval(value);
+		mLocationInterval = value;
+	}
+
+	public long getLocationInterval() {
+		return mLocationInterval;
+	}
+	
 	private void obtainLocalValue() {
 		mLocationSetting = AppSharedUtils.getLocationSetting();
+		mLocationInterval = AppSharedUtils.getLocationInterval(DEFAULT_INTERVAL);
 	}
 }
