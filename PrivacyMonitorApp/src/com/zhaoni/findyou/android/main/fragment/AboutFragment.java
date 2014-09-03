@@ -5,20 +5,20 @@ import org.ixming.base.utils.android.AndroidUtils;
 import org.ixming.inject4android.annotation.OnClickMethodInject;
 import org.ixming.inject4android.annotation.ViewInject;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.zhaoni.findyou.android.R;
-import com.zhaoni.findyou.android.common.CustomDialogBuilder;
 import com.zhaoni.findyou.android.main.activity.FeedbackActivity;
+import com.zhaoni.findyou.android.main.manager.AboutManager;
 
 public class AboutFragment extends BaseFragment {
 
 	@ViewInject(id = R.id.about_version_tv)
 	private TextView mVersion_TV;
-	
+	AboutManager manager;
+
 	@Override
 	public int provideLayoutResId() {
 		return R.layout.fragment_about;
@@ -26,42 +26,30 @@ public class AboutFragment extends BaseFragment {
 
 	@Override
 	public void initView(View view) {
-		mVersion_TV.setText(getString(R.string.about_version_regex, AndroidUtils.getAppVersionName("1.0")));
+		mVersion_TV.setText(getString(R.string.about_version_regex,
+				AndroidUtils.getAppVersionName("1.0")));
 	}
 
 	@Override
 	public void initData(View view, Bundle savedInstanceState) {
+		manager = new AboutManager(handler, context);
 	}
 
 	@Override
 	public void initListener() {
 	}
-	
+
 	@OnClickMethodInject(id = R.id.about_feedback_btn)
 	void gotoFeedback() {
 		startActivity(FeedbackActivity.class);
 	}
-	
+
 	@OnClickMethodInject(id = R.id.about_upgrade_btn)
 	void gotoUpgrade() {
-		// 此处检测
+		// 此处检测\\
+		manager.checkVersion();
 	}
-	
-	// 检测有新版本后调用
-	private void checkUpgrade() {
-		DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if (which == CustomDialogBuilder.BUTTON_LEFT) {
-					// 下载新版本
-				}
-			}
-		};
-		new CustomDialogBuilder(context).title(R.string.dialog_prompt)
-				.text(R.string.upgrade_tip)
-				.leftBtn(R.string.confirm, listener)
-				.rightBtn(R.string.cancel, null).build().show();
-	}
+	// 检测有新版本后调用
 
 }

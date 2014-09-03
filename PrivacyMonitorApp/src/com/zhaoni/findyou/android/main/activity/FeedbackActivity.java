@@ -1,16 +1,32 @@
 package com.zhaoni.findyou.android.main.activity;
 
+import java.util.Map;
+
 import org.ixming.base.common.activity.BaseActivity;
+import org.ixming.base.utils.android.LogUtils;
+import org.ixming.base.utils.android.ToastUtils;
+import org.ixming.base.utils.android.Utils;
 import org.ixming.inject4android.annotation.OnClickMethodInject;
+import org.ixming.inject4android.annotation.ViewInject;
 
-import com.zhaoni.findyou.android.R;
-import com.zhaoni.findyou.android.common.CustomDialogBuilder;
-
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxStatus;
+import com.zhaoni.findyou.android.Config;
+import com.zhaoni.findyou.android.R;
+import com.zhaoni.findyou.android.common.model.RequestPiecer;
+import com.zhaoni.findyou.android.common.model.ResponseData.FeedbackResult;
+import com.zhaoni.findyou.android.common.model.SimpleAjaxCallback;
 
 public class FeedbackActivity extends BaseActivity {
+	@ViewInject(id = R.id.feedback_et)
+	EditText feedback_ET;
+	@ViewInject(id = R.id.feedback_contact_et)
+	EditText feedback_contact_ET;
+	AQuery aq;
 
 	@Override
 	public int provideLayoutResId() {
@@ -23,33 +39,44 @@ public class FeedbackActivity extends BaseActivity {
 
 	@Override
 	public void initData(View view, Bundle savedInstanceState) {
+
+		aq = new AQuery(this);
 	}
 
 	@Override
 	public void initListener() {
 	}
-	
+
 	@OnClickMethodInject(id = R.id.feedback_confirm_btn)
 	void submit() {
-		// 此处检测
-		checkUpgrade();
-	}
-	
-	// 检测有新版本后调用
-	private void checkUpgrade() {
-		DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+		// 提交用户反馈信息
+		// checkUpgrade();
+		String content = feedback_ET.getText().toString();
+		String contact_info = feedback_contact_ET.getText().toString();
+		if (Utils.isNull(content)) {
+			ToastUtils.showLongToast(R.string.feeback_empty);
+			return;
+		}
+		SimpleAjaxCallback<FeedbackResult> callback = new SimpleAjaxCallback<FeedbackResult>() {
+			@Override
+			protected boolean onSuccess(String url, Object object,
+					AjaxStatus status) {
+				LogUtils.i(getClass(), "execute request feedback success!");
+				return super.onSuccess(url, object, status);
+			}
 
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if (which == CustomDialogBuilder.BUTTON_LEFT) {
-					// 下载新版本
-				}
+			protected boolean onError(AjaxStatus status) {
+				return super.onError(status);
 			}
 		};
-		new CustomDialogBuilder(context).title(R.string.dialog_prompt)
-				.text(R.string.upgrade_tip)
-				.leftBtn(R.string.confirm, listener)
-				.rightBtn(R.string.cancel, null).build().show();
-	}
+		Map<String, String> params = RequestPiecer.getBasicData();
+		params.put("content", content);
+		params.put("contact_info", contact_info);
+		aq.ajax(Config.URL_POST_FEEDBACK, params, FeedbackResult.class,
+				callback);
+		ToastUtils.showLongToast(R.string.feedback_commit_prompt);
+		this.finish();
 
+	}
 }

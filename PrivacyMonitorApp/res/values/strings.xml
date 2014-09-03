@@ -78,20 +78,20 @@
     <string name="device_bind_user_expire_tip">注：用户到期将无法查看他人位置信息，不影响被查找。</string>
     <string name="device_bind_user_charge">充值</string>
     <string name="device_bind_user_free_exchange">免费获取时间</string>
-    
-    
+
     <!-- about -->
     <string name="about_feedback">意见反馈</string>
-    <string name="about_upgrade">下载更新</string>
+    <string name="about_upgrade">检查更新</string>
+    <string name="feeback_empty">您没有输入任何反馈信息哦！</string>
     <string name="about_us">关于我们</string>
     <string name="feedback_hint"></string>
-    <string name="feedback_contact_hint">您的联系方式</string>
+    <string name="feedback_contact_hint">手机号/电子邮箱</string>
     <string name="feedback_title">提交建议</string>
     <string name="feedback_submit">提交</string>
+    <string name="feedback_commit_prompt">提交成功！</string>
+    <string name="version_prompt">当前是最新版本</string>
     <string name="about_version_regex">version %s</string>
     <string name="upgrade_tip">检测到新版本，是否现在更新？</string>
-    
-    
     <string name="main_view_person_hint">选择查看对象</string>
     <string name="main_view_person_progress_hint">正在加载...</string>
     <string name="main_view_person_current">当前对象：%1$s</string>

@@ -11,11 +11,12 @@ public class Config {
 	/**
 	 * 服务器地址
 	 */
-	private static final String URL_PREFIX = "http://121.40.105.126:8080/findlocation";
+	// private static final String URL_PREFIX =
+	// "http://121.40.105.126:8080/findlocation";
 	/**
 	 * 本机测试地址
 	 */
-	//private static final String URL_PREFIX = "http://192.168.2.100:8080/findlocation";
+	private static final String URL_PREFIX = "http://10.101.145.236:8080/findlocation";
 	// private static final String URL_PREFIX =
 	// "http://10.101.100.85:8080/findlocation";// "http://10.101.2.60";
 
@@ -29,7 +30,7 @@ public class Config {
 	public static final int MODE_POST_DEVICE = 0x00001;
 	public static final int MODE_POST_LOCATION = 0x00002;
 	public static final String URL_POST_LISTENER = URL_PREFIX + "/listener";
-
+	public static final String URL_POST_FEEDBACK = URL_PREFIX + "/feedback";
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>
 	// get data
 	public static final String URL_GET_LOGIN = URL_PREFIX + "/login/%s/%s";
@@ -59,6 +60,10 @@ public class Config {
 	 * 获取验证码
 	 */
 	public static final String URL_GET_CHECKCODE = URL_PREFIX + "/checkcode/%s";
+	/**
+	 * 获取最新版本信息
+	 */
+	public static final String URL_GET_VERISON = URL_PREFIX + "/version";
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>
 	// put
 	/**
