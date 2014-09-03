@@ -84,7 +84,12 @@
     <string name="about_feedback">意见反馈</string>
     <string name="about_upgrade">下载更新</string>
     <string name="about_us">关于我们</string>
-    
+    <string name="feedback_hint"></string>
+    <string name="feedback_contact_hint">您的联系方式</string>
+    <string name="feedback_title">提交建议</string>
+    <string name="feedback_submit">提交</string>
+    <string name="about_version_regex">version %s</string>
+    <string name="upgrade_tip">检测到新版本，是否现在更新？</string>
     
     
     <string name="main_view_person_hint">选择查看对象</string>

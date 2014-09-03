@@ -76,6 +76,10 @@ public class PersonController extends BaseController {
 		return mDateTimeData.keySet();
 	}
 	
+	public List<RespLocation> getLocationData(long dateTime) {
+		return mDateTimeData.get(dateTime);
+	}
+	
 	public void setCurTime(long datetime) {
 		mCurTime = (datetime / ONEDAY) * ONEDAY; // clear time, second, mills
 		mCurData = mDateTimeData.get(mCurTime);
@@ -108,9 +112,8 @@ public class PersonController extends BaseController {
 			if (lastDay != curDay) {
 				lastDay = curDay;
 				mDateTimeData.put(curDay * ONEDAY, curList = new ArrayList<RespLocation>());
-			} else {
-				curList.add(info);
 			}
+			curList.add(info);
 		}
 		LogUtils.d(TAG, "calculate mDateTimeData.size() = " + mDateTimeData.size());
 	}

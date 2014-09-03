@@ -12,6 +12,7 @@ public class AppSharedUtils {
 	private static final String MAIN = Config.SHAREPRE_PREFIX + "APPMAIN";
 	private static final String DEVICE_TOKEN = "DEVICE_TOKEN";
 	private static final String LOCATION_SETTING = "LOCATION_SETTING";
+	private static final String LOCATION_INTERVAL = "LOCATION_INTERVAL";
 	
 	public static void saveDeviceToken(String token) {
 		PreferenceUtils.saveValue(PAApplication.getAppContext(), MAIN, DEVICE_TOKEN, token);
@@ -27,6 +28,14 @@ public class AppSharedUtils {
 	
 	public static boolean getLocationSetting() {
 		return PreferenceUtils.getValue(PAApplication.getAppContext(), MAIN, LOCATION_SETTING, true);
+	}
+	
+	public static void saveLocationInterval(long value) {
+		PreferenceUtils.saveValue(PAApplication.getAppContext(), MAIN, LOCATION_INTERVAL, value);
+	}
+	
+	public static long getLocationInterval(long def) {
+		return PreferenceUtils.getValue(PAApplication.getAppContext(), MAIN, LOCATION_INTERVAL, def);
 	}
 	
 }
