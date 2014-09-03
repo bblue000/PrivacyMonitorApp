@@ -7,8 +7,8 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="14" />
-    
-	<!-- permissions for baidu location -->
+
+    <!-- permissions for baidu location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -24,7 +24,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    
+
     <application
         android:name=".PAApplication"
         android:allowBackup="true"
@@ -85,7 +85,7 @@
 
             <!--
             网络状态改变 
-            android:process=":IXMingprivacy"
+            android:process=":IXMingprivacy"
             -->
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -136,5 +136,4 @@
             android:value="100" />
     </application>
 
-    
 </manifest>
