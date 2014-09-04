@@ -1,5 +1,6 @@
 package com.zhaoni.findyou.android.main.manager;
 
+import org.ixming.base.utils.android.AndroidUtils;
 import org.ixming.base.utils.android.LogUtils;
 import org.ixming.base.utils.android.ToastUtils;
 import org.ixming.base.utils.android.Utils;
@@ -7,8 +8,6 @@ import org.ixming.base.utils.android.Utils;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Handler;
 
 import com.androidquery.AQuery;
@@ -72,15 +71,16 @@ public class AboutManager {
 			public void onClick(DialogInterface dialog, int which) {
 				if (which == CustomDialogBuilder.BUTTON_LEFT) {
 					// 下载新版本
-					try {
-						Intent intent = new Intent();
-						intent.setAction("android.intent.action.VIEW");
-						Uri content_url = Uri.parse(download_url);
-						intent.setData(content_url);
-						context.startActivity(intent);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+					AndroidUtils.callHTTPDownload(context, "下载新版本", download_url);
+//					try {
+//						Intent intent = new Intent();
+//						intent.setAction("android.intent.action.VIEW");
+//						Uri content_url = Uri.parse(download_url);
+//						intent.setData(content_url);
+//						context.startActivity(intent);
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
 				}
 			}
 		};

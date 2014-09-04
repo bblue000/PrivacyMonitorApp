@@ -197,6 +197,9 @@ public class CustomVSeekBar extends ViewGroup {
 				int i = 0;
 				i = /*getMax() - */(int) (mProgressBar.getMax() * y / mProgressBarRect.width());
 				mProgressBar.setProgress(i);
+				if (mChangingWhenDragging && null != mOnSeekBarChangeListener) {
+					mOnSeekBarChangeListener.onProgressChanged(this, mProgressBar.getProgress(), mProgressBar.getMax());
+				}
 				if (null != mOnSeekBarChangeListener) {
 					mOnSeekBarChangeListener.onCursorPositionChanged(this, (int) (event.getRawY() + deltaY));
 				}
@@ -218,6 +221,11 @@ public class CustomVSeekBar extends ViewGroup {
 			}
 		}
 		
+	}
+	
+	private boolean mChangingWhenDragging;
+	public void setChangingWhenDragging(boolean value) {
+		mChangingWhenDragging = value;
 	}
 	
 	private OnSeekBarChangeListener mOnSeekBarChangeListener;

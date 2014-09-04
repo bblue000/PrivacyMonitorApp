@@ -72,7 +72,7 @@ public class SimpleAjaxCallback<T extends BasicResponseData<?>> extends
 		}
 		if (isOk) {
 			if (!onSuccess(url, object.getValue(), status)) {
-				// ToastUtils.showToast(status.getMessage());
+				ToastUtils.showToast(status.getMessage());
 			}
 		} else {
 			if (!onError(status)) {

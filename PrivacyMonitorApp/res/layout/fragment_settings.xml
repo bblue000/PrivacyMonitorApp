@@ -36,32 +36,29 @@
                 android:layout_marginTop="@dimen/spacing_20"
                 android:text="@string/device_bind_warning" />
 
-            <RelativeLayout
-                android:id="@+id/device_bind_open_loc_layout"
-                style="@style/AppStyle.ContainerLayout.WrapContent"
+            <!-- 定位开启设置 -->
+            <TextView
+                android:id="@+id/device_bind_open_loc_tv"
+                style="@style/AppStyle.Bind.HintTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/spacing_40"
+                android:layout_alignParentLeft="true"
                 android:layout_below="@id/device_bind_warning_tv"
-                android:layout_marginTop="@dimen/spacing_20" >
-
-                <TextView
-                    android:id="@+id/device_bind_open_loc_tv"
-                    style="@style/AppStyle.Bind.HintTextAppearance"
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/spacing_40"
-                    android:layout_alignParentLeft="true"
-                    android:layout_toLeftOf="@+id/device_bind_open_loc_cb"
-                    android:text="@string/device_bind_open_location_hint" />
-
-                <CheckBox
-                    android:id="@+id/device_bind_open_loc_cb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignTop="@id/device_bind_open_loc_tv"
-                    android:layout_alignBottom="@id/device_bind_open_loc_tv"
-                    android:layout_centerVertical="true"
-                    android:background="@null"
-                    android:button="@drawable/switcher_selector" />
-            </RelativeLayout>
+                android:layout_toLeftOf="@+id/device_bind_open_loc_cb"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:layout_marginRight="10dp"
+                android:text="@string/device_bind_open_location_hint" />
+            
+            <com.zhaoni.findyou.android.main.view.SettingsSwicher
+                android:id="@+id/device_bind_open_loc_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignLeft="@+id/device_bind_loc_freq_value_tv"
+                android:layout_alignRight="@+id/device_bind_loc_freq_value_tv"
+                android:layout_alignTop="@id/device_bind_open_loc_tv"
+                android:layout_alignBottom="@id/device_bind_open_loc_tv"
+                />
+            
 
             <!-- 设置定位频率 -->
             <TextView
@@ -70,9 +67,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/spacing_40"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@id/device_bind_open_loc_layout"
+                android:layout_below="@id/device_bind_open_loc_tv"
                 android:layout_toLeftOf="@+id/device_bind_loc_freq_value_tv"
                 android:layout_marginTop="@dimen/spacing_20"
+                android:layout_marginRight="@dimen/spacing_10"
                 android:text="@string/device_bind_location_freq_hint"/>
             
             <TextView
@@ -80,7 +78,7 @@
                 style="@style/AppStyle.Bind.ValueTextAppearance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/device_bind_open_loc_layout"
+                android:layout_below="@id/device_bind_open_loc_tv"
                 android:layout_alignParentRight="true"
                 android:layout_alignTop="@id/device_bind_loc_freq_hint_tv"
                 android:layout_alignBottom="@id/device_bind_loc_freq_hint_tv"
@@ -96,9 +94,10 @@
                 style="@style/AppStyle.Bind.HintTextAppearance"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/spacing_40"
+                android:layout_alignParentLeft="true"
                 android:layout_below="@id/device_bind_loc_freq_hint_tv"
            	 	android:layout_marginTop="@dimen/spacing_20"
-                android:layout_alignParentLeft="true"
+                android:layout_marginRight="@dimen/spacing_10"
                 android:layout_toLeftOf="@+id/device_bind_hide_btn"
                 android:text="@string/device_bind_hide_app_hint"/>
             
@@ -124,6 +123,7 @@
                 android:layout_below="@id/device_bind_hide_hint_tv"
                 android:layout_alignLeft="@id/device_bind_hide_hint_tv"
                 android:layout_toLeftOf="@id/device_bind_user_free_exchange_btn"
+                android:layout_marginRight="@dimen/spacing_10"
                 android:orientation="horizontal" 
                 android:gravity="center_vertical">
 
@@ -151,7 +151,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignTop="@id/device_bind_user_expire_layout"
                 android:layout_alignBottom="@id/device_bind_user_expire_layout"
-                android:layout_marginLeft="@dimen/spacing_10"
                 android:gravity="center"
                 android:text="@string/device_bind_user_free_exchange"
                 android:textSize="@dimen/textsize_14" />

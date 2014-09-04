@@ -90,7 +90,7 @@
     <string name="feedback_submit">提交</string>
     <string name="feedback_commit_prompt">提交成功！</string>
     <string name="version_prompt">当前是最新版本</string>
-    <string name="about_version_regex">version %s</string>
+    <string name="about_version_regex">Version %s</string>
     <string name="upgrade_tip">检测到新版本，是否现在更新？</string>
     <string name="main_view_person_hint">选择查看对象</string>
     <string name="main_view_person_progress_hint">正在加载...</string>

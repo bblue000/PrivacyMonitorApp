@@ -43,6 +43,7 @@ public class NewMainActivity extends MyBaseFragmentActivity {
 		mIndex_PTS.setDrawFullUnderline(true);
 		
 		mIndex_VP.setAdapter(mAdapter = new IndexPagerAdapter(this, getSupportFragmentManager()));
+		mIndex_VP.setOffscreenPageLimit(mAdapter.getCount() - 1);
 	}
 
 	@Override

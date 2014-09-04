@@ -8,7 +8,6 @@ import org.ixming.base.common.activity.BaseFragment;
 import org.ixming.inject4android.annotation.OnClickMethodInject;
 import org.ixming.inject4android.annotation.ViewInject;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,7 +18,6 @@ import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -39,6 +37,7 @@ import com.zhaoni.findyou.android.login.manager.LoginManager;
 import com.zhaoni.findyou.android.main.adapter.LocationIntervalAdapter;
 import com.zhaoni.findyou.android.main.manager.BindManager;
 import com.zhaoni.findyou.android.main.model.DatetimeUtils;
+import com.zhaoni.findyou.android.main.view.SettingsSwicher;
 
 public class BindFragment extends BaseFragment implements ListView.OnItemClickListener {
 
@@ -48,7 +47,7 @@ public class BindFragment extends BaseFragment implements ListView.OnItemClickLi
 	private Button mObtain_BT;
 
 	@ViewInject(id = R.id.device_bind_open_loc_cb)
-	private CheckBox mOpenLoc_CB;
+	private SettingsSwicher mOpenLoc_CB;
 	BindManager manager;
 	// 隐藏应用
 	@ViewInject(id = R.id.device_bind_hide_btn)
@@ -142,7 +141,6 @@ public class BindFragment extends BaseFragment implements ListView.OnItemClickLi
 				});
 	}
 
-	@SuppressLint("HandlerLeak")
 	@Override
 	public Handler provideActivityHandler() {
 		return new Handler() {
