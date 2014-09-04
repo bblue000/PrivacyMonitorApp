@@ -3,7 +3,6 @@ package com.zhaoni.findyou.android.main.manager;
 import org.ixming.base.utils.android.AndroidUtils;
 import org.ixming.base.utils.android.LogUtils;
 import org.ixming.base.utils.android.ToastUtils;
-import org.ixming.base.utils.android.Utils;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -42,8 +41,7 @@ public class AboutManager {
 			protected boolean onSuccess(String url, Object object,
 					AjaxStatus status) {
 				dialog.dismiss();
-				int currentVersionCode = Utils.getVersionCode(PAApplication
-						.getAppContext());
+				int currentVersionCode = AndroidUtils.getAppVersionCode();
 				VersionInfo versionInfo = (VersionInfo) object;
 				if (versionInfo.getVersion_code() > currentVersionCode) {
 					checkUpgrade(versionInfo.getDownload_url());
@@ -51,13 +49,13 @@ public class AboutManager {
 					ToastUtils.showLongToast(R.string.version_prompt);
 				}
 				LogUtils.i(getClass(), "versionInfo:" + versionInfo.toString());
-				return super.onSuccess(url, object, status);
+				return true;
 			}
 
 			@Override
 			protected boolean onError(AjaxStatus status) {
 				dialog.dismiss();
-				return super.onError(status);
+				return true;
 			}
 		};
 		dialog = Dialogs.showProgress();
@@ -72,15 +70,6 @@ public class AboutManager {
 				if (which == CustomDialogBuilder.BUTTON_LEFT) {
 					// 下载新版本
 					AndroidUtils.callHTTPDownload(context, "下载新版本", download_url);
-//					try {
-//						Intent intent = new Intent();
-//						intent.setAction("android.intent.action.VIEW");
-//						Uri content_url = Uri.parse(download_url);
-//						intent.setData(content_url);
-//						context.startActivity(intent);
-//					} catch (Exception e) {
-//						e.printStackTrace();
-//					}
 				}
 			}
 		};

@@ -75,7 +75,6 @@ public class BindFragment extends BaseFragment implements ListView.OnItemClickLi
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
-
 			if (LocalBroadcastIntents.ACTION_LOGIN.equals(action)
 					|| LocalBroadcastIntents.ACTION_LOGOUT.equals(action)) {
 				updateUI();

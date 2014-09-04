@@ -24,7 +24,7 @@ public class LocationController extends BaseController {
 	public static final long[] INTERVALS = {
 			2 * 60 * 1000L, // 2分钟
 			5 * 60 * 1000L,	// 5分钟
-			10 * 60 * 1000L, // 10分钟
+			15 * 60 * 1000L, // 15分钟
 			30 * 60 * 1000L, // 30分钟
 			60 * 60 * 1000L // 1小时
 	};
