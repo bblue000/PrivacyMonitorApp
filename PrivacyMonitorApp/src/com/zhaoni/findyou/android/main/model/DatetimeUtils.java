@@ -10,7 +10,7 @@ public class DatetimeUtils {
 	@SuppressLint("SimpleDateFormat")
 	private static SimpleDateFormat sFormatter_Date = new SimpleDateFormat("yyyy年MM月dd日");
 	@SuppressLint("SimpleDateFormat")
-	private static SimpleDateFormat sFormatter_Time = new SimpleDateFormat("HH:mm:ss");
+	private static SimpleDateFormat sFormatter_Time = new SimpleDateFormat("HH时mm分ss秒");
 	public static String format(long datetime) {
 		return sFormatter.format(datetime);
 	}
