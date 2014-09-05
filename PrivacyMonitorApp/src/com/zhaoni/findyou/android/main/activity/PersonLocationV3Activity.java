@@ -8,6 +8,8 @@ import org.ixming.base.view.utils.ViewUtils;
 import org.ixming.inject4android.annotation.ViewInject;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -35,8 +37,10 @@ import com.zhaoni.findyou.android.main.view.CustomVSeekBar;
 
 public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap.OnMapLoadedCallback {
 
-	@ViewInject(id = R.id.person_location_title_tv)
-	private TextView mTitle_TV;
+	@ViewInject(id = R.id.person_location_title_name_tv)
+	private TextView mTitleName_TV;
+	@ViewInject(id = R.id.person_location_title_date_tv)
+	private TextView mTitleDate_TV;
 	@ViewInject(id = R.id.person_location_curtime_tv)
 	private TextView mCurTime_TV;
 	@ViewInject(id = R.id.person_location_datetime_sb)
@@ -133,13 +137,31 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 				}
 				long datetime = mPersonLocation.startTime + ((mPersonLocation.endTime - mPersonLocation.startTime)
 						* progress) / max;
-				invalidateUI(datetime);
+				
+				handler.removeMessages(0);
+				handler.sendMessageDelayed(Message.obtain(handler, 0, datetime), 25);
+//				invalidateUI(datetime);
 			}
 
 			@Override
 			public void onCursorPositionChanged(CustomVSeekBar seekBar, int yPosInGlobal) {
 			}
 		});
+	}
+	
+	@Override
+	public Handler provideActivityHandler() {
+		return new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				switch (msg.what) {
+				case 0:
+					long datetime = (Long) msg.obj;
+					invalidateUI(datetime);
+					break;
+				}
+			}
+		};
 	}
 
 	@Override
@@ -161,8 +183,8 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 	}
 	
 	private void updateTitleTime(long datetime) {
-		mTitle_TV.setText(mPersonController.getMonitoringPerson().getName() + " - "
-				+ DatetimeUtils.formatDate(datetime));
+		mTitleName_TV.setText(mPersonController.getMonitoringPerson().getName());
+		mTitleDate_TV.setText(DatetimeUtils.formatDate(datetime));
 		
 		mCurTime_TV.setText(DatetimeUtils.formatTime(datetime));
 	}

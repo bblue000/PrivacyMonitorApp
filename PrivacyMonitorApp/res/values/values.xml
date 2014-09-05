@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <item type="integer" name="monitored_person_name_len">15</item>
+    
+</resources>

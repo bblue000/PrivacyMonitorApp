@@ -2,6 +2,7 @@ package org.ixming.android.location.baidu;
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
@@ -32,7 +33,7 @@ public class LocationModule {
 	}
 	
 	public LocationModule(Context context, boolean openGps) { 
-		mHandler = new Handler();
+		mHandler = new Handler(Looper.getMainLooper());
 		
 		mLocationClientOption = new LocationClientOption();
 		mLocationClientOption.setLocationMode(LocationMode.Hight_Accuracy);

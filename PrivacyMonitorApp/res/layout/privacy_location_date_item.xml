@@ -44,7 +44,7 @@
 	        android:gravity="center_vertical|right"
 	        android:textColor="@color/appbase_blue"
 	        android:textSize="16sp"
-	        android:text="111111"/>
+	        android:text="1111111111111111111111"/>
 	        
     </LinearLayout>
     
@@ -58,6 +58,33 @@
 	    android:textSize="16sp"
 	    android:textColor="@color/color_88888888"
 	    android:text="2014年"/>
+    
+    <LinearLayout 
+        android:id="@+id/privacy_location_date_item_curhint_llt"
+        style="@style/AppStyle.ContainerLayout.WrapContent"
+        android:layout_alignTop="@id/privacy_location_date_item_year_tv"
+	    android:layout_toRightOf="@id/privacy_location_date_item_year_tv"
+	    android:layout_marginLeft="5dp"
+	    android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical|left">
+        
+        <ImageView 
+	        android:layout_width="14sp"
+	        android:layout_height="14sp"
+	        android:src="@drawable/location"/>
+	    
+	    <TextView 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="5dp"
+		    android:gravity="center"
+		    android:textSize="14sp"
+		    android:textColor="@color/appbase_blue"
+		    android:text="最新定位"/>
+	    
+    </LinearLayout>
+    
     
 	<View 
 	    android:layout_width="@dimen/spacing_1"

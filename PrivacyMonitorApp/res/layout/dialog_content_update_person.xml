@@ -9,6 +9,7 @@
         style="@style/AppStyle.Common.InputEdit"
         android:background="@drawable/text_shape_deep_blue"
         android:hint="@string/person_operate_update_name_hint"
+        android:maxLength="@integer/monitored_person_name_len"
         />
 
 </RelativeLayout>

@@ -2,7 +2,6 @@ package com.zhaoni.findyou.android.login.activity;
 
 import org.ixming.base.common.LocalBroadcasts;
 import org.ixming.base.common.activity.BaseActivity;
-import org.ixming.inject4android.InjectorUtils;
 import org.ixming.inject4android.annotation.OnClickMethodInject;
 import org.ixming.inject4android.annotation.ViewInject;
 
@@ -10,7 +9,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -38,8 +36,6 @@ public class LoginActivity extends BaseActivity {
 	@Override
 	public void initView(View view) {
 		aq = new AQuery(this);
-		InjectorUtils.defaultInstance().inject(this);
-
 	}
 
 	@Override
@@ -54,11 +50,6 @@ public class LoginActivity extends BaseActivity {
 		LocalBroadcasts.registerLocalReceiver(mReceiver,
 				LocalBroadcastIntents.ACTION_LOGIN);
 		mLoginManager = LoginManager.getInstance();
-	}
-
-	@Override
-	public Handler provideActivityHandler() {
-		return null;
 	}
 
 	@Override

@@ -28,7 +28,7 @@ public class LocationController extends BaseController {
 			30 * 60 * 1000L, // 30分钟
 			60 * 60 * 1000L // 1小时
 	};
-	public static final long DEFAULT_INTERVAL = INTERVALS[0];
+	public static final long DEFAULT_INTERVAL = INTERVALS[3];
 	private static LocationController sInsController = new LocationController();
 	public static LocationController getInstance() {
 		return sInsController;
@@ -70,6 +70,11 @@ public class LocationController extends BaseController {
 		return mLocationSetting;
 	}
 	
+	public boolean getLocationSettingRT() {
+		obtainLocalValue();
+		return mLocationSetting;
+	}
+	
 	public void setCurrentSetting(boolean value) {
 		AppSharedUtils.saveLocationSetting(value);
 		mLocationSetting = value;
@@ -87,6 +92,11 @@ public class LocationController extends BaseController {
 	}
 
 	public long getLocationInterval() {
+		return mLocationInterval;
+	}
+	
+	public long getLocationIntervalRT() {
+		obtainLocalValue();
 		return mLocationInterval;
 	}
 	

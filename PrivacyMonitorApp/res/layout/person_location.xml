@@ -8,12 +8,27 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/spacing_50"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|left"
         android:paddingLeft="@dimen/common_padding"
-        android:paddingRight="@dimen/common_padding" >
+        android:paddingRight="@dimen/common_padding" 
+        >
 
         <TextView
-            android:id="@+id/person_location_title_tv"
+            android:id="@+id/person_location_title_name_tv"
+            style="@style/AppStyle.Common.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        
+        <TextView
+            style="@style/AppStyle.Common.Title.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text=" - "/>
+        
+        <TextView
+            android:id="@+id/person_location_title_date_tv"
             style="@style/AppStyle.Common.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

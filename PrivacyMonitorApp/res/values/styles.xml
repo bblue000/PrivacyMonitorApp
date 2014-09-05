@@ -47,6 +47,10 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="AppStyle.Common.Title.Large">
+        <item name="android:textSize">@dimen/main_title_textsize_large</item>
+    </style>
+
     <style name="AppStyle.Login.Input" parent="AppStyle.Common.InputEdit">
         <item name="android:layout_height">@dimen/login_input_height</item>
     </style>

@@ -25,6 +25,13 @@ public interface LocalBroadcastIntents {
 		
 	}
 	
+	/**
+	 * @author Yin Yong
+	 */
+	public interface Location {
+		String ACTION_LOCATION_ALARM = "com.ixming.privacy.android.Location.ACTION_LOCATION_ALARM";
+	}
+	
 	
 	/**
 	 * 获取device_token后发送的广播

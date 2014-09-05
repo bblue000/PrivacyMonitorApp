@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -37,7 +38,8 @@ import com.zhaoni.findyou.android.main.model.MonitoredPerson;
 import com.zhaoni.findyou.android.main.view.PADrawerLayout;
 
 public class PersonListFragment extends BaseFragment
-implements OnItemClickListener, PersonController.LocationDataLoadListener {
+implements OnItemClickListener, PersonController.LocationDataLoadListener,
+SwipeRefreshLayout.OnRefreshListener {
 
 	@ViewInject(id = R.id.person_list_top_layout)
 	private View mTop_Layout;
@@ -59,6 +61,8 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 	@ViewInject(id = R.id.person_list_operate_btn)
 	private View mPersonOperate_V;
 	
+	@ViewInject(id = R.id.person_list_date_srl)
+	private SwipeRefreshLayout mPersonDate_SRL;
 	@ViewInject(id = R.id.person_list_date_lv)
 	private ListView mPersonDate_LV;
 	
@@ -95,6 +99,12 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 	public void initView(View view) {
 		mPersonSel_Layout.setMinDrawerMargin(0);
 		mPersonSel_Layout.setScrimColor(0x00000000);
+		
+		mPersonDate_SRL.setColorSchemeResources(
+				R.color.appbase_blue, 
+				R.color.appbase_blue_pressed,
+				R.color.appbase_blue_disable,
+				R.color.appbase_blue_half);  
 	}
 
 	@Override
@@ -119,6 +129,8 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 
 	@Override
 	public void initListener() {
+		mPersonDate_SRL.setOnRefreshListener(this);  
+		
 		mPersonDate_LV.setOnItemClickListener(this);
 		
 		// 背景布局事件
@@ -394,6 +406,7 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 	
 	@Override
 	public void onLocationLoadSuccess() {
+		mPersonDate_SRL.setRefreshing(false);
 		if (mPersonListController.hasCurrentPerson()) {
 			mLocationDateAdapter.setData(mPersonListController.getCurrentPersonController().getLocationDates());
 		} else {
@@ -405,11 +418,17 @@ implements OnItemClickListener, PersonController.LocationDataLoadListener {
 
 	@Override
 	public void onLocationLoadFailed() {
+		mPersonDate_SRL.setRefreshing(false);
 		// TODO 未必需要删除原先的数据，保留原先状态即可
 //		mLocationDateAdapter.setData(null);
 //		mLocationDateAdapter.notifyDataSetChanged();
 		updateCurrentMonitoringUI();
 		ToastUtils.showToast(R.string.person_location_data_obtain_error);
+	}
+
+	@Override
+	public void onRefresh() {
+		loadLocationData();
 	}
 
 }
