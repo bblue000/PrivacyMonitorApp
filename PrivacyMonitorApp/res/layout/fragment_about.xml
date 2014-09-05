@@ -27,14 +27,16 @@
 	            android:layout_centerHorizontal="true"
 	            android:layout_below="@id/about_logo_iv"
 	            android:layout_marginTop="10dp"
-	            android:text="version 1.0"
+	            android:textSize="16sp"
+	            android:textColor="@color/color_88888888"
+	            android:text="Version 1.0"
 	            />
 	        
             <Button
 	            android:id="@+id/about_feedback_btn"
 	            style="@style/AppStyle.Common.Btn"
 	            android:layout_below="@id/about_version_tv"
-	            android:layout_marginTop="50dp"
+	            android:layout_marginTop="75dp"
 	            android:text="@string/about_feedback" />
 	
 	        <Button

@@ -20,6 +20,7 @@ import com.zhaoni.findyou.android.PAApplication;
 import com.zhaoni.findyou.android.common.model.ResponseData.PayInfoResult;
 
 public class DianjinUtils {
+	public static final String DIANJIN_STATUS_KEY = "DIANJIN_STATUS_KEY";
 	public static final String DIANJIN_NEW_DATE_KEY = "DIANJIN_NEW_DATE_KEY";
 	public static final String DIANJIN_ACTIVED_SUCCESSS_ACTION = "DIANJIN_ACTIVED_SUCCESSS_ACTION";
 
@@ -38,10 +39,12 @@ public class DianjinUtils {
 									+ object.getMsg());
 							Intent intent = new Intent();
 							intent.setAction(DIANJIN_ACTIVED_SUCCESSS_ACTION);
+
 							if (object.getValue() != null) {
 								intent.putExtra(DIANJIN_NEW_DATE_KEY, object
 										.getValue().getExpirationdate());
-
+								intent.putExtra(DIANJIN_STATUS_KEY, object
+										.getValue().getStatus());
 							}
 							LocalBroadcasts.sendLocalBroadcast(intent);
 						}

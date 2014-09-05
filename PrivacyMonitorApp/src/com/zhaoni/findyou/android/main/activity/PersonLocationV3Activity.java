@@ -8,7 +8,6 @@ import org.ixming.base.view.utils.ViewUtils;
 import org.ixming.inject4android.annotation.ViewInject;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -38,6 +37,8 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 
 	@ViewInject(id = R.id.person_location_title_tv)
 	private TextView mTitle_TV;
+	@ViewInject(id = R.id.person_location_curtime_tv)
+	private TextView mCurTime_TV;
 	@ViewInject(id = R.id.person_location_datetime_sb)
 	private CustomVSeekBar mTime_SB;
 	@ViewInject(id = R.id.person_location_map_container)
@@ -49,7 +50,7 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 	
 	private PersonController mPersonController;
 	
-	PersonLocationV3 mPersonLocation;
+	private PersonLocationV3 mPersonLocation;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// 在使用SDK各组件之前初始化context信息，传入ApplicationContext  
@@ -67,6 +68,7 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 	@Override
 	public void initView(View view) {
 		ViewUtils.setViewGone(mTime_SB);
+		mTime_SB.setChangingWhenDragging(true);
 		
 		BaiduMapOptions options = new BaiduMapOptions();
 		options.compassEnabled(false)
@@ -117,8 +119,7 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 		
 		mPersonLocation = new PersonLocationV3(mPersonController);
 		
-		mTitle_TV.setText(mPersonController.getMonitoringPerson().getName() + " - "
-				+ DatetimeUtils.formatDate(mPersonController.getCurTime()));
+		updateTitleTime(mPersonController.getCurTime());
 	}
 
 	@Override
@@ -142,11 +143,6 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 	}
 
 	@Override
-	public Handler provideActivityHandler() {
-		return null;
-	}
-	
-	@Override
 	protected void onResume() {
 		mMapView.onResume();
 		super.onResume();
@@ -166,7 +162,9 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 	
 	private void updateTitleTime(long datetime) {
 		mTitle_TV.setText(mPersonController.getMonitoringPerson().getName() + " - "
-				+ DatetimeUtils.format(datetime));
+				+ DatetimeUtils.formatDate(datetime));
+		
+		mCurTime_TV.setText(DatetimeUtils.formatTime(datetime));
 	}
 	
 	private MyOverlayManager mOverlayManager;
@@ -219,7 +217,7 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 		mOverlayManager.addToMap();
 //		mOverlayManager.zoomToSpan();
 		
-		float zoom = Math.max(mBaiduMap.getMaxZoomLevel(), mBaiduMap.getMapStatus().zoom);
+		float zoom = Math.max(14.0f/*mBaiduMap.getMaxZoomLevel()*/, mBaiduMap.getMapStatus().zoom);
 		mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newLatLngZoom(gotoPos, zoom));
 		
 		updateTitleTime(nearestTime);

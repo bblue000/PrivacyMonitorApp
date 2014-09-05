@@ -5,6 +5,7 @@ public class PayInfo {
 	long expirationdate;
 	String username;
 	String deviceId;
+	int status;
 
 	public int getId() {
 		return id;
@@ -36,6 +37,14 @@ public class PayInfo {
 
 	public void setDeviceId(String deviceId) {
 		this.deviceId = deviceId;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 }

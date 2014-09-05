@@ -39,7 +39,6 @@ public class FeedbackActivity extends BaseActivity {
 
 	@Override
 	public void initData(View view, Bundle savedInstanceState) {
-
 		aq = new AQuery(this);
 	}
 
@@ -50,7 +49,6 @@ public class FeedbackActivity extends BaseActivity {
 	@OnClickMethodInject(id = R.id.feedback_confirm_btn)
 	void submit() {
 		// 提交用户反馈信息
-		// checkUpgrade();
 		String content = feedback_ET.getText().toString();
 		String contact_info = feedback_contact_ET.getText().toString();
 		if (Utils.isNull(content)) {
@@ -62,12 +60,12 @@ public class FeedbackActivity extends BaseActivity {
 			protected boolean onSuccess(String url, Object object,
 					AjaxStatus status) {
 				LogUtils.i(getClass(), "execute request feedback success!");
-				return super.onSuccess(url, object, status);
+				return true;
 			}
 
 			@Override
 			protected boolean onError(AjaxStatus status) {
-				return super.onError(status);
+				return true;
 			}
 		};
 		Map<String, String> params = RequestPiecer.getBasicData();
@@ -75,8 +73,8 @@ public class FeedbackActivity extends BaseActivity {
 		params.put("contact_info", contact_info);
 		aq.ajax(Config.URL_POST_FEEDBACK, params, FeedbackResult.class,
 				callback);
+		
 		ToastUtils.showLongToast(R.string.feedback_commit_prompt);
-		this.finish();
-
+		FeedbackActivity.this.finish();
 	}
 }

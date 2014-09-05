@@ -8,18 +8,17 @@ import org.ixming.base.common.activity.BaseFragment;
 import org.ixming.inject4android.annotation.OnClickMethodInject;
 import org.ixming.inject4android.annotation.ViewInject;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -39,8 +38,11 @@ import com.zhaoni.findyou.android.login.manager.LoginManager;
 import com.zhaoni.findyou.android.main.adapter.LocationIntervalAdapter;
 import com.zhaoni.findyou.android.main.manager.BindManager;
 import com.zhaoni.findyou.android.main.model.DatetimeUtils;
+import com.zhaoni.findyou.android.main.model.PayInfo;
+import com.zhaoni.findyou.android.main.view.SettingsSwicher;
 
-public class BindFragment extends BaseFragment implements ListView.OnItemClickListener {
+public class BindFragment extends BaseFragment implements
+		ListView.OnItemClickListener {
 
 	@ViewInject(id = R.id.device_bind_obtain_et)
 	private EditText mKeyInput_ET;
@@ -48,7 +50,7 @@ public class BindFragment extends BaseFragment implements ListView.OnItemClickLi
 	private Button mObtain_BT;
 
 	@ViewInject(id = R.id.device_bind_open_loc_cb)
-	private CheckBox mOpenLoc_CB;
+	private SettingsSwicher mOpenLoc_CB;
 	BindManager manager;
 	// 隐藏应用
 	@ViewInject(id = R.id.device_bind_hide_btn)
@@ -67,7 +69,7 @@ public class BindFragment extends BaseFragment implements ListView.OnItemClickLi
 	// private TextView mExpire_TV;
 	@ViewInject(id = R.id.device_bind_device_expire_tv)
 	private TextView mDeviceExpire_TV;
-	
+
 	@ViewInject(id = R.id.device_bind_loc_freq_value_tv)
 	private TextView mLocationInterval_TV;
 
@@ -76,17 +78,19 @@ public class BindFragment extends BaseFragment implements ListView.OnItemClickLi
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
-
 			if (LocalBroadcastIntents.ACTION_LOGIN.equals(action)
 					|| LocalBroadcastIntents.ACTION_LOGOUT.equals(action)) {
 				updateUI();
 			} else if (DianjinUtils.DIANJIN_ACTIVED_SUCCESSS_ACTION
 					.equals(action)) {
-				long date = intent.getLongExtra(
-						DianjinUtils.DIANJIN_NEW_DATE_KEY, 0);
+				PayInfo payInfo = new PayInfo();
 				Message msg = handler.obtainMessage();
 				msg.what = BindManager.DEVICE_DATA_MSG;
-				msg.obj = date;
+				payInfo.setStatus(intent.getIntExtra(
+						DianjinUtils.DIANJIN_STATUS_KEY, 1));
+				payInfo.setExpirationdate(intent.getLongExtra(
+						DianjinUtils.DIANJIN_NEW_DATE_KEY, 0));
+				msg.obj = payInfo;
 				handler.sendMessage(msg);
 			}
 
@@ -142,7 +146,6 @@ public class BindFragment extends BaseFragment implements ListView.OnItemClickLi
 				});
 	}
 
-	@SuppressLint("HandlerLeak")
 	@Override
 	public Handler provideActivityHandler() {
 		return new Handler() {
@@ -150,12 +153,16 @@ public class BindFragment extends BaseFragment implements ListView.OnItemClickLi
 			public void handleMessage(Message msg) {
 				switch (msg.what) {
 				case BindManager.DEVICE_DATA_MSG:
-					long theDate = (Long) msg.obj;
+					PayInfo payInfo = (PayInfo) msg.obj;
+					long theDate = payInfo.getExpirationdate();
 					Date date = new Date(theDate);
 					SimpleDateFormat format = new SimpleDateFormat(
 							"yyyy-MM-dd HH:mm:ss");
 					String reTime = format.format(date);
 					mDeviceExpire_TV.setText(reTime);
+					if (payInfo.getStatus() == 0) {
+						mDeviceExpire_TV.setTextColor(Color.RED);
+					}
 					break;
 				}
 			}
@@ -203,10 +210,10 @@ public class BindFragment extends BaseFragment implements ListView.OnItemClickLi
 	void gotoFreeExchange() {
 		DianJinPlatform.showOfferWall(getActivity());
 	}
-	
-	
+
 	private DropDownPop mLocationIntervalDrop;
 	private LocationIntervalAdapter mLocationIntervalAdapter;
+
 	@OnClickMethodInject(id = R.id.device_bind_loc_freq_value_tv)
 	void chooseFreq() {
 		if (null == mLocationIntervalDrop) {
@@ -218,17 +225,19 @@ public class BindFragment extends BaseFragment implements ListView.OnItemClickLi
 		if (mLocationIntervalDrop.isShowing()) {
 			mLocationIntervalDrop.dismiss();
 		} else {
-			mLocationIntervalDrop.showAsDropDown(mLocationInterval_TV, mLocationIntervalAdapter, this);
+			mLocationIntervalDrop.showAsDropDown(mLocationInterval_TV,
+					mLocationIntervalAdapter, this);
 		}
 	}
-	
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		LocationController.getInstance().setLocationInterval(mLocationIntervalAdapter.getItem(position));
+		LocationController.getInstance().setLocationInterval(
+				mLocationIntervalAdapter.getItem(position));
 		updateUI();
 	}
-	
+
 	private void updateUI() {
 		// device token的显示逻辑
 		if (BindController.getInstance().hasDeviceToken()) {
@@ -238,11 +247,14 @@ public class BindFragment extends BaseFragment implements ListView.OnItemClickLi
 			mKeyInput_ET.setText(null);
 
 		}
-		
-		// 设置是否开启定位
-		mOpenLoc_CB.setChecked(LocationController.getInstance().getLocationSetting());
 
-		mLocationInterval_TV.setText(DatetimeUtils.simpleFixTime(LocationController.getInstance().getLocationInterval()));
+		// 设置是否开启定位
+		mOpenLoc_CB.setChecked(LocationController.getInstance()
+				.getLocationSetting());
+
+		mLocationInterval_TV.setText(DatetimeUtils
+				.simpleFixTime(LocationController.getInstance()
+						.getLocationInterval()));
 		/**
 		 * 该代码 1.0不放开
 		 */

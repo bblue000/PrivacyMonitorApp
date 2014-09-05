@@ -120,7 +120,7 @@
     </style>
     
     <style name="DialogTitleStyle">
-        <item name="android:textSize">@dimen/textsize_24</item>
+        <item name="android:textSize">@dimen/textsize_20</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/deep_sky_blue</item>
         <item name="android:singleLine">true</item>
