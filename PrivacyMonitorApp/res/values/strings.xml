@@ -78,7 +78,8 @@
     <string name="device_bind_user_expire_tip">注：用户到期将无法查看他人位置信息，不影响被查找。</string>
     <string name="device_bind_user_charge">充值</string>
     <string name="device_bind_user_free_exchange">免费获取时间</string>
-
+    <string name="device_bind_user_expirationdata_prompt">已到期</string>
+    <string name="expirationdate_tip">您的用户时间已经到期，无法正常查看他人信息！</string>
     <!-- about -->
     <string name="about_feedback">意见反馈</string>
     <string name="about_upgrade">检查更新</string>

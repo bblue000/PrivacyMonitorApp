@@ -37,9 +37,9 @@ import com.zhaoni.findyou.android.main.control.PersonListController;
 import com.zhaoni.findyou.android.main.model.MonitoredPerson;
 import com.zhaoni.findyou.android.main.view.PADrawerLayout;
 
-public class PersonListFragment extends BaseFragment
-implements OnItemClickListener, PersonController.LocationDataLoadListener,
-SwipeRefreshLayout.OnRefreshListener {
+public class PersonListFragment extends BaseFragment implements
+		OnItemClickListener, PersonController.LocationDataLoadListener,
+		SwipeRefreshLayout.OnRefreshListener {
 
 	@ViewInject(id = R.id.person_list_top_layout)
 	private View mTop_Layout;
@@ -47,7 +47,7 @@ SwipeRefreshLayout.OnRefreshListener {
 	private PADrawerLayout mPersonSel_Layout;
 	@ViewInject(id = R.id.person_list_top_operate_layout)
 	private View mTopOperate_Layout;
-	
+
 	@ViewInject(id = R.id.person_list_top_operate_add_btn, parentId = R.id.person_list_top_operate_layout)
 	private View mTopOperateAdd_Layout;
 	@ViewInject(id = R.id.person_list_top_operate_update_btn, parentId = R.id.person_list_top_operate_layout)
@@ -55,41 +55,43 @@ SwipeRefreshLayout.OnRefreshListener {
 	@ViewInject(id = R.id.person_list_top_operate_delete_btn, parentId = R.id.person_list_top_operate_layout)
 	private View mTopOperateDelete_Layout;
 
-	
 	@ViewInject(id = R.id.person_list_selected_tv)
 	private TextView mPersonSel_TV;
 	@ViewInject(id = R.id.person_list_operate_btn)
 	private View mPersonOperate_V;
-	
+
 	@ViewInject(id = R.id.person_list_date_srl)
 	private SwipeRefreshLayout mPersonDate_SRL;
 	@ViewInject(id = R.id.person_list_date_lv)
 	private ListView mPersonDate_LV;
-	
+
 	@ViewInject(id = R.id.person_list_date_empty_tv)
 	private View mPersonDateEmpty_TV;
-	
-//	@ViewInject(id = R.id.person_list_operate_layout)
-//	private View mPersonOperate_Layout;
-	
+
+	// @ViewInject(id = R.id.person_list_operate_layout)
+	// private View mPersonOperate_Layout;
+
 	private DropDownPop mSelPersonDropDownPop;
-	
+
 	private PersonListController mPersonListController;
-	
+
 	private MonitoredPersonAdapter mMonitoredPersonAdapter;
 	private LocationDateAdapter mLocationDateAdapter;
-	
+
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
-			
+
 			if (MonitoringPerson.ACTION_SELECT_PERSON_CHANGED.equals(action)) {
 				resetSelCurrentMonitoringPerson(true);
 			}
+			if (MonitoringPerson.ACTION_REFRESH_LIST.equals(action)) {
+				mPersonDate_SRL.setRefreshing(true);
+			}
 		}
 	};
-	
+
 	@Override
 	public int provideLayoutResId() {
 		return R.layout.fragment_person_list;
@@ -99,50 +101,51 @@ SwipeRefreshLayout.OnRefreshListener {
 	public void initView(View view) {
 		mPersonSel_Layout.setMinDrawerMargin(0);
 		mPersonSel_Layout.setScrimColor(0x00000000);
-		
-		mPersonDate_SRL.setColorSchemeResources(
-				R.color.appbase_blue, 
-				R.color.appbase_blue_pressed,
-				R.color.appbase_blue_disable,
-				R.color.appbase_blue_half);  
+
+		mPersonDate_SRL.setColorSchemeResources(R.color.appbase_blue,
+				R.color.appbase_blue_pressed, R.color.appbase_blue_disable,
+				R.color.appbase_blue_half);
 	}
 
 	@Override
 	public void initData(View view, Bundle savedInstanceState) {
 		mPersonListController = PersonListController.getInstance();
-		
+
 		LocalBroadcasts.registerLocalReceiver(mReceiver,
 				MonitoringPerson.ACTION_DATA_LIST_CHANGED,
 				MonitoringPerson.ACTION_DATA_LIST_INVALIDATE,
-				MonitoringPerson.ACTION_SELECT_PERSON_CHANGED);
-		
+				MonitoringPerson.ACTION_SELECT_PERSON_CHANGED,
+				MonitoringPerson.ACTION_REFRESH_LIST);
+
 		mSelPersonDropDownPop = new DropDownPop(context);
-		
+
 		mLocationDateAdapter = new LocationDateAdapter(context);
 		mPersonDate_LV.setAdapter(mLocationDateAdapter);
-		
+
 		resetSelCurrentMonitoringPerson(false);
-		
+
 		// request my monitoring person
 		mPersonListController.requestMonitoringPerson();
 	}
 
 	@Override
 	public void initListener() {
-		mPersonDate_SRL.setOnRefreshListener(this);  
-		
+		mPersonDate_SRL.setOnRefreshListener(this);
+
 		mPersonDate_LV.setOnItemClickListener(this);
-		
+
 		// 背景布局事件
 		final View.OnTouchListener rootViewTouchListener = new View.OnTouchListener() {
 			private Rect mRect = new Rect();
+
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				if (isDrawerOpen()) {
 					if (mRect.isEmpty()) {
 						mPersonSel_Layout.getGlobalVisibleRect(mRect);
 					}
-					if (!mRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+					if (!mRect.contains((int) event.getRawX(),
+							(int) event.getRawY())) {
 						hideDrawer();
 						return true;
 					}
@@ -151,9 +154,9 @@ SwipeRefreshLayout.OnRefreshListener {
 			}
 		};
 		getRootView().setOnTouchListener(rootViewTouchListener);
-		
+
 		mPersonDate_LV.setOnTouchListener(new View.OnTouchListener() {
-			
+
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				if (isDrawerOpen()) {
@@ -170,7 +173,7 @@ SwipeRefreshLayout.OnRefreshListener {
 		super.onDestroy();
 		LocalBroadcasts.unregisterLocalReceiver(mReceiver);
 	}
-	
+
 	@OnClickMethodInject(id = R.id.person_list_selected_inner_layout)
 	void choosePerson() {
 		if (mSelPersonDropDownPop.isShowing()) {
@@ -179,12 +182,14 @@ SwipeRefreshLayout.OnRefreshListener {
 			if (null == mMonitoredPersonAdapter) {
 				mMonitoredPersonAdapter = new MonitoredPersonAdapter(context);
 			}
-			mMonitoredPersonAdapter.setData(mPersonListController.getMonitoringPersonList());
-			mSelPersonDropDownPop.showAsDropDown(mTop_Layout, mPersonSel_Layout, mMonitoredPersonAdapter,
+			mMonitoredPersonAdapter.setData(mPersonListController
+					.getMonitoringPersonList());
+			mSelPersonDropDownPop.showAsDropDown(mTop_Layout,
+					mPersonSel_Layout, mMonitoredPersonAdapter,
 					getString(R.string.person_list_empty_tip), this);
 		}
 	}
-	
+
 	@OnClickMethodInject(id = R.id.person_list_operate_btn)
 	void operatePerson() {
 		if (mPersonListController.hasCurrentPerson()) {
@@ -199,128 +204,141 @@ SwipeRefreshLayout.OnRefreshListener {
 		} else {
 			showDrawer();
 		}
-		
+
 	}
-	
+
 	private void hideDrawer() {
 		if (isDrawerOpen()) {
 			mPersonSel_Layout.closeDrawer(Gravity.RIGHT);
 		}
 	}
-	
+
 	private void showDrawer() {
 		if (!isDrawerOpen()) {
 			mPersonSel_Layout.openDrawer(Gravity.RIGHT);
 		}
 	}
-	
+
 	private boolean isDrawerOpen() {
 		return mPersonSel_Layout.isDrawerVisible(Gravity.RIGHT);
 	}
-	
+
 	@OnClickMethodInject(id = R.id.person_list_top_operate_add_btn, parentId = R.id.person_list_top_operate_layout)
 	void addPerson() {
 		hideDrawer();
-		
-		CustomDialogBuilder customDialogBuilder = new CustomDialogBuilder(context);
+
+		CustomDialogBuilder customDialogBuilder = new CustomDialogBuilder(
+				context);
 		customDialogBuilder.title(R.string.person_operate_add_title);
-		
+
 		customDialogBuilder.content(R.layout.dialog_content_add_person);
 		View content = customDialogBuilder.content();
-		final EditText deviceToken_ET = (EditText) content.findViewById(R.id.person_operate_add_device_token_et);
-		final EditText name_ET = (EditText) content.findViewById(R.id.person_operate_add_name_et);
-		
-		customDialogBuilder.leftBtn(R.string.person_operate_add_btn, new CustomDialogOnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					PersonListController.getInstance().addMonitoringPerson(name_ET.getText().toString()
-							, deviceToken_ET.getText().toString());
-				}
+		final EditText deviceToken_ET = (EditText) content
+				.findViewById(R.id.person_operate_add_device_token_et);
+		final EditText name_ET = (EditText) content
+				.findViewById(R.id.person_operate_add_name_et);
 
-				@Override
-				public boolean triggerDismiss() {
-					if (TextUtils.isEmpty(deviceToken_ET.getText())) {
-						deviceToken_ET.setError(getString(R.string.person_operate_add_device_token_empty_tip));
-						return false;
+		customDialogBuilder.leftBtn(R.string.person_operate_add_btn,
+				new CustomDialogOnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						PersonListController.getInstance().addMonitoringPerson(
+								name_ET.getText().toString(),
+								deviceToken_ET.getText().toString());
 					}
-					if (TextUtils.isEmpty(name_ET.getText())) {
-						name_ET.setError(getString(R.string.person_operate_add_name_empty_tip));
-						return false;
+
+					@Override
+					public boolean triggerDismiss() {
+						if (TextUtils.isEmpty(deviceToken_ET.getText())) {
+							deviceToken_ET
+									.setError(getString(R.string.person_operate_add_device_token_empty_tip));
+							return false;
+						}
+						if (TextUtils.isEmpty(name_ET.getText())) {
+							name_ET.setError(getString(R.string.person_operate_add_name_empty_tip));
+							return false;
+						}
+						return true;
 					}
-					return true;
-				}
-			})
-			.rightBtn(R.string.cancel, null);
-		
+				}).rightBtn(R.string.cancel, null);
+
 		customDialogBuilder.build().show();
 	}
-	
-//	@OnClickMethodInject(id = R.id.person_list_update_btn)
+
+	// @OnClickMethodInject(id = R.id.person_list_update_btn)
 	@OnClickMethodInject(id = R.id.person_list_top_operate_update_btn, parentId = R.id.person_list_top_operate_layout)
 	void updateCurrentPerson() {
 		hideDrawer();
-		
-		final MonitoredPerson person = mPersonListController.getCurrentPersonController()
-				.getMonitoringPerson();
-		
-		CustomDialogBuilder customDialogBuilder = new CustomDialogBuilder(context);
+
+		final MonitoredPerson person = mPersonListController
+				.getCurrentPersonController().getMonitoringPerson();
+
+		CustomDialogBuilder customDialogBuilder = new CustomDialogBuilder(
+				context);
 		customDialogBuilder.title(R.string.person_operate_update_title);
-		
+
 		customDialogBuilder.content(R.layout.dialog_content_update_person);
 		View content = customDialogBuilder.content();
-		final EditText name_ET = (EditText) content.findViewById(R.id.person_operate_update_name_et);
+		final EditText name_ET = (EditText) content
+				.findViewById(R.id.person_operate_update_name_et);
 		name_ET.setText(person.getName());
 		name_ET.setSelection(0, name_ET.getText().length());
-		
-		customDialogBuilder.leftBtn(R.string.person_operate_update_btn, new CustomDialogOnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					mPersonListController.updateMonitoringPerson(person, name_ET.getText().toString());
-				}
 
-				@Override
-				public boolean triggerDismiss() {
-					if (TextUtils.isEmpty(name_ET.getText())) {
-						name_ET.setError(getString(R.string.person_operate_update_name_empty_tip));
-						return false;
+		customDialogBuilder.leftBtn(R.string.person_operate_update_btn,
+				new CustomDialogOnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						mPersonListController.updateMonitoringPerson(person,
+								name_ET.getText().toString());
 					}
-					if (name_ET.getText().toString().equals(person.getName())) {
-						name_ET.setError(getString(R.string.person_operate_update_name_same_tip));
-						return false;
+
+					@Override
+					public boolean triggerDismiss() {
+						if (TextUtils.isEmpty(name_ET.getText())) {
+							name_ET.setError(getString(R.string.person_operate_update_name_empty_tip));
+							return false;
+						}
+						if (name_ET.getText().toString()
+								.equals(person.getName())) {
+							name_ET.setError(getString(R.string.person_operate_update_name_same_tip));
+							return false;
+						}
+						return true;
 					}
-					return true;
-				}
-			});
-		
+				});
+
 		customDialogBuilder.build().show();
 	}
 
-//	@OnClickMethodInject(id = R.id.person_list_delete_btn)
+	// @OnClickMethodInject(id = R.id.person_list_delete_btn)
 	@OnClickMethodInject(id = R.id.person_list_top_operate_delete_btn, parentId = R.id.person_list_top_operate_layout)
 	void deleteCurrentPerson() {
 		hideDrawer();
-		
-		final MonitoredPerson person = mPersonListController.getCurrentPersonController()
-				.getMonitoringPerson();
-		
-		CustomDialogBuilder customDialogBuilder = new CustomDialogBuilder(context);
+
+		final MonitoredPerson person = mPersonListController
+				.getCurrentPersonController().getMonitoringPerson();
+
+		CustomDialogBuilder customDialogBuilder = new CustomDialogBuilder(
+				context);
 		customDialogBuilder.title(R.string.dialog_prompt);
-		
-		customDialogBuilder.text(getString(R.string.person_operate_delete_text, person.getName()));
-		customDialogBuilder.leftBtn(R.string.confirm, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				mPersonListController.deleteMonitoringPerson(person);
-			}
-			
-		});
-		
+
+		customDialogBuilder.text(getString(R.string.person_operate_delete_text,
+				person.getName()));
+		customDialogBuilder.leftBtn(R.string.confirm,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						mPersonListController.deleteMonitoringPerson(person);
+					}
+
+				});
+
 		customDialogBuilder.rightBtn(R.string.cancel, null);
-		
+
 		customDialogBuilder.build().show();
 	}
-	
+
 	private void updateCurrentMonitoringUI() {
 		if (!mPersonListController.hasCurrentPerson()) {
 			ViewUtils.setViewGone(mPersonDate_LV);
@@ -335,28 +353,31 @@ SwipeRefreshLayout.OnRefreshListener {
 			}
 		}
 	}
-	
+
 	private void hideCurrentMonitoringTmp() {
 		ViewUtils.setViewGone(mPersonDate_LV);
 		ViewUtils.setViewGone(mPersonDateEmpty_TV);
 	}
-	
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		if (parent == mPersonDate_LV) {
 			gotoTarget(mLocationDateAdapter.getItem(position));
 		} else {
-			mPersonListController.setCurrentMonitoringPerson(mMonitoredPersonAdapter.getItem(position));
+			mPersonListController
+					.setCurrentMonitoringPerson(mMonitoredPersonAdapter
+							.getItem(position));
 		}
 	}
-	
+
 	private void gotoTarget(long time) {
-		PersonController personController = mPersonListController.getCurrentPersonController();
+		PersonController personController = mPersonListController
+				.getCurrentPersonController();
 		personController.setCurTime(time);
 		startActivity(PersonLocationV3Activity.class);
 	}
-	
+
 	private void setPersonSelName(MonitoredPerson person) {
 		if (null == person) {
 			mPersonSel_TV.setText(null);
@@ -364,51 +385,54 @@ SwipeRefreshLayout.OnRefreshListener {
 			mPersonSel_TV.setText(person.getName());
 		}
 	}
-	
+
 	private void loadLocationData() {
 		// request current monitoring person's data
-		PersonController personController = mPersonListController.getCurrentPersonController();
+		PersonController personController = mPersonListController
+				.getCurrentPersonController();
 		if (null == personController) {
-			
+
 		} else {
 			// 隐藏列表和列表为空时的界面
 			hideCurrentMonitoringTmp();
-			
+
 			if (PersonListController.TEST) {
 				onLocationLoadSuccess();
 			} else {
 				personController.requestLocationData(this);
 			}
-			
+
 		}
 	}
-	
+
 	private void resetSelCurrentMonitoringPerson(boolean loadData) {
 		// 更新数据
 		MonitoredPerson person = null;
 		if (mPersonListController.hasCurrentPerson()) {
-			PersonController personController = mPersonListController.getCurrentPersonController();
+			PersonController personController = mPersonListController
+					.getCurrentPersonController();
 			person = personController.getMonitoringPerson();
 			mLocationDateAdapter.setData(personController.getLocationDates());
 		} else {
 			mLocationDateAdapter.setData(null);
 		}
-		
+
 		setPersonSelName(person);
-		
+
 		mLocationDateAdapter.notifyDataSetChanged();
 		updateCurrentMonitoringUI();
-		
+
 		if (loadData) {
 			loadLocationData();
 		}
 	}
-	
+
 	@Override
 	public void onLocationLoadSuccess() {
 		mPersonDate_SRL.setRefreshing(false);
 		if (mPersonListController.hasCurrentPerson()) {
-			mLocationDateAdapter.setData(mPersonListController.getCurrentPersonController().getLocationDates());
+			mLocationDateAdapter.setData(mPersonListController
+					.getCurrentPersonController().getLocationDates());
 		} else {
 			mLocationDateAdapter.setData(null);
 		}
@@ -420,8 +444,8 @@ SwipeRefreshLayout.OnRefreshListener {
 	public void onLocationLoadFailed() {
 		mPersonDate_SRL.setRefreshing(false);
 		// TODO 未必需要删除原先的数据，保留原先状态即可
-//		mLocationDateAdapter.setData(null);
-//		mLocationDateAdapter.notifyDataSetChanged();
+		// mLocationDateAdapter.setData(null);
+		// mLocationDateAdapter.notifyDataSetChanged();
 		updateCurrentMonitoringUI();
 		ToastUtils.showToast(R.string.person_location_data_obtain_error);
 	}

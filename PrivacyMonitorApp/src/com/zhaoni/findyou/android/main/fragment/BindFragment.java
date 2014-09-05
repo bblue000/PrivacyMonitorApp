@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 
 import org.ixming.base.common.LocalBroadcasts;
 import org.ixming.base.common.activity.BaseFragment;
+import org.ixming.base.utils.android.AndroidUtils;
 import org.ixming.inject4android.annotation.OnClickMethodInject;
 import org.ixming.inject4android.annotation.ViewInject;
 
@@ -161,7 +162,28 @@ public class BindFragment extends BaseFragment implements
 					String reTime = format.format(date);
 					mDeviceExpire_TV.setText(reTime);
 					if (payInfo.getStatus() == 0) {
+						mDeviceExpire_TV
+								.setText(R.string.device_bind_user_expirationdata_prompt);
 						mDeviceExpire_TV.setTextColor(Color.RED);
+						DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								if (which == CustomDialogBuilder.BUTTON_LEFT) {
+									// 下载新版本
+									gotoFreeExchange();
+								}
+							}
+						};
+						new CustomDialogBuilder(context)
+								.title(R.string.dialog_prompt)
+								.text(R.string.expirationdate_tip)
+								.leftBtn(
+										R.string.device_bind_user_free_exchange,
+										listener)
+								.rightBtn(R.string.cancel, null).build().show();
+					} else {
+						mDeviceExpire_TV.setTextColor(Color.BLACK);
 					}
 					break;
 				}
