@@ -47,10 +47,10 @@ public class MainService extends Service {
 			sMainService = this;	
 		}
 		
-		
-		mLocationModule = new LocationModule(PAApplication.getAppContext(), true);
-		mLocateResult = new LocateResult();
-		mLocationModule.startContinuousLocation(mLocateResult);
+		Alarm.alarm();
+//		mLocationModule = new LocationModule(PAApplication.getAppContext(), true);
+//		mLocateResult = new LocateResult();
+//		mLocationModule.startContinuousLocation(mLocateResult);
 	}
 	
 	@Override
@@ -63,9 +63,11 @@ public class MainService extends Service {
 	@Override
 	public void onDestroy() {
 		Log.i(TAG, "onDestroy");
-		if (null != mLocationModule)
-			mLocationModule.stopLocation();
-		mLocationModule = null;
+		Alarm.stopAlarm();
+		
+//		if (null != mLocationModule)
+//			mLocationModule.stopLocation();
+//		mLocationModule = null;
 		
 //		PrivacyInfoReceiver.unregisterMe();
 		TriggerActionsReceiver.unregisterMe();

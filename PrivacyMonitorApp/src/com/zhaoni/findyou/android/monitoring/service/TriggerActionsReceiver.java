@@ -1,6 +1,7 @@
 package com.zhaoni.findyou.android.monitoring.service;
 
 import com.zhaoni.findyou.android.PAApplication;
+import com.zhaoni.findyou.android.common.LocalBroadcastIntents;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,29 +16,35 @@ public class TriggerActionsReceiver extends BroadcastReceiver {
 	private static TriggerActionsReceiver sActionsReceiver;
 	public static final void registerMe() {
 		if (null == sActionsReceiver) {
+			Context context = PAApplication.getAppContext();
+			
 			sActionsReceiver = new TriggerActionsReceiver();
 			IntentFilter filter = new IntentFilter();
 			filter.addAction(Intent.ACTION_SHUTDOWN);
-			PAApplication.getAppContext().registerReceiver(sActionsReceiver, filter);
+			context.registerReceiver(sActionsReceiver, filter);
 			
 			
 			filter = new IntentFilter();
 			filter.addAction(Intent.ACTION_USER_PRESENT);
 			filter.addAction(Intent.ACTION_SCREEN_ON);
 			filter.addAction(Intent.ACTION_SCREEN_OFF);
-			PAApplication.getAppContext().registerReceiver(sActionsReceiver, filter);
+			context.registerReceiver(sActionsReceiver, filter);
 			
 			
 			filter = new IntentFilter();
 			filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-			PAApplication.getAppContext().registerReceiver(sActionsReceiver, filter);
+			context.registerReceiver(sActionsReceiver, filter);
 			
 			
 			filter = new IntentFilter();
 			filter.addAction(Intent.ACTION_DATE_CHANGED);
 			filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
 			filter.addAction(Intent.ACTION_TIME_CHANGED);
-			PAApplication.getAppContext().registerReceiver(sActionsReceiver, filter);
+			context.registerReceiver(sActionsReceiver, filter);
+			
+			filter = new IntentFilter();
+			filter.addAction(LocalBroadcastIntents.Location.ACTION_LOCATION_ALARM);
+			context.registerReceiver(sActionsReceiver, filter);
 		}
 	}
 	

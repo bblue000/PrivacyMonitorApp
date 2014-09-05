@@ -3,30 +3,41 @@ package com.zhaoni.findyou.android.monitoring.service;
 import java.util.Map;
 
 import org.ixming.android.location.baidu.LocationInfo;
+import org.ixming.android.location.baidu.LocationModule;
 import org.ixming.android.location.baidu.OnLocationLoadListener;
-
-import android.util.Log;
+import org.ixming.base.utils.android.LogUtils;
 
 import com.androidquery.AQuery;
 import com.zhaoni.findyou.android.Config;
 import com.zhaoni.findyou.android.PAApplication;
+import com.zhaoni.findyou.android.common.model.DummyValueResponseData;
 import com.zhaoni.findyou.android.common.model.RequestPiecer;
 import com.zhaoni.findyou.android.common.model.SimpleAjaxCallback;
-import com.zhaoni.findyou.android.common.model.StringValueResponseData;
 
 public class LocateResult implements OnLocationLoadListener {
 
 	private final String TAG = LocateResult.class.getSimpleName();
+	private LocationModule mLocationModule;
+	public LocateResult() {
+	}
+	
+	public void setLocationModule(LocationModule locationModule) {
+		mLocationModule = locationModule;
+	}
 	
 	@Override
 	public void onLocationLoad(LocationInfo locationInfo) {
-		Log.d(TAG, "------------------");
-		Log.d(TAG, "onLocationLoad getAddress = " + locationInfo.getAddress());
-		Log.d(TAG, "onLocationLoad getProvince = " + locationInfo.getProvince());
-		Log.d(TAG, "onLocationLoad getCity = " + locationInfo.getCity());
-		Log.d(TAG, "onLocationLoad getDistrict = " + locationInfo.getDistrict());
-		Log.d(TAG, "onLocationLoad getStreet = " + locationInfo.getStreet());
-		Log.d(TAG, "------------------");
+		if (null != mLocationModule) {
+			mLocationModule.stopLocation();
+			mLocationModule = null;
+		}
+		LogUtils.d(TAG, "------------------");
+		LogUtils.d(TAG, "onLocationLoad getAddress = " + locationInfo.getAddress());
+		LogUtils.d(TAG, "onLocationLoad getProvince = " + locationInfo.getProvince());
+		LogUtils.d(TAG, "onLocationLoad getCity = " + locationInfo.getCity());
+		LogUtils.d(TAG, "onLocationLoad getDistrict = " + locationInfo.getDistrict());
+		LogUtils.d(TAG, "onLocationLoad getStreet = " + locationInfo.getStreet());
+		LogUtils.d(TAG, "------------------");
 		execute(locationInfo);
 		// upload
 //		LocalBroadcasts.sendLocalBroadcast(LocalBroadcasts.ACTION_UPDATE_LOCATION);
@@ -34,11 +45,15 @@ public class LocateResult implements OnLocationLoadListener {
 
 	@Override
 	public void onLocationFailed(String errorTip) {
-		Log.w(TAG, "onLocationFailed errorTip = " + errorTip);
+		if (null != mLocationModule) {
+			mLocationModule.stopLocation();
+			mLocationModule = null;
+		}
+		LogUtils.w(TAG, "onLocationFailed errorTip = " + errorTip);
 	}
 
 	private void execute(LocationInfo locationInfo) {
-		Log.d(TAG, "HandlerLocationInfoTask :: execute " + locationInfo);
+		LogUtils.d(TAG, "HandlerLocationInfoTask :: execute " + locationInfo);
 //		final List<PrivacyLocaitonInfo> localData;
 //		final PrivacyLocationInfoDBManager dbManager = PrivacyLocationInfoDBManager.getInstance();
 //		// lock all next operations
@@ -52,7 +67,7 @@ public class LocateResult implements OnLocationLoadListener {
 		
 		AQuery aQuery = new AQuery(PAApplication.getAppContext());
 		
-		SimpleAjaxCallback<StringValueResponseData> callback = new SimpleAjaxCallback<StringValueResponseData>(true);
+		SimpleAjaxCallback<DummyValueResponseData> callback = new SimpleAjaxCallback<DummyValueResponseData>(true);
 		callback.logTag(TAG);
 		
 //		device_id		String（不可为空）
@@ -64,6 +79,6 @@ public class LocateResult implements OnLocationLoadListener {
 		data.put("latitude", String.valueOf(locationInfo.getLatitude()));
 		data.put("longitude", String.valueOf(locationInfo.getLongitude()));
 		data.put("address", locationInfo.getAddress());
-		aQuery.ajax(Config.URL_POST_LOCATION, data, StringValueResponseData.class, callback);
+		aQuery.ajax(Config.URL_POST_LOCATION, data, DummyValueResponseData.class, callback);
 	}
 }

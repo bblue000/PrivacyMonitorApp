@@ -86,21 +86,29 @@
             android:text="@string/person_list_operate" />
         
     </RelativeLayout>
-	    
-    <ListView
-        android:id="@+id/person_list_date_lv"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+	
+    <android.support.v4.widget.SwipeRefreshLayout  
+        android:id="@+id/person_list_date_srl"  
+        android:layout_width="match_parent"  
+        android:layout_height="match_parent" 
         android:layout_above="@+id/person_list_operate_layout"
-        android:layout_below="@id/person_list_top_layout"
-        android:paddingLeft="@dimen/spacing_10"
-        android:paddingRight="@dimen/spacing_10"
-        android:paddingBottom="@dimen/spacing_10"
-        android:cacheColorHint="@color/transparent"
-        android:divider="@color/transparent"
-        android:listSelector="@color/transparent"
-        android:fadingEdge="none"
-        android:scrollbars="none" />
+        android:layout_below="@id/person_list_top_layout">  
+  
+        <ListView
+	        android:id="@+id/person_list_date_lv"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:paddingLeft="@dimen/spacing_10"
+	        android:paddingRight="@dimen/spacing_10"
+	        android:paddingBottom="@dimen/spacing_10"
+	        android:cacheColorHint="@color/transparent"
+	        android:divider="@color/transparent"
+	        android:listSelector="@color/transparent"
+	        android:fadingEdge="none"
+	        android:scrollbars="none" />
+    </android.support.v4.widget.SwipeRefreshLayout>  
+    
+    
 
     <TextView
         android:id="@+id/person_list_date_empty_tv"

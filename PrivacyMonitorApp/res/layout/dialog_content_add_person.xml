@@ -19,6 +19,7 @@
         android:layout_marginTop="@dimen/spacing_10"
         android:background="@drawable/text_shape_deep_blue"
         android:hint="@string/person_operate_add_name_hint"
+        android:maxLength="@integer/monitored_person_name_len"
         />
     
 </RelativeLayout>

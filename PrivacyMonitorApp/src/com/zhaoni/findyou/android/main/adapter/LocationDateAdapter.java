@@ -34,6 +34,8 @@ LocationDateAdapter.ViewHolder> {
 		@ViewInject(id = R.id.privacy_location_date_item_year_tv)
 		TextView mYear_TV;
 		
+		@ViewInject(id = R.id.privacy_location_date_item_curhint_llt)
+		View mLoc_Layout;
 		@ViewInject(id = R.id.privacy_location_date_item_loc_tv)
 		TextView mLoc_TV;
 	}
@@ -67,10 +69,12 @@ LocationDateAdapter.ViewHolder> {
 				latestLoc = locList.get(0);
 			}
 		}
-		if (null == latestLoc) {
+		if (position > 0 || null == latestLoc) {
+			ViewUtils.setViewGone(holder.mLoc_Layout);
 			ViewUtils.setViewGone(holder.mLoc_TV);
 			holder.mLoc_TV.setText(null);
 		} else {
+			ViewUtils.setViewVisible(holder.mLoc_Layout);
 			ViewUtils.setViewVisible(holder.mLoc_TV);
 			holder.mLoc_TV.setText(latestLoc.getAddress());
 		}
