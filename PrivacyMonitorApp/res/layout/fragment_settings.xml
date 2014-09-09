@@ -11,30 +11,22 @@
 
         <RelativeLayout style="@style/AppStyle.ContainerLayout.WrapContent" >
 
-            <TextView
-                android:id="@+id/device_bind_hint_tv"
-                style="@style/AppStyle.MainIndex.TopHint"
-                android:layout_centerHorizontal="true"
-                android:text="@string/device_bind_top_hint" />
-
             <EditText
                 android:id="@+id/device_bind_obtain_et"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/spacing_75"
-                android:layout_below="@id/device_bind_hint_tv"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/spacing_10"
                 android:gravity="center"
                 android:hint="@string/device_bind_key_hint"
-                android:textSize="@dimen/textsize_24" />
+                android:textSize="@dimen/textsize_28" />
 
             <TextView
-                android:id="@+id/device_bind_warning_tv"
-                style="@style/AppStyle.MainIndex.Warning"
-                android:layout_below="@id/device_bind_obtain_et"
+                android:id="@+id/device_bind_hint_tv"
+                style="@style/AppStyle.MainIndex.TopHint"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/spacing_20"
-                android:text="@string/device_bind_warning" />
+                android:layout_marginTop="@dimen/spacing_10"
+                android:layout_below="@id/device_bind_obtain_et"
+                android:text="@string/device_bind_top_hint" />
 
             <!-- 定位开启设置 -->
             <TextView
@@ -43,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/spacing_40"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@id/device_bind_warning_tv"
+                android:layout_below="@id/device_bind_hint_tv"
                 android:layout_toLeftOf="@+id/device_bind_open_loc_cb"
                 android:layout_marginTop="@dimen/spacing_20"
                 android:layout_marginRight="10dp"
@@ -154,17 +146,26 @@
                 android:gravity="center"
                 android:text="@string/device_bind_user_free_exchange"
                 android:textSize="@dimen/textsize_14" />
-              
+            
+            <TextView
+                android:id="@+id/device_bind_warning_tv"
+                style="@style/AppStyle.MainIndex.Warning"
+                android:layout_below="@id/device_bind_user_expire_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/spacing_15"
+                android:textColor="#88ff0000"
+                android:text="@string/device_bind_warning" />
+            
             <TextView
                 android:id="@+id/device_bind_user_expire_tip_tv"
                 style="@style/AppStyle.MainIndex.Warning"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/device_bind_user_expire_layout"
-                android:layout_marginTop="@dimen/spacing_15"
+                android:layout_below="@id/device_bind_warning_tv"
+                android:layout_marginTop="@dimen/spacing_5"
                 android:gravity="left|center_vertical"
-                android:text="@string/device_bind_user_expire_tip"
-                android:textSize="@dimen/textsize_18" />
+                android:textColor="#88ff0000"
+                android:text="@string/device_bind_user_expire_tip"/>
             <!-- 用户信息 -->
             <!-- style="@style/AppStyle.ContainerLayout.WrapContent" -->
 

@@ -61,8 +61,8 @@
     <string name="person_operate_update_btn">确认修改</string>
 
     <!-- device bind -->
-    <string name="device_bind_top_hint">通过标识码可以查询该设备的位置</string>
-    <string name="device_bind_warning">警告：请勿将标识码告诉陌生人</string>
+    <string name="device_bind_top_hint">通过标识码可以查询该设备的位置，请勿告诉陌生人</string>
+    <string name="device_bind_warning">注：\n1、如有安装安全软件，需要提供相关权限</string>
     <string name="device_bind_obtain_key">获取定位标识</string>
     <string name="device_bind_hide_app_hint">应用后台隐藏运行</string>
     <string name="device_bind_hide_app">隐藏应用</string>
@@ -75,7 +75,7 @@
     <string name="device_bind_user_name_hint">用户名：</string>
     <string name="device_bind_user_exchange_hint">用户积分：</string>
     <string name="device_bind_user_expire_hint">到期时间：</string>
-    <string name="device_bind_user_expire_tip">注：用户到期将无法查看他人位置信息，不影响被查找。</string>
+    <string name="device_bind_user_expire_tip">2、用户到期将无法查看他人位置信息，不影响被查找。</string>
     <string name="device_bind_user_charge">充值</string>
     <string name="device_bind_user_free_exchange">免费获取时间</string>
     <string name="device_bind_user_expirationdata_prompt">已到期</string>
@@ -91,7 +91,7 @@
     <string name="feedback_submit">提交</string>
     <string name="feedback_commit_prompt">提交成功！</string>
     <string name="version_prompt">当前是最新版本</string>
-    <string name="about_version_regex">Version %s</string>
+    <string name="about_version_regex">版本 %s</string>
     <string name="upgrade_tip">检测到新版本，是否现在更新？</string>
     <string name="main_view_person_hint">选择查看对象</string>
     <string name="main_view_person_progress_hint">正在加载...</string>

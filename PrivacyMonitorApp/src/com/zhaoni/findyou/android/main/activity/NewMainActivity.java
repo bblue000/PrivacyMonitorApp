@@ -33,13 +33,13 @@ public class NewMainActivity extends MyBaseFragmentActivity {
 	@Override
 	public void initView(View view) {
 		//设置pagerTabStrip  
-		int color = getResources().getColor(R.color.deep_sky_blue);
+		int color = getResources().getColor(R.color.white);//R.color.deep_sky_blue);
 		mIndex_PTS.setTabIndicatorColor(color);  
 		mIndex_PTS.setTextColor(color);
 		mIndex_PTS.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.main_title_textsize));
 		mIndex_PTS.setClickable(false);  
 		mIndex_PTS.setTextSpacing(40);  
-		mIndex_PTS.setBackgroundColor(Color.TRANSPARENT);  
+		mIndex_PTS.setBackgroundColor(getResources().getColor(R.color.appbase_blue));  
 		mIndex_PTS.setDrawFullUnderline(true);
 		
 		mIndex_VP.setAdapter(mAdapter = new IndexPagerAdapter(this, getSupportFragmentManager()));

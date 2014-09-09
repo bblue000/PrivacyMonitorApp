@@ -10,6 +10,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.SystemClock;
 
 public class Alarm {
 
@@ -42,8 +43,8 @@ public class Alarm {
 			sActionIntent.setAction(LocalBroadcastIntents.Location.ACTION_LOCATION_ALARM);  
 		}
 	    sLastestSender = PendingIntent.getBroadcast(PAApplication.getAppContext(), 0, sActionIntent, 0); 
-		sAlarmManager.set(AlarmManager.ELAPSED_REALTIME,
-				LocationController.getInstance().getLocationIntervalRT(), 
+		sAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+				SystemClock.elapsedRealtime() + LocationController.getInstance().getLocationIntervalRT(), 
 //				5000,
 				sLastestSender);
 	}

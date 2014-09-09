@@ -22,7 +22,7 @@ public class LocationInfo {
 	 * 获取详细地址信息
 	 */
 	public String getAddress() {
-		return mLocation.getAddrStr();
+		return mLocation.getAddrStr() + "附近";
 	}
 	
 	/**

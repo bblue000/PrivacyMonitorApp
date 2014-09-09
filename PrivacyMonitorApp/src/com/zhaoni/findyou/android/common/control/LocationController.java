@@ -22,13 +22,13 @@ import com.zhaoni.findyou.android.monitoring.service.MainService;
 public class LocationController extends BaseController {
 	
 	public static final long[] INTERVALS = {
-			2 * 60 * 1000L, // 2分钟
-			5 * 60 * 1000L,	// 5分钟
+//			2 * 60 * 1000L, // 2分钟
+//			5 * 60 * 1000L,	// 5分钟
 			15 * 60 * 1000L, // 15分钟
 			30 * 60 * 1000L, // 30分钟
 			60 * 60 * 1000L // 1小时
 	};
-	public static final long DEFAULT_INTERVAL = INTERVALS[3];
+	public static final long DEFAULT_INTERVAL = INTERVALS[1];//INTERVALS[3];
 	private static LocationController sInsController = new LocationController();
 	public static LocationController getInstance() {
 		return sInsController;

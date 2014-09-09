@@ -52,14 +52,18 @@ public class TriggerActionsReceiver extends BroadcastReceiver {
 		try {
 			PAApplication.getAppContext().unregisterReceiver(sActionsReceiver);
 		} catch (Exception e) { }
+		sActionsReceiver = null;
 	}
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		String action = intent.getAction();
 		Log.d(TAG, "onReceive action = " + action);
-		
-		MainService.startMe(TAG);
+		if (LocalBroadcastIntents.Location.ACTION_LOCATION_ALARM.equals(action)) {
+			Alarm.alarm();
+		} else {
+			MainService.startMe(TAG);
+		}
 	}
 
 }

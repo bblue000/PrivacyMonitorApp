@@ -4,6 +4,7 @@ import org.ixming.android.location.baidu.LocationModule;
 import org.ixming.base.utils.android.LogUtils;
 
 import com.zhaoni.findyou.android.PAApplication;
+import com.zhaoni.findyou.android.common.control.LocationController;
 
 import android.app.Service;
 import android.content.Intent;
@@ -29,7 +30,6 @@ public class MainService extends Service {
 			PAApplication.getAppContext().startService(new Intent(
 					PAApplication.getAppContext(),
 					MainService.class));
-			
 		}
 	}
 	
@@ -77,7 +77,9 @@ public class MainService extends Service {
 		}
 		
 		// restart
-//		startMe(TAG);
+		if (LocationController.getInstance().getLocationSettingRT()) {
+			startMe(TAG);
+		}
 	}
 	
 	@Override

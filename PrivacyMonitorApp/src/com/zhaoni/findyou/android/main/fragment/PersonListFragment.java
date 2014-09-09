@@ -288,8 +288,8 @@ public class PersonListFragment extends BaseFragment implements
 				new CustomDialogOnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						mPersonListController.updateMonitoringPerson(person,
-								name_ET.getText().toString());
+//						mPersonListController.updateMonitoringPerson(person,
+//								name_ET.getText().toString());
 					}
 
 					@Override
@@ -300,9 +300,11 @@ public class PersonListFragment extends BaseFragment implements
 						}
 						if (name_ET.getText().toString()
 								.equals(person.getName())) {
-							name_ET.setError(getString(R.string.person_operate_update_name_same_tip));
-							return false;
+//							name_ET.setError(getString(R.string.person_operate_update_name_same_tip));
+							return true;
 						}
+						mPersonListController.updateMonitoringPerson(person,
+								name_ET.getText().toString());
 						return true;
 					}
 				});

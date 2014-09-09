@@ -91,14 +91,14 @@
     <style name="AppStyle.MainIndex.TopHint" parent="AppStyle.Common.Hint">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/textsize_18</item>
+        <item name="android:textSize">@dimen/textsize_14</item>
         <item name="android:gravity">left|center_vertical</item>
     </style>
 
     <style name="AppStyle.MainIndex.Warning" parent="AppStyle.Common.Hint">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/textsize_18</item>
+        <item name="android:textSize">@dimen/textsize_14</item>
         <item name="android:gravity">left|center_vertical</item>
     </style>
 
