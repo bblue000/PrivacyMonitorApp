@@ -166,6 +166,8 @@ public class PersonListFragment extends BaseFragment implements
 				return false;
 			}
 		});
+		
+		mPersonDateEmpty_TV.setOnTouchListener(rootViewTouchListener);
 	}
 
 	@Override
@@ -343,14 +345,15 @@ public class PersonListFragment extends BaseFragment implements
 
 	private void updateCurrentMonitoringUI() {
 		if (!mPersonListController.hasCurrentPerson()) {
-			ViewUtils.setViewGone(mPersonDate_LV);
-			ViewUtils.setViewGone(mPersonDateEmpty_TV);
+			hideCurrentMonitoringTmp();
 		} else {
 			if (mLocationDateAdapter.isEmpty()) {
 				ViewUtils.setViewGone(mPersonDate_LV);
+				ViewUtils.setViewGone(mPersonDate_SRL);
 				ViewUtils.setViewVisible(mPersonDateEmpty_TV);
 			} else {
 				ViewUtils.setViewVisible(mPersonDate_LV);
+				ViewUtils.setViewVisible(mPersonDate_SRL);
 				ViewUtils.setViewGone(mPersonDateEmpty_TV);
 			}
 		}
@@ -358,6 +361,7 @@ public class PersonListFragment extends BaseFragment implements
 
 	private void hideCurrentMonitoringTmp() {
 		ViewUtils.setViewGone(mPersonDate_LV);
+		ViewUtils.setViewGone(mPersonDate_SRL);
 		ViewUtils.setViewGone(mPersonDateEmpty_TV);
 	}
 

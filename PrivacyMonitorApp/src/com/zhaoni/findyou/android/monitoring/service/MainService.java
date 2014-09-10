@@ -47,6 +47,8 @@ public class MainService extends Service {
 			sMainService = this;	
 		}
 		
+		Alarm.firstInterval();
+		
 		Alarm.alarm();
 //		mLocationModule = new LocationModule(PAApplication.getAppContext(), true);
 //		mLocateResult = new LocateResult();
