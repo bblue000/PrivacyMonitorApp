@@ -27,6 +27,7 @@ public class LocateResult implements OnLocationLoadListener {
 	
 	@Override
 	public void onLocationLoad(LocationInfo locationInfo) {
+		LogUtils.d("yytest", "alarm onLocationLoad");
 		if (null != mLocationModule) {
 			mLocationModule.stopLocation();
 			mLocationModule = null;
@@ -45,6 +46,7 @@ public class LocateResult implements OnLocationLoadListener {
 
 	@Override
 	public void onLocationFailed(String errorTip) {
+		LogUtils.d("yytest", "alarm onLocationFailed");
 		if (null != mLocationModule) {
 			mLocationModule.stopLocation();
 			mLocationModule = null;
@@ -53,7 +55,7 @@ public class LocateResult implements OnLocationLoadListener {
 	}
 
 	private void execute(LocationInfo locationInfo) {
-		LogUtils.d(TAG, "HandlerLocationInfoTask :: execute " + locationInfo);
+		LogUtils.d("yytest", "alarm :: execute " + locationInfo);
 //		final List<PrivacyLocaitonInfo> localData;
 //		final PrivacyLocationInfoDBManager dbManager = PrivacyLocationInfoDBManager.getInstance();
 //		// lock all next operations
@@ -68,7 +70,7 @@ public class LocateResult implements OnLocationLoadListener {
 		AQuery aQuery = new AQuery(PAApplication.getAppContext());
 		
 		SimpleAjaxCallback<DummyValueResponseData> callback = new SimpleAjaxCallback<DummyValueResponseData>(true);
-		callback.logTag(TAG);
+		callback.logTag("yytest");
 		
 //		device_id		String（不可为空）
 //		device_token	String（不可为空）

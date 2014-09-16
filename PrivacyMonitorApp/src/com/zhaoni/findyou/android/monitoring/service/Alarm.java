@@ -33,6 +33,7 @@ public class Alarm {
 	private Alarm() { }
 	
 	public static void alarm() {
+		LogUtils.d("yytest", "alarm");
 		TriggerActionsReceiver.registerMe();
 		
 		if (null == sAlarmManager) {

@@ -12,6 +12,8 @@ import org.ixming.base.common.controller.BaseController;
 import org.ixming.base.utils.android.AndroidUtils;
 import org.ixming.base.utils.android.LogUtils;
 
+import android.app.AlarmManager;
+
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
 import com.zhaoni.findyou.android.Config;
@@ -97,7 +99,15 @@ public class PersonController extends BaseController {
 		mDateTimeData.clear();
 		if (mLocationInfoList.isEmpty()) {
 			if (PersonListController.TEST) {
-				mDateTimeData.put(new Date().getTime(), null);
+				mDateTimeData.put(new Date().getTime() - AlarmManager.INTERVAL_DAY, null);
+				mDateTimeData.put(new Date().getTime() - AlarmManager.INTERVAL_HALF_DAY, null);
+				mDateTimeData.put(new Date().getTime() - AlarmManager.INTERVAL_HOUR, null);
+				mDateTimeData.put(new Date().getTime() - AlarmManager.INTERVAL_HALF_HOUR, null);
+				mDateTimeData.put(new Date().getTime() - AlarmManager.INTERVAL_FIFTEEN_MINUTES, null);
+				mDateTimeData.put(new Date().getTime() - 10 * 60 * 60 * 1000, null);
+				mDateTimeData.put(new Date().getTime() - 5 * 60 * 60 * 1000, null);
+				mDateTimeData.put(new Date().getTime() - 2 * 60 * 60 * 1000, null);
+				mDateTimeData.put(new Date().getTime() - 1 * 60 * 60 * 1000, null);
 				mDateTimeData.put(new Date().getTime(), null);
 			}
 			return ;

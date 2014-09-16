@@ -62,7 +62,7 @@
 
     <!-- device bind -->
     <string name="device_bind_top_hint">通过标识码可以查询该设备的位置，请勿告诉陌生人</string>
-    <string name="device_bind_warning">注：\n1、如有安装安全软件，需要提供相关权限</string>
+    <string name="device_bind_warning">注：</string>
     <string name="device_bind_obtain_key">获取定位标识</string>
     <string name="device_bind_hide_app_hint">应用后台隐藏运行</string>
     <string name="device_bind_hide_app">隐藏应用</string>
@@ -75,6 +75,7 @@
     <string name="device_bind_user_name_hint">用户名：</string>
     <string name="device_bind_user_exchange_hint">用户积分：</string>
     <string name="device_bind_user_expire_hint">到期时间：</string>
+    <string name="device_bind_permission_tip"><![CDATA[1、如有安装安全软件，需要提供相关权限  帮助>]]></string>
     <string name="device_bind_user_expire_tip">2、用户到期将无法查看他人位置信息，不影响被查找。</string>
     <string name="device_bind_user_charge">充值</string>
     <string name="device_bind_user_free_exchange">免费获取时间</string>
@@ -85,6 +86,8 @@
     <string name="about_upgrade">检查更新</string>
     <string name="feeback_empty">您没有输入任何反馈信息哦！</string>
     <string name="about_us">关于我们</string>
+    <string name="about_qqgroup1">QQ群：70167669</string>
+<!--     <string name="about_qqgroup2">QQ 2群：1234567890</string> -->
     <string name="feedback_hint"></string>
     <string name="feedback_contact_hint">手机号/电子邮箱</string>
     <string name="feedback_title">提交建议</string>

@@ -157,11 +157,22 @@
                 android:text="@string/device_bind_warning" />
             
             <TextView
+                android:id="@+id/device_bind_permission_tip_tv"
+                style="@style/AppStyle.MainIndex.Warning"
+                android:layout_below="@id/device_bind_warning_tv"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/spacing_15"
+                android:linksClickable="true"
+                android:textColorLink="@color/link_text_seletor"
+                android:textColor="#88ff0000"
+                android:text="@string/device_bind_permission_tip" />
+            
+            <TextView
                 android:id="@+id/device_bind_user_expire_tip_tv"
                 style="@style/AppStyle.MainIndex.Warning"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/device_bind_warning_tv"
+                android:layout_below="@id/device_bind_permission_tip_tv"
                 android:layout_marginTop="@dimen/spacing_5"
                 android:gravity="left|center_vertical"
                 android:textColor="#88ff0000"

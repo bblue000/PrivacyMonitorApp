@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 
 import org.ixming.base.common.LocalBroadcasts;
 import org.ixming.base.common.activity.BaseFragment;
-import org.ixming.base.utils.android.AndroidUtils;
 import org.ixming.inject4android.annotation.OnClickMethodInject;
 import org.ixming.inject4android.annotation.ViewInject;
 
@@ -17,6 +16,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -40,6 +42,7 @@ import com.zhaoni.findyou.android.main.adapter.LocationIntervalAdapter;
 import com.zhaoni.findyou.android.main.manager.BindManager;
 import com.zhaoni.findyou.android.main.model.DatetimeUtils;
 import com.zhaoni.findyou.android.main.model.PayInfo;
+import com.zhaoni.findyou.android.main.view.PAURLSpan;
 import com.zhaoni.findyou.android.main.view.SettingsSwicher;
 
 public class BindFragment extends BaseFragment implements
@@ -70,6 +73,8 @@ public class BindFragment extends BaseFragment implements
 	// private TextView mExpire_TV;
 	@ViewInject(id = R.id.device_bind_device_expire_tv)
 	private TextView mDeviceExpire_TV;
+	@ViewInject(id = R.id.device_bind_permission_tip_tv)
+	private TextView mPermissionTip_TV;
 
 	@ViewInject(id = R.id.device_bind_loc_freq_value_tv)
 	private TextView mLocationInterval_TV;
@@ -105,6 +110,15 @@ public class BindFragment extends BaseFragment implements
 
 	@Override
 	public void initView(View view) {
+		mPermissionTip_TV.setClickable(true);
+		mPermissionTip_TV.setLinksClickable(true);
+		String orginalPermissionTip = getString(R.string.device_bind_permission_tip);
+		SpannableStringBuilder ssb = new SpannableStringBuilder(orginalPermissionTip);
+		ssb.setSpan(new PAURLSpan("http://www.baidu.com"), orginalPermissionTip.length() - 3,
+				orginalPermissionTip.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		mPermissionTip_TV.setMovementMethod(LinkMovementMethod.getInstance());   
+		mPermissionTip_TV.setText(ssb);
+		
 		/**
 		 * 初始化点金广告平台
 		 */

@@ -18,7 +18,7 @@ public class LocationModule {
 	private static final String TAG = LocationModule.class.getSimpleName();
 	
 	private final int INTERVAL = 2 * 60 * 1000; // 5分钟一次
-	private final long TIMEOUT = 10 * 1000;
+	private final long TIMEOUT = 5 * 1000;
 	private final Handler mHandler;
 	private final TimeoutRunnable mTimeoutRunnable = new TimeoutRunnable();
 	private final LocationClient mLocationClient;
