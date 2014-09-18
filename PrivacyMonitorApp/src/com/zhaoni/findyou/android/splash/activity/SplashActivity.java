@@ -43,7 +43,10 @@ public class SplashActivity extends MyBaseActivity {
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
 			if (DeviceToken.ACTION_DEVICE_TOKEN_LOADED.equals(action)) {
-				PersonListController.getInstance().addMonitoringPerson("亲，这是你哦~", BindController.getInstance().getDeviceToken());
+				PersonListController.getInstance().addMonitoringPerson(
+						context.getString(R.string.person_list_self_name),
+						BindController.getInstance().getDeviceToken());
+				
 				startActivity(NewMainActivity.class);
 				finish();
 			} else if (DeviceToken.ACTION_DEVICE_TOKEN_FAILED.equals(action)) {

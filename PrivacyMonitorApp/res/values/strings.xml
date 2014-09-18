@@ -39,6 +39,7 @@
     </string-array>
 
     <!-- index -->
+    <string name="person_list_self_name">亲，这个是你哦~</string>
     <string name="person_list_select_hint">选择查看对象</string>
     <string name="person_list_empty_tip">暂时没有查看对象</string>
     <string name="person_list_operate">操作</string>
