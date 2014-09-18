@@ -61,13 +61,14 @@
     <string name="person_operate_update_btn">确认修改</string>
 
     <!-- device bind -->
+    <string name="device_bind_key">标识码</string>
     <string name="device_bind_top_hint">通过标识码可以查询该设备的位置，请勿告诉陌生人</string>
     <string name="device_bind_warning">注：</string>
     <string name="device_bind_obtain_key">获取定位标识</string>
     <string name="device_bind_hide_app_hint">应用后台隐藏运行</string>
     <string name="device_bind_hide_app">隐藏应用</string>
     <string name="device_bind_hide_app_tip">应用隐藏后将不会出现在桌面\n是否确认隐藏？</string>
-    <string name="device_bind_key_hint">填写标识码</string>
+    <string name="device_bind_key_hint">标识码</string>
     <string name="device_bind_obtain_error">获取失败</string>
     <string name="device_bind_open_location_hint">开启定位</string>
     <string name="device_bind_location_freq_hint">定位频率</string>
@@ -75,8 +76,8 @@
     <string name="device_bind_user_name_hint">用户名：</string>
     <string name="device_bind_user_exchange_hint">用户积分：</string>
     <string name="device_bind_user_expire_hint">到期时间：</string>
-    <string name="device_bind_permission_tip"><![CDATA[1、如有安装安全软件，需要提供相关权限  帮助>]]></string>
-    <string name="device_bind_user_expire_tip">2、用户到期将无法查看他人位置信息，不影响被查找。</string>
+    <string name="device_bind_permission_tip"><![CDATA[1、如有安装安全软件，需要提供相关权限%s]]></string>
+    <string name="device_bind_user_expire_tip"><![CDATA[2、用户到期将无法查看他人位置信息，不影响被查找。]]></string>
     <string name="device_bind_user_charge">充值</string>
     <string name="device_bind_user_free_exchange">免费获取时间</string>
     <string name="device_bind_user_expirationdata_prompt">已到期</string>

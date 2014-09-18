@@ -8,28 +8,29 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/spacing_50"
         android:orientation="horizontal"
-        android:gravity="center_vertical|left"
+        android:gravity="center_vertical|right"
         android:paddingLeft="@dimen/common_padding"
         android:paddingRight="@dimen/common_padding" 
+        android:background="@color/appbase_blue"
         >
 
         <TextView
             android:id="@+id/person_location_title_name_tv"
-            style="@style/AppStyle.Common.Title"
+            style="@style/AppStyle.Common.Title.Inverse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         
         <TextView
-            style="@style/AppStyle.Common.Title.Large"
+            style="@style/AppStyle.Common.Title.Inverse.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:text=" - "/>
         
         <TextView
             android:id="@+id/person_location_title_date_tv"
-            style="@style/AppStyle.Common.Title"
+            style="@style/AppStyle.Common.Title.Inverse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         
@@ -54,6 +55,7 @@
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="#ffffffff"
+        android:visibility="gone"
         />
     
 <!--     <com.baidu.mapapi.map.MapView -->
@@ -63,25 +65,48 @@
 <!--         android:layout_below="@id/person_location_title_layout" -->
 <!--         android:clickable="true" /> -->
 
-	<FrameLayout 
+	<RelativeLayout 
 	    android:layout_width="wrap_content"
 	    android:layout_height="fill_parent"
         android:layout_below="@id/person_location_title_layout"
         android:paddingLeft="@dimen/spacing_20"
-        android:paddingRight="@dimen/spacing_20"
-        android:paddingTop="@dimen/spacing_20"
-        android:paddingBottom="@dimen/spacing_40"
+        android:paddingRight="@dimen/spacing_10"
         android:layout_alignParentRight="true"
         >
         
-	    <com.zhaoni.findyou.android.main.view.CustomVSeekBar
-	        android:id="@+id/person_location_datetime_sb"
-	        android:layout_width="10dp"
+<!-- 	    <com.zhaoni.findyou.android.main.view.CustomVSeekBar -->
+<!-- 	        android:id="@+id/person_location_datetime_sb" -->
+<!-- 	        android:layout_width="10dp" -->
+<!-- 	        android:layout_height="fill_parent" -->
+<!-- 	        android:progressDrawable="@drawable/vseekbar_progress" -->
+<!-- 	        android:thumb="@drawable/seekbar_thumb"/> -->
+        
+<!-- 	    <com.zhaoni.findyou.android.main.view.TimeSeekView -->
+<!-- 	        android:id="@+id/person_location_datetime_tsv" -->
+<!-- 	        android:layout_width="wrap_content" -->
+<!-- 	        android:layout_height="fill_parent" -->
+<!-- 	        android:background="#000"/> -->
+        
+        <View 
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="14dp"
+            android:layout_alignParentRight="true"
+        	android:layout_marginTop="@dimen/spacing_20"
+        	android:layout_marginBottom="@dimen/spacing_40"
+            android:background="@color/appbase_blue_disable"/>
+        
+	    <com.zhaoni.findyou.android.main.view.TimeSeekListView
+	        android:id="@+id/person_location_datetime_lv"
+	        style="@style/AppStyle.BaseList.NoScrollBar"
+	        android:layout_width="85dp"
 	        android:layout_height="fill_parent"
-	        android:progressDrawable="@drawable/vseekbar_progress"
-	        android:thumb="@drawable/seekbar_thumb"/>
+            android:layout_alignParentRight="true"
+        	android:paddingTop="@dimen/spacing_20"
+        	android:paddingBottom="@dimen/spacing_40"
+	        />
 	    
-	</FrameLayout>
+	</RelativeLayout>
     
     
     <View

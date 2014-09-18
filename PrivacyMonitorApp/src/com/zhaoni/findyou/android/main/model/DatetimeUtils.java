@@ -11,6 +11,8 @@ public class DatetimeUtils {
 	private static SimpleDateFormat sFormatter_Date = new SimpleDateFormat("yyyy年MM月dd日");
 	@SuppressLint("SimpleDateFormat")
 	private static SimpleDateFormat sFormatter_Time = new SimpleDateFormat("HH时mm分ss秒");
+	@SuppressLint("SimpleDateFormat")
+	private static SimpleDateFormat sFormatter_Time2 = new SimpleDateFormat("HH:mm");
 	public static String format(long datetime) {
 		return sFormatter.format(datetime);
 	}
@@ -21,6 +23,10 @@ public class DatetimeUtils {
 	
 	public static String formatTime(long datetime) {
 		return sFormatter_Time.format(datetime);
+	}
+	
+	public static String formatTime2(long datetime) {
+		return sFormatter_Time2.format(datetime);
 	}
 	
 	public static String simpleFixTime(long datetime) {

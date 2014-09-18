@@ -36,6 +36,8 @@
         <item name="android:cacheColorHint">@color/transparent</item>
         <item name="android:fadingEdge">none</item>
         <item name="android:listSelector">@drawable/common_transparent</item>
+        <item name="android:divider">@drawable/common_transparent</item>
+        <item name="android:dividerHeight">0dp</item>
     </style>
 
     <style name="AppStyle.BaseList.NoScrollBar">

@@ -14,6 +14,7 @@ public class AppSharedUtils {
 	private static final String LOCATION_SETTING = "LOCATION_SETTING";
 	private static final String LOCATION_INTERVAL = "LOCATION_INTERVAL";
 	private static final String LOCATION_FIRST_INTERVAL = "LOCATION_FIRST_INTERVAL";
+	private static final String LOCATION_DEFAULT_PERSON = "LOCATION_DEFAULT_PERSON";
 	
 	public static void saveDeviceToken(String token) {
 		PreferenceUtils.saveValue(PAApplication.getAppContext(), MAIN, DEVICE_TOKEN, token);
@@ -45,6 +46,14 @@ public class AppSharedUtils {
 	
 	public static boolean getLocationFirstInterval() {
 		return PreferenceUtils.getValue(PAApplication.getAppContext(), MAIN, LOCATION_FIRST_INTERVAL, false);
+	}
+	
+	public static void saveLocationDefaultPerson(boolean value) {
+		PreferenceUtils.saveValue(PAApplication.getAppContext(), MAIN, LOCATION_DEFAULT_PERSON, value);
+	}
+	
+	public static boolean getLocationDefaultPerson() {
+		return PreferenceUtils.getValue(PAApplication.getAppContext(), MAIN, LOCATION_DEFAULT_PERSON, false);
 	}
 	
 }

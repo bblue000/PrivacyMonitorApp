@@ -4,15 +4,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.ixming.base.utils.android.ToastUtils;
-import org.ixming.base.view.utils.ViewUtils;
 import org.ixming.inject4android.annotation.ViewInject;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AbsListView;
 import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
@@ -29,11 +30,12 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.overlayutil.OverlayManager;
 import com.zhaoni.findyou.android.R;
 import com.zhaoni.findyou.android.common.activity.MyBaseActivity;
+import com.zhaoni.findyou.android.main.adapter.TimeLineAdapter;
 import com.zhaoni.findyou.android.main.control.PersonController;
 import com.zhaoni.findyou.android.main.control.PersonListController;
 import com.zhaoni.findyou.android.main.model.DatetimeUtils;
 import com.zhaoni.findyou.android.main.model.RespLocation;
-import com.zhaoni.findyou.android.main.view.CustomVSeekBar;
+import com.zhaoni.findyou.android.main.view.TimeSeekListView;
 
 public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap.OnMapLoadedCallback {
 
@@ -43,8 +45,12 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 	private TextView mTitleDate_TV;
 	@ViewInject(id = R.id.person_location_curtime_tv)
 	private TextView mCurTime_TV;
-	@ViewInject(id = R.id.person_location_datetime_sb)
-	private CustomVSeekBar mTime_SB;
+//	@ViewInject(id = R.id.person_location_datetime_sb)
+//	private CustomVSeekBar mTime_SB;
+//	@ViewInject(id = R.id.person_location_datetime_tsv)
+//	private TimeSeekView mTime_TSV;
+	@ViewInject(id = R.id.person_location_datetime_lv)
+	private TimeSeekListView mTime_LV;
 	@ViewInject(id = R.id.person_location_map_container)
 	private ViewGroup mMapContainer_Layout;
 	
@@ -55,6 +61,8 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 	private PersonController mPersonController;
 	
 	private PersonLocationV3 mPersonLocation;
+	
+	private TimeLineAdapter mTimeLineAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// 在使用SDK各组件之前初始化context信息，传入ApplicationContext  
@@ -71,8 +79,8 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 	@SuppressWarnings("deprecation")
 	@Override
 	public void initView(View view) {
-		ViewUtils.setViewGone(mTime_SB);
-		mTime_SB.setChangingWhenDragging(true);
+//		ViewUtils.setViewGone(mTime_SB);
+//		mTime_SB.setChangingWhenDragging(true);
 		
 		BaiduMapOptions options = new BaiduMapOptions();
 		options.compassEnabled(false)
@@ -119,32 +127,87 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 			return ;
 		}
 		
-		ViewUtils.setViewVisible(mTime_SB);
+//		ViewUtils.setViewVisible(mTime_SB);
 		
 		mPersonLocation = new PersonLocationV3(mPersonController);
+//		mTime_TSV.setPersonLocationV3(mPersonLocation);
 		
+		mTimeLineAdapter = new TimeLineAdapter(context);
+		mTime_LV.setAdapter(mTimeLineAdapter.setData(mPersonLocation.infoList));
 		updateTitleTime(mPersonController.getCurTime());
 	}
 
 	@Override
 	public void initListener() {
-		mTime_SB.setOnSeekBarChangeListener(new CustomVSeekBar.OnSeekBarChangeListener() {
+//		mTime_SB.setOnSeekBarChangeListener(new CustomVSeekBar.OnSeekBarChangeListener() {
+//			@Override
+//			public void onProgressChanged(CustomVSeekBar seekBar, int progress,
+//					int max) {
+//				if (null == mPersonLocation) {
+//					return ;
+//				}
+//				long datetime = mPersonLocation.startTime + ((mPersonLocation.endTime - mPersonLocation.startTime)
+//						* progress) / max;
+//				
+//				handler.removeMessages(0);
+//				handler.sendMessageDelayed(Message.obtain(handler, 0, datetime), 25);
+//			}
+//
+//			@Override
+//			public void onCursorPositionChanged(CustomVSeekBar seekBar, int yPosInGlobal) {
+//			}
+//			
+//		});
+		
+		mTime_LV.setOnScrollListener(new AbsListView.OnScrollListener() {
+			
 			@Override
-			public void onProgressChanged(CustomVSeekBar seekBar, int progress,
-					int max) {
-				if (null == mPersonLocation) {
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+			}
+			
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				if (null == mPersonLocation || null == mTime_LV.getAdapter()) {
 					return ;
 				}
-				long datetime = mPersonLocation.startTime + ((mPersonLocation.endTime - mPersonLocation.startTime)
-						* progress) / max;
+				final int adapterCount = mTime_LV.getAdapter().getCount();
+				// 查找出第一个符合条件的Item
+				 // 获得了第一个显示的Location Item
+	            final int offset = mTime_LV.getSideHeight();
+	            int firstVisibleLocationItem = -1;
+	            RespLocation curLocation = null;
+	            for (int i = 0; i < view.getChildCount(); i++) {
+	            	View childView = view.getChildAt(i);
+	                if (childView.getVisibility() != View.GONE) {
+	                    int bottom = childView.getBottom() - view.getPaddingTop();
+	                    if (bottom >= offset) {
+	                    	Object item = view.getAdapter().getItem(firstVisibleItem + i);
+	                    	if (item instanceof RespLocation) {
+	                    		firstVisibleLocationItem = firstVisibleItem + i;
+	                    		curLocation = (RespLocation) item;
+	                    		break;
+	                    	}
+	                    }
+	                }
+	            }
+	            
+	            if (firstVisibleLocationItem < 0) {
+	            	return ;
+	            }
+	            
+	            int current = Math.max(0, Math.min(firstVisibleLocationItem - 1, adapterCount - 2 - 1));
+//				Log.e("yytest", "totalItemCount = " + totalItemCount);
+//				Log.e("yytest", "adapter count = " + mTimeLineAdapter.getCount());
+//				Log.e("yytest", "view child count = " + view.getChildCount());
+				Log.d("yytest", "current = " + current);
+				Log.d("yytest", "firstVisibleLocationItem = " + firstVisibleLocationItem);
+	            
+				if (mTimeLineAdapter.setCurrent(current)) {
+					handler.removeMessages(0);
+					handler.sendMessageDelayed(Message.obtain(handler, 0, curLocation.getDate_time()), 500);
+				}
 				
-				handler.removeMessages(0);
-				handler.sendMessageDelayed(Message.obtain(handler, 0, datetime), 25);
-//				invalidateUI(datetime);
-			}
-
-			@Override
-			public void onCursorPositionChanged(CustomVSeekBar seekBar, int yPosInGlobal) {
 			}
 		});
 	}
@@ -180,6 +243,7 @@ public class PersonLocationV3Activity extends MyBaseActivity implements BaiduMap
 	protected void onDestroy() {
 		mMapView.onDestroy();
 		super.onDestroy();
+		handler.removeMessages(0);
 	}
 	
 	private void updateTitleTime(long datetime) {

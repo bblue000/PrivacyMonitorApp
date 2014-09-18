@@ -2,9 +2,7 @@ package com.zhaoni.findyou.android.main.activity;
 
 import org.ixming.inject4android.annotation.ViewInject;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
@@ -55,12 +53,6 @@ public class NewMainActivity extends MyBaseFragmentActivity {
 		mIndex_VP.setOnPageChangeListener(mAdapter);
 	}
 
-	@Override
-	public Handler provideActivityHandler() {
-
-		return null;
-	}
-	
 	@Override
 	protected void onDestroy() {
 		

@@ -18,7 +18,7 @@ public class PAApplication extends BaseApplication {
 
 	@Override
 	public void onCreate() {
-		LogUtils.w(TAG, "onCreate process = " + Process.myPid());
+		LogUtils.i(TAG, "onCreate process = " + Process.myPid());
 		super.onCreate();
 
 		AQueryConfig.config();

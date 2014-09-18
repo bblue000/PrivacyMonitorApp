@@ -83,10 +83,11 @@ public class PersonListFragment extends BaseFragment implements
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
 
-			if (MonitoringPerson.ACTION_SELECT_PERSON_CHANGED.equals(action)) {
+			if (MonitoringPerson.ACTION_SELECT_PERSON_CHANGED.equals(action)
+					|| MonitoringPerson.ACTION_DATA_LIST_CHANGED.equals(action)
+					|| MonitoringPerson.ACTION_DATA_LIST_INVALIDATE.equals(action)) {
 				resetSelCurrentMonitoringPerson(true);
-			}
-			if (MonitoringPerson.ACTION_REFRESH_LIST.equals(action)) {
+			} else if (MonitoringPerson.ACTION_REFRESH_LIST.equals(action)) {
 				mPersonDate_SRL.setRefreshing(true);
 			}
 		}

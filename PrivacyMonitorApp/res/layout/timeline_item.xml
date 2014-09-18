@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+    
+    <View 
+        android:id="@+id/timeline_nor_dot_v"
+        android:layout_width="6dp"
+        android:layout_height="6dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/app_blue_disable_dot"/>
+    
+    <View 
+        android:id="@+id/timeline_sel_dot_v"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/app_blue_dot"
+        />
+    
+    <TextView
+        android:id="@+id/timeline_tv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="25dp"
+        android:minHeight="30dp"
+        android:gravity="center_vertical|right"
+        android:singleLine="true"
+        android:textColor="@color/appbase_blue"
+        android:textSize="@dimen/textsize_14" >
+    </TextView>
+
+</RelativeLayout>

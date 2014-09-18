@@ -47,7 +47,15 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="AppStyle.Common.Title.Inverse">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="AppStyle.Common.Title.Large">
+        <item name="android:textSize">@dimen/main_title_textsize_large</item>
+    </style>
+    
+    <style name="AppStyle.Common.Title.Inverse.Large">
         <item name="android:textSize">@dimen/main_title_textsize_large</item>
     </style>
 

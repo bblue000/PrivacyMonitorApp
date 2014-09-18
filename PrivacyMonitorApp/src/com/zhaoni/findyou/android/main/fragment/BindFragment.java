@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 
 import org.ixming.base.common.LocalBroadcasts;
 import org.ixming.base.common.activity.BaseFragment;
+import org.ixming.base.view.utils.ViewUtils;
 import org.ixming.inject4android.annotation.OnClickMethodInject;
 import org.ixming.inject4android.annotation.ViewInject;
 
@@ -16,9 +17,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -42,7 +40,6 @@ import com.zhaoni.findyou.android.main.adapter.LocationIntervalAdapter;
 import com.zhaoni.findyou.android.main.manager.BindManager;
 import com.zhaoni.findyou.android.main.model.DatetimeUtils;
 import com.zhaoni.findyou.android.main.model.PayInfo;
-import com.zhaoni.findyou.android.main.view.PAURLSpan;
 import com.zhaoni.findyou.android.main.view.SettingsSwicher;
 
 public class BindFragment extends BaseFragment implements
@@ -50,6 +47,8 @@ public class BindFragment extends BaseFragment implements
 
 	@ViewInject(id = R.id.device_bind_obtain_et)
 	private EditText mKeyInput_ET;
+	@ViewInject(id = R.id.device_bind_sup_tv)
+	private TextView mKeySup_TV;
 	@ViewInject(id = R.id.device_bind_obtain_btn)
 	private Button mObtain_BT;
 
@@ -112,12 +111,14 @@ public class BindFragment extends BaseFragment implements
 	public void initView(View view) {
 		mPermissionTip_TV.setClickable(true);
 		mPermissionTip_TV.setLinksClickable(true);
-		String orginalPermissionTip = getString(R.string.device_bind_permission_tip);
-		SpannableStringBuilder ssb = new SpannableStringBuilder(orginalPermissionTip);
-		ssb.setSpan(new PAURLSpan("http://www.baidu.com"), orginalPermissionTip.length() - 3,
-				orginalPermissionTip.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		mPermissionTip_TV.setMovementMethod(LinkMovementMethod.getInstance());   
-		mPermissionTip_TV.setText(ssb);
+		String orginalPermissionTip = getString(R.string.device_bind_permission_tip, ""); //"  帮助>"
+		mPermissionTip_TV.setText(orginalPermissionTip);
+//		SpannableStringBuilder ssb = new SpannableStringBuilder(orginalPermissionTip);
+//		ssb.setSpan(new PAURLSpan("http://www.baidu.com"), orginalPermissionTip.length() - 3,
+//				orginalPermissionTip.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//		mPermissionTip_TV.setMovementMethod(LinkMovementMethod.getInstance());   
+//		mPermissionTip_TV.setText(ssb);
+		
 		
 		/**
 		 * 初始化点金广告平台
@@ -277,11 +278,25 @@ public class BindFragment extends BaseFragment implements
 	private void updateUI() {
 		// device token的显示逻辑
 		if (BindController.getInstance().hasDeviceToken()) {
-			mKeyInput_ET.setText(BindController.getInstance().getDeviceToken());
+//			String deviceToken = BindController.getInstance().getDeviceToken();
+//			String key = getString(R.string.device_bind_key, deviceToken);
+//			SpannableStringBuilder ssb = new SpannableStringBuilder(key);
+//			ssb.setSpan(new PASuperscriptSpan(), key.length() - 3,
+//					key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//			ssb.setSpan(new android.text.style.ForegroundColorSpan(getResources().getColor(R.color.appbase_blue)), key.length() - 3,
+//					key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+////			ssb.setSpan(new android.text.style.TextAppearanceSpan(null, Typeface.BOLD, 0, null, null), key.length() - 3,
+////					key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//			mKeyInput_ET.setText(ssb);
+			
+//			mKeyInput_ET.setText(Html.fromHtml(
+//					getString(R.string.device_bind_key, BindController.getInstance().getDeviceToken())));
 
+			mKeyInput_ET.setText(BindController.getInstance().getDeviceToken());
+			ViewUtils.setViewVisible(mKeySup_TV);
 		} else {
 			mKeyInput_ET.setText(null);
-
+			ViewUtils.setViewGone(mKeySup_TV);
 		}
 
 		// 设置是否开启定位

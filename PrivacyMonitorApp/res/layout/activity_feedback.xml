@@ -6,10 +6,11 @@
     <RelativeLayout 
         android:id="@+id/feedback_title_rlt"
         style="@style/AppStyle.ContainerLayout.WrapContent"
-        android:layout_height="@dimen/main_title_height">
+        android:layout_height="@dimen/main_title_height"
+        android:background="@color/appbase_blue">
         
         <TextView 
-            style="@style/AppStyle.Common.Title"
+            style="@style/AppStyle.Common.Title.Inverse"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"

@@ -14,10 +14,12 @@ import android.view.View;
 import com.zhaoni.findyou.android.PAApplication;
 import com.zhaoni.findyou.android.R;
 import com.zhaoni.findyou.android.common.LocalBroadcastIntents.DeviceToken;
+import com.zhaoni.findyou.android.common.LocalBroadcastIntents.MonitoringPerson;
 import com.zhaoni.findyou.android.common.activity.MyBaseActivity;
 import com.zhaoni.findyou.android.common.control.BindController;
 import com.zhaoni.findyou.android.common.statistics.UMengLog;
 import com.zhaoni.findyou.android.main.activity.NewMainActivity;
+import com.zhaoni.findyou.android.main.control.PersonListController;
 
 public class SplashActivity extends MyBaseActivity {
 
@@ -41,13 +43,14 @@ public class SplashActivity extends MyBaseActivity {
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
 			if (DeviceToken.ACTION_DEVICE_TOKEN_LOADED.equals(action)) {
+				PersonListController.getInstance().addMonitoringPerson("亲，这是你哦~", BindController.getInstance().getDeviceToken());
 				startActivity(NewMainActivity.class);
 				finish();
 			} else if (DeviceToken.ACTION_DEVICE_TOKEN_FAILED.equals(action)) {
 				ToastUtils.showToast("获取device_token失败");
+				startActivity(NewMainActivity.class);
 				finish();
-			} else {
-
+			} else if (MonitoringPerson.ACTION_DATA_LIST_CHANGED.equals(action)) {
 			}
 		}
 	};
@@ -75,7 +78,8 @@ public class SplashActivity extends MyBaseActivity {
 	public void initData(View view, Bundle savedInstanceState) {
 		LocalBroadcasts.registerLocalReceiver(mReceiver,
 				DeviceToken.ACTION_DEVICE_TOKEN_LOADED,
-				DeviceToken.ACTION_DEVICE_TOKEN_FAILED);
+				DeviceToken.ACTION_DEVICE_TOKEN_FAILED,
+				MonitoringPerson.ACTION_DATA_LIST_CHANGED);
 		PAApplication.getHandler().postDelayed(mShortestJumpRunnable,
 				mShortestDelay);
 

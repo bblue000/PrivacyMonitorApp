@@ -12,13 +12,36 @@
         <RelativeLayout style="@style/AppStyle.ContainerLayout.WrapContent" >
 
             <EditText
-                android:id="@+id/device_bind_obtain_et"
+                android:id="@+id/device_bind_obtain_alignment_et"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/spacing_75"
                 android:layout_centerHorizontal="true"
+                android:focusable="true"
+                android:focusableInTouchMode="false"
+                android:gravity="center"
+                android:textSize="@dimen/textsize_28" />
+            
+            <EditText
+                android:id="@+id/device_bind_obtain_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/device_bind_obtain_alignment_et"
+                android:layout_alignBottom="@id/device_bind_obtain_alignment_et"
+                android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:hint="@string/device_bind_key_hint"
-                android:textSize="@dimen/textsize_28" />
+                android:textSize="@dimen/textsize_28" 
+                android:background="@null"/>
+            
+            <TextView
+                android:id="@+id/device_bind_sup_tv"
+                style="@style/AppStyle.MainIndex.TopHint"
+                android:layout_toRightOf="@id/device_bind_obtain_et"
+                android:layout_marginTop="@dimen/spacing_10"
+                android:layout_marginLeft="@dimen/spacing_10"
+                android:textSize="@dimen/textsize_16"
+                android:textColor="@color/appbase_blue"
+                android:text="@string/device_bind_key" />
 
             <TextView
                 android:id="@+id/device_bind_hint_tv"
@@ -164,6 +187,7 @@
                 android:layout_marginTop="@dimen/spacing_15"
                 android:linksClickable="true"
                 android:textColorLink="@color/link_text_seletor"
+                android:textColorHighlight="@color/transparent"
                 android:textColor="#88ff0000"
                 android:text="@string/device_bind_permission_tip" />
             
@@ -175,7 +199,7 @@
                 android:layout_below="@id/device_bind_permission_tip_tv"
                 android:layout_marginTop="@dimen/spacing_5"
                 android:gravity="left|center_vertical"
-                android:textColor="#88ff0000"
+                android:textColor="@color/appbase_tip"
                 android:text="@string/device_bind_user_expire_tip"/>
             <!-- 用户信息 -->
             <!-- style="@style/AppStyle.ContainerLayout.WrapContent" -->
