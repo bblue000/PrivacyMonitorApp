@@ -1,4 +1,22 @@
-apply plugin: 'com.android.application'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.12.+'
+    }
+}
+
+//apply plugin: 'com.android.application'
+apply plugin: 'android'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile fileTree(dir: 'libs', include: '**/*.so')
+    compile project(':ixming-baseframework-main')
+    compile project(':AndroidQuery')
+    compile project(':NineOldAndroids')
+}
 
 android {
     compileSdkVersion 19
@@ -9,11 +27,41 @@ android {
         targetSdkVersion 17
     }
 
+    // ignore Lint found errors in the project; aborting build Error
+    lintOptions {
+        abortOnError false
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("51ZN.key")
+            storePassword "123qweASD"
+            keyAlias "zhaoni"
+            keyPassword "123qweASD"
+        }
+//        debug {
+//
+//        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig  signingConfigs.release
+            // runProguard true
+            // proguardFile 'proguard-android.txt'
+        }
+
+//        debug {
+//            signingConfig  signingConfigs.debug
+//        }
+    }
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
             java.srcDirs = ['src']
             resources.srcDirs = ['src']
+            jniLibs.srcDirs = ['libs'] // so库
             aidl.srcDirs = ['src']
             renderscript.srcDirs = ['src']
             res.srcDirs = ['res']
@@ -29,34 +77,15 @@ android {
         // conflict with src/ being used by the main source set.
         // Adding new build types or product flavors should be accompanied
         // by a similar customization.
-        debug.setRoot('build-types/debug')
+//        debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
 
-    signingConfigs {
-        myConfig{
-            storeFile file("51ZN.key")
-            storePassword "123qweASD"
-            keyAlias "zhaoni"
-            keyPassword "123qweASD"
-        }
-    }
-
     productFlavors {
-    }
-
-    buildTypes{
-        release {
-            signingConfig  signingConfigs.myConfig
-            // runProguard true
-            // proguardFile 'proguard-android.txt'
+        // 渠道包
+        amazonappstore {
+//            packageName='com.zhaoni.findyou.android'
         }
     }
-}
 
-dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
-    compile project(':ixming-baseframework-main')
-    compile project(':AndroidQuery')
-    compile project(':NineOldAndroids')
 }

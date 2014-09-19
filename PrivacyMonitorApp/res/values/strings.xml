@@ -91,6 +91,7 @@
     <string name="about_us">关于我们</string>
     <string name="about_qqgroup1">QQ群：70167669</string>
 <!--     <string name="about_qqgroup2">QQ 2群：1234567890</string> -->
+    <string name="about_disclaimer">用户协议</string>
     <string name="feedback_hint"></string>
     <string name="feedback_contact_hint">手机号/电子邮箱</string>
     <string name="feedback_title">提交建议</string>

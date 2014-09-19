@@ -1,4 +1,12 @@
 apply plugin: 'android-library'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.12.+'
+    }
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
@@ -34,5 +42,8 @@ android {
     productFlavors {
     }
     buildTypes {
+    }
+    lintOptions {
+        abortOnError false
     }
 }

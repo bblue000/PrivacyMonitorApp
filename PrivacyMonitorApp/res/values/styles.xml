@@ -24,6 +24,12 @@
         <item name="android:textSize">@dimen/textsize_20</item>
         <item name="android:textColor">@color/white</item>
     </style>
+    
+    <style name="AppStyle.Common.Btn.Inverse">
+        <item name="android:background">@drawable/button_inverse_bg_selector</item>
+        <item name="android:textSize">@dimen/textsize_20</item>
+        <item name="android:textColor">@color/appbase_blue</item>
+    </style>
 
     <style name="AppStyle.Common.InputEdit">
         <item name="android:layout_width">fill_parent</item>

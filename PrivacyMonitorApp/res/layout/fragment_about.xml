@@ -64,14 +64,26 @@
 	            android:layout_below="@id/about_qqgroup1_tv"
 	            android:layout_marginTop="45dp"
 	            android:text="@string/about_feedback" />
-	
+            
 	        <Button
 	            android:id="@+id/about_upgrade_btn"
 	            style="@style/AppStyle.Common.Btn"
 	            android:layout_below="@id/about_feedback_btn"
 	            android:layout_marginTop="10dp"
 	            android:text="@string/about_upgrade" />
-		        
+	        
+	        <TextView 
+	            android:id="@+id/about_disclaimer_tv"
+	            style="@style/AppStyle.Common.Hint"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerHorizontal="true"
+	            android:layout_below="@id/about_upgrade_btn"
+	            android:layout_marginTop="50dp"
+	            android:textSize="14sp"
+	            android:textColor="@color/color_88888888"
+	            android:text="@string/about_disclaimer"
+	            />
 	    </RelativeLayout>
 	
 	</ScrollView>
