@@ -32,7 +32,8 @@
             android:id="@+id/person_location_title_date_tv"
             style="@style/AppStyle.Common.Title.Inverse"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize_16"/>
         
     </LinearLayout>
     

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<channellist>
+
+	<channel id='100' name='100' />
+	
+	<channel id='1001' name='91&安卓市场' />
+	<channel id='1002' name='腾讯应用宝' />
+	<channel id='1003' name='360手机助手' />
+	<channel id='1004' name='豌豆荚' />
+	<channel id='1005' name='安智市场' />
+	<channel id='1006' name='应用汇' />
+	<channel id='1007' name='机锋市场' />
+	<channel id='1008' name='N多市场' />
+	<channel id='1009' name='木蚂蚁应用市场' />
+	<channel id='1010' name='小米应用商店' />
+	<channel id='1011' name='魅族商店' />
+	<channel id='1012' name='优亿市场' />
+	<channel id='1013' name='搜狐应用中心' />
+	<channel id='1014' name='网易应用' />
+	<channel id='1015' name='泡椒网' />
+	<channel id='1016' name='智汇云应用市场' />
+	<channel id='1017' name='十字猫' />
+	<channel id='1018' name='当乐网' />
+	<channel id='1019' name='极游网' />
+	<channel id='1020' name='APPStore' />
+	<channel id='1021' name='百度手机助手' />
+	
+</channellist>

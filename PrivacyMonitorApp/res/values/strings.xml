@@ -39,7 +39,7 @@
     </string-array>
 
     <!-- index -->
-    <string name="person_list_self_name">亲，这个是你哦~</string>
+    <string name="person_list_self_name">我的定位</string>
     <string name="person_list_select_hint">选择查看对象</string>
     <string name="person_list_empty_tip">暂时没有查看对象</string>
     <string name="person_list_operate">操作</string>
@@ -78,7 +78,8 @@
     <string name="device_bind_user_exchange_hint">用户积分：</string>
     <string name="device_bind_user_expire_hint">到期时间：</string>
     <string name="device_bind_permission_tip"><![CDATA[1、如有安装安全软件，需要提供相关权限%s]]></string>
-    <string name="device_bind_user_expire_tip"><![CDATA[2、用户到期将无法查看他人位置信息，不影响被查找。]]></string>
+    <string name="device_bind_user_expire_tip"><![CDATA[2、用户到期将无法查看他人位置信息，不影响被查找]]></string>
+    <string name="device_bind_permission_ex_tip"><![CDATA[3、如仍无法正常使用，QQ帮助群 : 70167669。]]></string>
     <string name="device_bind_user_charge">充值</string>
     <string name="device_bind_user_free_exchange">免费获取时间</string>
     <string name="device_bind_user_expirationdata_prompt">已到期</string>

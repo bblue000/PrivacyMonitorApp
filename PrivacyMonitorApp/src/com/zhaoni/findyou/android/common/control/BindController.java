@@ -2,10 +2,8 @@ package com.zhaoni.findyou.android.common.control;
 
 import java.util.Map;
 
-import org.apache.http.HttpStatus;
 import org.ixming.base.common.LocalBroadcasts;
 import org.ixming.base.common.controller.BaseController;
-import org.ixming.base.utils.android.Utils;
 
 import android.text.TextUtils;
 
@@ -15,11 +13,8 @@ import com.zhaoni.findyou.android.Config;
 import com.zhaoni.findyou.android.PAApplication;
 import com.zhaoni.findyou.android.common.LocalBroadcastIntents.DeviceToken;
 import com.zhaoni.findyou.android.common.model.AppSharedUtils;
-import com.zhaoni.findyou.android.common.model.BasicResponseData;
 import com.zhaoni.findyou.android.common.model.RequestPiecer;
 import com.zhaoni.findyou.android.common.model.SimpleAjaxCallback;
-import com.zhaoni.findyou.android.common.model.ResponseData.CheckcodeResult;
-import com.zhaoni.findyou.android.common.model.ResponseData.PayInfoResult;
 import com.zhaoni.findyou.android.main.model.DeviceBind;
 import com.zhaoni.findyou.android.main.model.entity.DeviceBindResult;
 
@@ -63,6 +58,14 @@ public class BindController extends BaseController {
 	public boolean hasDeviceToken() {
 		return !TextUtils.isEmpty(mDeviceToken);
 	}
+	
+	/**
+	 * 判断有无DeviceToken
+	 */
+	public boolean hasDeviceTokenRT() {
+		obtainLocalKey();
+		return !TextUtils.isEmpty(mDeviceToken);
+	}
 
 	/**
 	 * 设置DeviceToken
@@ -99,17 +102,24 @@ public class BindController extends BaseController {
 
 		@Override
 		protected boolean onSuccess(String url, Object object, AjaxStatus status) {
-			setCurrentKey(((DeviceBind) object).getDevice_token());
-			LocalBroadcasts
-					.sendLocalBroadcast(DeviceToken.ACTION_DEVICE_TOKEN_LOADED);
+			try {
+				setCurrentKey(((DeviceBind) object).getDevice_token());
+				LocalBroadcasts
+						.sendBroadcastBoth(DeviceToken.ACTION_DEVICE_TOKEN_LOADED);
+			} catch (Exception e) {
+				e.printStackTrace();
+				LocalBroadcasts
+						.sendBroadcastBoth(DeviceToken.ACTION_DEVICE_TOKEN_FAILED);
+			}
+			
 			return true;
 		}
 
 		@Override
 		protected boolean onError(AjaxStatus status) {
 			LocalBroadcasts
-					.sendLocalBroadcast(DeviceToken.ACTION_DEVICE_TOKEN_FAILED);
-			return false;
+					.sendBroadcastBoth(DeviceToken.ACTION_DEVICE_TOKEN_FAILED);
+			return true;
 		}
 	}
 }

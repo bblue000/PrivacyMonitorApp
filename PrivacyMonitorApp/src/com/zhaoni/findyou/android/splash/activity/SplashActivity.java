@@ -50,7 +50,7 @@ public class SplashActivity extends MyBaseActivity {
 				startActivity(NewMainActivity.class);
 				finish();
 			} else if (DeviceToken.ACTION_DEVICE_TOKEN_FAILED.equals(action)) {
-				ToastUtils.showToast("获取device_token失败");
+				ToastUtils.showToast("获取'标识码'失败");
 				startActivity(NewMainActivity.class);
 				finish();
 			} else if (MonitoringPerson.ACTION_DATA_LIST_CHANGED.equals(action)) {

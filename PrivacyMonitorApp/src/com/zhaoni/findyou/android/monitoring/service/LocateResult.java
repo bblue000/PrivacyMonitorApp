@@ -27,7 +27,7 @@ public class LocateResult implements OnLocationLoadListener {
 	
 	@Override
 	public void onLocationLoad(LocationInfo locationInfo) {
-		LogUtils.d("yytest", "alarm onLocationLoad");
+		LogUtils.d(TAG, "alarm onLocationLoad");
 		if (null != mLocationModule) {
 			mLocationModule.stopLocation();
 			mLocationModule = null;
@@ -46,7 +46,7 @@ public class LocateResult implements OnLocationLoadListener {
 
 	@Override
 	public void onLocationFailed(String errorTip) {
-		LogUtils.d("yytest", "alarm onLocationFailed");
+		LogUtils.d(TAG, "alarm onLocationFailed");
 		if (null != mLocationModule) {
 			mLocationModule.stopLocation();
 			mLocationModule = null;

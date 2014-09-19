@@ -96,16 +96,12 @@
   
         <ListView
 	        android:id="@+id/person_list_date_lv"
+	        style="@style/AppStyle.BaseList.ScrollBar.Vertical"
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	        android:paddingLeft="@dimen/spacing_10"
 	        android:paddingRight="@dimen/spacing_10"
-	        android:paddingBottom="@dimen/spacing_10"
-	        android:cacheColorHint="@color/transparent"
-	        android:divider="@color/transparent"
-	        android:listSelector="@color/transparent"
-	        android:fadingEdge="none"
-	        android:scrollbars="none" />
+	        android:paddingBottom="@dimen/spacing_10"/>
     </android.support.v4.widget.SwipeRefreshLayout>  
     
     

@@ -47,9 +47,7 @@ public class MainService extends Service {
 			sMainService = this;	
 		}
 		
-		Alarm.firstInterval();
-		
-		Alarm.alarm();
+		Alarm.restart();
 //		mLocationModule = new LocationModule(PAApplication.getAppContext(), true);
 //		mLocateResult = new LocateResult();
 //		mLocationModule.startContinuousLocation(mLocateResult);
@@ -79,9 +77,7 @@ public class MainService extends Service {
 		}
 		
 		// restart
-		if (LocationController.getInstance().getLocationSettingRT()) {
-			startMe(TAG);
-		}
+		LocationController.getInstance().checkLocationSetting();
 	}
 	
 	@Override

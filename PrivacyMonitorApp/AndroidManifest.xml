@@ -138,7 +138,7 @@
             android:value="53f6f5ddfd98c54ce0006288" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="100" />
+            android:value="1006" />
     </application>
 
 </manifest>

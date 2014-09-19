@@ -1,8 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 18
-    buildToolsVersion '20.0.0'
+    compileSdkVersion 19
+    buildToolsVersion '19.1.0'
+
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 17
+    }
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -26,10 +32,25 @@ android {
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
-    defaultConfig {}
+
+    signingConfigs {
+        myConfig{
+            storeFile file("51ZN.key")
+            storePassword "123qweASD"
+            keyAlias "zhaoni"
+            keyPassword "123qweASD"
+        }
+    }
+
     productFlavors {
     }
-    buildTypes {
+
+    buildTypes{
+        release {
+            signingConfig  signingConfigs.myConfig
+            // runProguard true
+            // proguardFile 'proguard-android.txt'
+        }
     }
 }
 

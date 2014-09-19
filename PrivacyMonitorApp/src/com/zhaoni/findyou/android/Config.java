@@ -7,11 +7,11 @@ public class Config {
 	 */
 	public static final String SHAREPRE_PREFIX = "SP_NAME_MAIN_";
 	// private static final String URL_PREFIX =
-	// "http://10.101.2.60:8080/findlocation";// "http://10.101.2.60";
+	// "http://10.101.2.60:8080/findlocation";// "http://121.40.105.126";
 	/**
 	 * 服务器地址
 	 */
-	private static final String URL_PREFIX = "http://121.40.105.126:8080/findlocation";
+	private static final String URL_PREFIX = "http://115.29.207.209:8080/findyou";
 	/**
 	 * 本机测试地址
 	 */

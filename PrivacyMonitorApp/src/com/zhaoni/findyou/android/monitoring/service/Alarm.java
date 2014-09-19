@@ -12,6 +12,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.zhaoni.findyou.android.Config;
 import com.zhaoni.findyou.android.PAApplication;
 import com.zhaoni.findyou.android.common.LocalBroadcastIntents;
+import com.zhaoni.findyou.android.common.control.BindController;
 import com.zhaoni.findyou.android.common.control.LocationController;
 import com.zhaoni.findyou.android.common.model.AppSharedUtils;
 import com.zhaoni.findyou.android.common.model.DummyValueResponseData;
@@ -32,8 +33,15 @@ public class Alarm {
 	
 	private Alarm() { }
 	
+	public static void restart() {
+		stopAlarm();
+		
+		firstInterval();
+		
+		alarm();
+	}
+	
 	public static void alarm() {
-		LogUtils.d("yytest", "alarm");
 		TriggerActionsReceiver.registerMe();
 		
 		if (null == sAlarmManager) {
@@ -45,10 +53,13 @@ public class Alarm {
 		}
 		
 		// do
-		LocationModule locationModule = new LocationModule(PAApplication.getAppContext(), true);
-		LocateResult locateResult = new LocateResult();
-		locateResult.setLocationModule(locationModule);
-		locationModule.requestLocation(locateResult);
+		LogUtils.w("yytest", "hasDeviceTokenRT = " + BindController.getInstance().hasDeviceTokenRT());
+		if (BindController.getInstance().hasDeviceTokenRT()) {
+			LocationModule locationModule = new LocationModule(PAApplication.getAppContext(), true);
+			LocateResult locateResult = new LocateResult();
+			locateResult.setLocationModule(locationModule);
+			locationModule.requestLocation(locateResult);
+		}
 		
 		// set next
 		if (null == sActionIntent) {
@@ -63,19 +74,23 @@ public class Alarm {
 	}
 	
 	public static void stopAlarm() {
-		if (null != sAlarmManager && null != sLastestSender) {
-			sAlarmManager.cancel(sLastestSender);
-		}
+		cancelPrevious();
 		
 		sAlarmManager = null;
 		sLastestSender = null;
+	}
+	
+	private static void cancelPrevious() {
+		if (null != sAlarmManager && null != sLastestSender) {
+			sAlarmManager.cancel(sLastestSender);
+		}
 	}
 	
 	/**
 	 * 第一次需要默认给用户看到数据
 	 */
 	public static void firstInterval() {
-		if (!AppSharedUtils.getLocationFirstInterval()) {
+		if (!AppSharedUtils.getLocationFirstInterval() && BindController.getInstance().hasDeviceTokenRT()) {
 			new FirstInterval().goon();
 		}
 	}

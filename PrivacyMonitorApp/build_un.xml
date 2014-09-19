@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 步骤   
+  
+    1.用aapt生成R.java  
+  
+    2.JAVAC编译JAVA文件  
+  
+    3.批处理生成classes.dex  
+  
+    4.aapt打包资源   
+  
+    5.apkbuilder包资源和类文件为APK文件  
+  
+    6.jarsinger 对APK进行签名-->
+
+<project name="zhaoni" default="build-channel-project" basedir=".">
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+
+	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" />
+
+	<property environment="env" />
+
+	<property name="android-sdk-platform-androidx" value="${env.ANDROID_HOME}\platforms\android-14" />
+    <property name="android-sdk-platform-tools" value="${env.ANDROID_HOME}\platform-tools" />
+    <property name="android-sdk-tools" value="${env.ANDROID_HOME}\tools" />
+	<property name="external-libs" value="libs" />
+	<property name="external-absolute-libs" location="${external-libs}" />
+	<condition property="external-libs-ospath" value="${basedir}/${external-libs}" else="${basedir}/${external-libs}">  
+        <os family="windows" />
+    </condition>  
+    <property name="proguard-home" value="${env.ANDROID_HOME}/tools/proguard/lib"/> 
+	
+    <property name="third-party-jar-1" value="android-support-v4.jar" />
+	<property name="third-party-jar-2" value="gson-2.2.2.jar" />
+	<property name="third-party-jar-3" value="httpmime-4.2.5.jar" />
+	<property name="third-party-jar-4" value="jpush-sdk-release1.5.0.jar" />
+	<property name="third-party-jar-5" value="libammsdk.jar" />
+	<property name="third-party-jar-6" value="locSDK_2.6.jar" />
+	<property name="third-party-jar-7" value="umeng_sdk.jar" />
+	<property name="third-party-jar-8" value="weibo_sdk.jar" />
+	
+	<property name="all-jar" value="all.jar" />
+	<property name="all-jar-dir" value="dexedLibs" />
+	<property name="all-jar-dir-absolute" location="${all-jar-dir}" />
+	<property name="all-jar-absolute" value="${all-jar-dir-absolute}/${all-jar}" />
+
+	<!-- 渠道文件定义 -->
+	<property name="manifestfile" location="AndroidManifest.xml" />
+	
+	<property name="channelfile" location="channellist.xml" />
+	
+	<property name="createxml_first" value="&lt;?xml&#x0020;version=&quot;1.0&quot;&#x0020;encoding=&quot;UTF-8&quot;?&gt;&#x000A;&lt;channeltag&gt;&#x000A;&#x0020;&lt;channel id=&apos;" />
+
+	<property name="createxml_mid" value="&apos; name=&apos;" />
+
+	<property name="createxml_end" value="&apos;/&gt;&#x000A;&lt;/channeltag&gt;" />
+
+	<!-- 定义自己的输出目录 -->
+
+	<property name="outdir" value="outdir" />
+
+	<property name="out.absolute.dir" location="${outdir}" />
+
+	<property name="out.signedapkdir.dir" location="${outdir}/signedapkdir" />
+	
+	<property name="out.zipalignapkdir.dir" location="${outdir}/zipaligndapkdir" />
+
+	<property name="manifesttempdir" location="manifesttempdir" />
+	<property name="manifesttempfile" location="${manifesttempdir}/AndroidManifest.xml" />
+	
+
+	<!-- 定义 R.java 所有目录 -->
+
+	<property name="outdir-gen" value="gen" />
+
+
+	<!-- 读取目录 -->
+
+	<property name="resource-dir" value="res" />
+
+	<property name="asset-dir" value="assets" />
+
+	<property name="src-dir" value="src" />
+
+	<property name="src-dir-path" value="${basedir}\${src-dir}" />
+
+	<!-- 输出目录 -->
+
+	<property name="outdir-classes" value="${outdir}\classes" />
+
+	<property name="out.classes.absolute.dir" location="${outdir-classes}" />
+
+	<!-- 临时类资源文件 -->
+
+	<property name="dex-file" value="classes.dex" />
+
+	<property name="intermediate-dex" value="${out.absolute.dir}\${dex-file}" />
+
+
+	<!-- 最终生成文件 -->
+
+
+	<!-- 要使用的工具 -->
+
+	<property name="android-jar" value="${android-sdk-platform-androidx}/android.jar" />
+
+	<property name="android-framework-aild" value="${android-sdk-platform-androidx}/framework.aidl" />
+	
+		<property name="aapt" value="${android-sdk-platform-tools}/aapt.exe" />
+
+	<property name="aidl" value="${android-sdk-platform-tools}/aidl.exe" />
+
+	<property name="dx" value="${android-sdk-platform-tools}/dx.bat" />
+
+	<property name="adb" value="${android-sdk-platform-tools}/adb" />
+	
+	<property name="zipalign" value="${android-sdk-tools}/zipalign.exe" />
+		
+	<property name="jarsigner" value="jarsigner.exe" />
+
+	<property name="apk-builder" value="${android-sdk-tools}/apkbuilder.bat" />
+
+	<!-- 最终生成各种包文件 -->
+
+	<property name="resources-package" value="${outdir}/${ant.project.name}-res" />
+
+	<property name="resources-package-path" value="${basedir}/${resources-package}" />
+
+	<property name="out-unsigned-package-first" value="${basedir}/${outdir}/${ant.project.name}-" />
+
+	<property name="out-unsigned-package-end" value="-unsigned.apk" />
+
+	<property name="out-signed-package-name" value="iCard_v1.0.5_" />
+
+	<property name="out-signed-package-first" value="${out.signedapkdir.dir}/${out-signed-package-name}" />
+
+	<property name="out-signed-package-end" value=".apk" />
+
+
+
+	<property name="out-zipalign-package-first" value="${out.zipalignapkdir.dir}/${out-signed-package-name}" />
+
+	<property name="out-zipalign-package-end" value=".apk" />
+	
+
+	<property name="out-unsigned-package-apk" value="${out-signed-package-first}${id}${out-signed-package-end}" />
+	<property name="out-signed-package-apk" value="${out-unsigned-package-first}${id}${out-unsigned-package-end}" />
+
+	
+	<!--签名工具-->
+
+
+
+	<property name="keystorefile" location="iCard.key" />
+
+	<property name="keypass" value="upsmart" />
+
+	<property name="aliasname" value="icard" />
+
+
+	<!--优化APK工具-->
+
+
+	<path id="libjar">
+		<fileset dir="${all-jar-dir-absolute}">
+			<include name="*.jar" />
+<!-- 			<exclude name="${third-party-jar-1}"/> -->
+<!-- 			<exclude name="${third-party-jar-2}"/> -->
+<!-- 			<exclude name="${third-party-jar-3}"/> -->
+<!-- 			<exclude name="${third-party-jar-4}"/> -->
+<!-- 			<exclude name="${third-party-jar-5}"/> -->
+<!-- 			<exclude name="${third-party-jar-6}"/> -->
+<!-- 			<exclude name="${third-party-jar-7}"/> -->
+<!-- 			<exclude name="${third-party-jar-8}"/> -->
+		</fileset>
+
+	</path>
+
+	<target name="makeSuperJar" description="description" depends="isJarExists" if="jarExists">
+	    <echo>do nothing ... </echo>
+		<jar destfile="${all-jar-absolute}">
+			<zipfileset src="${external-libs}/${third-party-jar-1}"/>   
+			<zipfileset src="${external-libs}/${third-party-jar-2}"/>   
+			<zipfileset src="${external-libs}/${third-party-jar-3}"/>   
+			<zipfileset src="${external-libs}/${third-party-jar-4}"/>   
+			<zipfileset src="${external-libs}/${third-party-jar-5}"/>   
+			<zipfileset src="${external-libs}/${third-party-jar-6}"/>   
+			<zipfileset src="${external-libs}/${third-party-jar-7}"/>   
+			<zipfileset src="${external-libs}/${third-party-jar-8}"/>   
+		</jar>
+		
+	</target>
+	
+	<target name="isJarExists" description="description">
+		<condition property="jarExists">
+		 <not>
+		  <available file="${all-jar-absolute}"></available>
+		 </not>
+		</condition>
+	</target>
+
+	<target name="build-channel-project" depends="init">
+
+		<xmltask source="${channelfile}">
+
+			<call path="channellist/channel" target="zipalign">
+
+				<!--
+				 <actions>
+
+				   	<echo>xmltask channel_id: ${id}</echo> 	
+						
+					<echo>xmltask channel_name: ${name}</echo> 
+
+				 </actions>
+				 -->
+
+				<param name="channel_id" path="@id" />
+
+				<param name="channel_name" path="@name" />
+
+			</call>
+		</xmltask>
+
+	</target>
+	
+	<!-- 初始化 -->
+	<target name="init" description="description">
+		<echo>Creating all output directories </echo>
+		<delete file="${external-libs}/${all-jar}"/>
+		<delete file="${all-jar-absolute}"/>
+		<delete dir="${outdir}" />
+		<delete dir="${outdir-gen}" />
+		<mkdir dir="${outdir}" />
+		<mkdir dir="${outdir-classes}" />
+		<mkdir dir="${outdir-gen}" />
+		<mkdir dir="${out.signedapkdir.dir}" />
+		<mkdir dir="${out.zipalignapkdir.dir}" />
+	</target>
+
+	<target name="modify_manifest" description="description" depends="check_manifest_tempfile">
+	    <echo>modify_manifest ${channel_id} ... </echo>
+	    <echo>meta-data(.*)android:value=(.*)android:name=(.*)UMENG_CHANNEL</echo>
+	    
+	    <replaceregexp file="${manifestfile}"
+               match="meta-data(.*)android:name=(.*)UMENG_CHANNEL(.*)android:value=(.*)&quot;"
+               replace="meta-data android:name=&quot;UMENG_CHANNEL&quot; android:value=&quot;${channel_id}&quot;"
+               byline="false" />
+	    <replaceregexp file="${manifestfile}"
+               match="meta-data(.*)android:name=(.*)JPUSH_CHANNEL(.*)android:value=(.*)&quot;"
+               replace="meta-data android:name=&quot;JPUSH_CHANNEL&quot; android:value=&quot;${channel_id}&quot;"
+               byline="false" />
+		
+	    <!-- 	    <copy file="${manifesttempfile}" tofile="${manifestfile}" overwrite="true"/> -->
+		<!-- 	    <replace file="${manifestfile}" token="icard_channel_id" value="${channel_id}" encoding="utf-8"/> -->
+	</target>
+	
+	<target name="check_manifest_tempfile" description="description" depends="isTempManifestNotExists" if="tempFileNotExists">
+		<!-- 获取渠道名字 -->
+		<echo>modify_manifest ${channel_id} ... </echo>
+		
+<!-- 		<copy file="${manifestfile}" todir="${manifesttempdir}" /> -->
+
+	</target>
+	
+	<target name="isTempManifestNotExists" description="description">
+		<condition property="tempFileNotExists">
+		 <not>
+		  <available file="${manifesttempfile}"></available>
+		 </not>
+		</condition>
+	</target>
+	
+	<!--步骤 1： aapt生成R.java -->
+
+	<target name="resource-src" depends="modify_manifest">
+
+		<echo>channel_id: ${channel_id}</echo>
+
+		<echo>channel_name: ${channel_name}</echo>
+
+		<echo>Generating R.java...</echo>
+
+		<exec executable="${aapt}" failonerror="true">
+
+			<arg value="package" />
+
+			<arg value="-m" />
+
+			<arg value="-J" />
+
+			<arg value="${outdir-gen}" />
+
+			<arg value="-M" />
+
+			<arg value="AndroidManifest.xml" />
+
+			<arg value="-S" />
+
+			<arg value="${resource-dir}" />
+
+			<arg value="-I" />
+
+			<arg value="${android-jar}" />
+
+		</exec>
+
+	</target>
+
+	<!-- Generate java classes from .aidl files. -->
+
+	<target name="aidl" depends="resource-src">
+
+		<echo>Compiling aidl files into Java classes...</echo>
+
+		<apply executable="${aidl}" failonerror="true">
+
+			<arg value="-p${android-framework-aild}" />
+
+			<arg value="-I${src-dir}" />
+
+			<fileset dir="${src-dir}">
+
+				<include name="**/*.aidl" />
+
+			</fileset>
+
+		</apply>
+
+	</target>
+	
+	
+	<target name="optimize">  
+	    <echo>optimize ...</echo>
+    <jar basedir="${outdir-classes}" destfile="temp.jar"/>  
+    <java jar="${proguard-home}/proguard.jar" fork="true" failonerror="true">  
+        <jvmarg value="-Dmaximum.inlined.code.length=32"/>  
+        <arg value="-injars temp.jar"/>  
+        <arg value="-outjars optimized.jar"/>  
+        <arg value="-libraryjars ${android-jar}"/>  
+        
+        <arg value="-keepattributes Signature"/>  
+        <arg value="-keep class sun.misc.Unsafe { *; }"/>  
+        <arg value="-keepattributes *Annotation*"/>  
+        <arg value="-renamesourcefileattribute SourceFile"/>  
+        <arg value="-keepattributes SourceFile,LineNumberTable"/>  
+        <arg value="-optimizationpasses 7"/>  
+        <arg value="-dontusemixedcaseclassnames"/>  
+        <arg value="-dontskipnonpubliclibraryclasses"/>  
+        <arg value="-dontpreverify"/>  
+        <arg value="-ignorewarnings"/>  
+        <arg value="-dontoptimize"/>  
+        <arg value="-allowaccessmodification"/>  
+        <arg value="-verbose"/>  
+        <arg value="-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*"/>  
+        
+        <!-- android -->
+        <arg value="-keepclassmembers class **.R$* { *; }"/>  
+		<arg value="-keep public class * extends android.app.Activity"/>  
+		<arg value="-keep public class * extends android.app.Application"/>  
+		<arg value="-keep public class * extends android.app.Service"/>  
+		<arg value="-keep public class * extends android.content.BroadcastReceiver"/>  
+		<arg value="-keep public class * extends android.content.ContentProvider"/>  
+		<arg value="-keep public class * extends android.app.backup.BackupAgentHelper"/>  
+		<arg value="-keep public class * extends android.preference.Preference"/>  
+		<arg value="-keep public class com.android.vending.licensing.ILicensingService"/>  
+		<arg value="-keep public class * extends android.view.View {
+		    public &lt;init&gt;(android.content.Context);
+		    public &lt;init&gt;(android.content.Context, android.util.AttributeSet);
+		    public &lt;init&gt;(android.content.Context, android.util.AttributeSet, int);
+		    public void set*(...); }"/>
+		<arg value="-keepclasseswithmembers class * {
+		    public &lt;init&gt;(android.content.Context, android.util.AttributeSet, int); }"/>  
+		<arg value="-keepclasseswithmembers class * {
+		    public &lt;init&gt;(android.content.Context, android.util.AttributeSet); }"/>  
+		<arg value="-keepclasseswithmembers class * {
+		    public &lt;init&gt;(android.content.Context, android.util.AttributeSet, int); }"/>  
+		<arg value="-keepclassmembers class * extends android.content.Context {
+		   public void *(android.view.View);
+		   public void *(android.view.MenuItem); }"/>  
+		<arg value="-keepclassmembers class * implements android.os.Parcelable {
+		    static android.os.Parcelable$Creator CREATOR; }"/>  
+		<arg value="-keep class android.net.http.**{ *; }"/>  
+		<arg value="-keep class android.webkit.**{ *; }"/>  
+		<arg value="-keep class * extends android.webkit.WebView { public *; }"/>  
+		
+		<!-- jars -->
+		<arg value="-libraryjars libs/android-support-v4.jar"/>  
+		<arg value="-libraryjars libs/gson-2.2.2.jar"/>  
+		<arg value="-libraryjars libs/httpmime-4.2.5.jar"/>  
+		<arg value="-libraryjars libs/jpush-sdk-release1.5.0.jar"/>  
+		<arg value="-libraryjars libs/libammsdk.jar"/>  
+		<arg value="-libraryjars libs/locSDK_2.6.jar"/>  
+		<arg value="-libraryjars libs/umeng_sdk.jar"/>  
+		<arg value="-libraryjars libs/weibo_sdk.jar"/>  
+		<arg value="-keep class android.support.v4.**{ *; }"/>  
+		<arg value="-keep class com.google.gson.**{ *; }"/>  
+		<arg value="-keep class com.baidu.location.**{ *; }"/>  
+		<arg value="-keep class com.tencent.mm.sdk.**{*;}"/>  
+		<arg value="-keep class com.tencent.mm.sdk.openapi.WXMediaMessage {*;}"/>  
+		<arg value="-keep class com.tencent.mm.sdk.openapi.** implements com.tencent.mm.sdk.openapi.WXMediaMessage$IMediaObject {*;}"/>  
+		<arg value="-keep class org.apache.http.entity.mime.**{*;}"/>  
+		<arg value="-keep class com.umeng.**{*;}"/>  
+		<arg value="-keep class com.sina.sdk.api.message.**{*;}"/>  
+		<arg value="-keep class com.sina.sso.**{*;}"/>  
+		<arg value="-keep class com.sina.weibo.**{*;}"/>  
+		<arg value="-keep class com.weibo.sdk.**{*;}"/>  
+		<arg value="-keep class com.weibo.sdk.**{*;}"/>  
+		<arg value="-keep class cn.jpush.android.**{*;}"/>  
+		
+		<!-- application project -->
+		<arg value="-keep class com.upsmart.icardpayment.network.**{ *; }"/> 
+		<arg value="-keep class com.upsmart.icardpayment.utils.ToastUtil{ *; }"/> 
+		<arg value="-keep class com.upsmart.icardpayment.utils.DialogUtil{ *; }"/> 
+		<arg value="-keep class com.upsmart.icardpayment.utils.Utils{ *; }"/> 
+		<arg value="-keep class com.upsmart.icardpayment.utils.AndroidUtil{ *; }"/> 
+		<arg value="-keep class com.upsmart.icardpayment.control.adapter.**{ *; }"/> 
+		<arg value="-keep class * implements com.upsmart.icardpayment.network.OnLoadListener{ *; }"/> 
+		<arg value="-keep class com.upsmart.icardpayment.control.manager.CityManager{ *; }"/> 
+		<arg value="-keep class com.upsmart.icardpayment.control.manager.CityManager$*{ *; }"/> 
+		<arg value="-keep class com.upsmart.icardpayment.common.LocationModule{ *; }"/> 
+		<arg value="-keep class com.upsmart.icardpayment.common.sharebind.**{ *; }"/> 
+		<arg value="-keep class com.upsmart.icardpayment.common.view.**{ *; }"/> 
+		<arg value="-keep class com.upsmart.icardpayment.wxapi.**{ *; }"/> 
+		<arg value="-keep class com.upsmart.icardpayment.model.entity.**{ *; }"/> 
+		<arg value="-keep class com.upsmart.icardpayment.model.parser.**{ *; }"/> 
+		<arg value="-keep class com.upsmart.icardpayment.activity.**{*;}"/> 
+		<arg value="-keep class com.upsmart.icardpayment.activity.base.**{*;}"/> 
+		<arg value="-keep class com.upsmart.icardpayment.adapter.**{*;}"/> 
+    </java>  
+    <delete file="temp.jar"/>
+    <delete dir="${outdir-classes}"/>
+    <mkdir dir="${outdir-classes}"/>  
+    <unzip src="optimized.jar" dest="${outdir-classes}"/>  
+    <delete file="optimized.jar"/>
+    </target> 
+
+
+	<!-- 步骤 2. 编译所有class文件. -->
+
+	<target name="compile" depends="aidl">
+
+		<javac encoding="UTF-8" target="1.6" debug="false" extdirs="" srcdir="." destdir="${outdir-classes}" bootclasspath="${android-jar}" includeantruntime="on">
+		    <classpath>
+		        <fileset dir="${external-absolute-libs}" includes="*.jar" />  
+		    </classpath>
+<!-- 			<classpath refid="libjar" /> -->
+		</javac>
+	</target>
+
+	<!-- 步骤 3. 转换class文件为dex文件. -->
+
+	<target name="dex" depends="makeSuperJar,compile,optimize">
+
+
+		<echo>${intermediate-dex}</echo>
+
+		<echo>${out.classes.absolute.dir}</echo>
+
+		<apply executable="${dx}" failonerror="true">
+
+			<arg value="--dex" />
+
+			<arg value="--output=${intermediate-dex}" />
+
+			<arg path="${out.classes.absolute.dir}" />
+			
+			<fileset dir="${all-jar-dir-absolute}" includes="*.jar" />
+			
+<!-- 			<fileset dir="${external-libs}"> -->
+<!-- 				<include name="*.jar" /> -->
+<!-- 				<exclude name="${third-party-jar-1}"/> -->
+<!-- 				<exclude name="${third-party-jar-2}"/> -->
+<!-- 				<exclude name="${third-party-jar-3}"/> -->
+<!-- 				<exclude name="${third-party-jar-4}"/> -->
+<!-- 				<exclude name="${third-party-jar-5}"/> -->
+<!-- 				<exclude name="${third-party-jar-6}"/> -->
+<!-- 				<exclude name="${third-party-jar-7}"/> -->
+<!-- 				<exclude name="${third-party-jar-8}"/> -->
+<!-- 			</fileset> -->
+
+		</apply >
+
+	</target>
+
+	<!-- 步骤 4. 将资源和清单打包. -->
+
+	<target name="package-res-and-assets">
+
+		<echo>Packaging resources and assets...</echo>
+
+		<echo>resources-package: ${resources-package}</echo>
+
+
+		<echo>channel_id: ${channel_id}</echo>
+
+		<echo>channel_name: ${channel_name}</echo>
+
+		<echo file="${asset-dir}/channel.xml" message="${createxml_first}${channel_id}${createxml_mid}${channel_name}${createxml_end}" />
+
+		<exec executable="${aapt}" failonerror="true">
+
+			<arg value="package" />
+
+			<arg value="-f" />
+
+			<arg value="-M" />
+
+			<arg value="AndroidManifest.xml" />
+
+			<arg value="-S" />
+
+			<arg value="${resource-dir}" />
+
+			<arg value="-A" />
+
+			<arg value="${asset-dir}" />
+
+			<arg value="-I" />
+
+			<arg value="${android-jar}" />
+
+			<arg value="-F" />
+
+			<arg value="${resources-package}" />
+
+		</exec>
+
+	</target>
+
+	<!-- 步骤 5. 将打好的包编译为APK文件. -->
+
+	<target name="debug" depends="dex, package-res-and-assets">
+		<echo>channel_id: ${channel_id}</echo>
+		<echo>channel_name: ${channel_name}</echo>
+
+		<echo>release:Packaging ${out-unsigned-package-first}${channel_name}${out-unsigned-package-end}, and signing it with a debug key...</echo>
+
+		<exec executable="${apk-builder}" failonerror="true">
+
+			<arg value="${out-unsigned-package-first}${channel_name}${out-unsigned-package-end}" />
+
+			<arg value="-u" />
+
+			<arg value="-z" />
+
+			<arg value="${resources-package-path}" />
+
+			<arg value="-f" />
+
+			<arg value="${intermediate-dex}" />
+
+			<arg value="-rf" />
+
+			<arg value="${src-dir-path}" />
+			
+			<arg value="-rj" />  
+            <arg value="${external-libs-ospath}" />   
+            <arg value="-nf" />  
+            <arg value="${external-libs-ospath}" /> 
+            
+		</exec>
+
+	</target>
+
+	<!--步骤 6. 签名APK文件 -->
+
+	<target name="jarsigner" depends="debug">
+
+		<echo>channel_id: ${channel_id}</echo>
+		<echo>channel_name: ${channel_name}</echo>
+
+		<echo> jarsigner ${out-signed-package-path}</echo>
+
+		<echo> keystorefile path: ${keystorefile}</echo>
+
+		<echo> storepass: ${keypass}</echo>
+
+		<echo> out-unsigned-package-apk: ${out-unsigned-package-first}${channel_name}${out-unsigned-package-end}</echo>
+
+		<echo> out-signed-package-apk: ${out-signed-package-first}${channel_name}${out-signed-package-end}</echo>
+
+		<exec executable="${jarsigner}" failonerror="true">
+
+			<arg value="-verbose" />
+
+			<arg value="-keystore" />
+
+			<arg value="${keystorefile}" />
+
+			<arg value="-storepass" />
+
+			<arg value="${keypass}" />
+
+			<arg value="-keypass" />
+
+			<arg value="${keypass}" />
+
+
+
+			<arg value="-signedjar" />
+
+			<arg value="${out-signed-package-first}${channel_name}${out-signed-package-end}" />
+			<arg value="${out-unsigned-package-first}${channel_name}${out-unsigned-package-end}" />
+
+			<arg value="${aliasname}" />
+
+		</exec>
+		
+		<delete file="${out-unsigned-package-first}${channel_name}${out-unsigned-package-end}"/>
+
+		<delete file="${external-libs}/${all-jar}"/>
+		
+		<delete file="${all-jar-absolute}"/>
+
+	</target>
+	
+    <!--zipalign优化android程序-->  
+  
+    <target name="zipalign" depends="jarsigner">  
+  
+        <echo> zipalign ${out-signed-package-first}${channel_name}${out-signed-package-end}</echo>  
+    	<echo> zipalign ${out-zipalign-package-first}${channel_name}${out-zipalign-package-end}</echo>  
+    	<echo>dir=D:/jdm/android-sdk-windows/tools zipalign.exe  -v 4 ${out-signed-package-first}${channel_name}${out-signed-package-end}  .\outdir\xxx.apk</echo>  
+    	
+    	
+    	<exec  executable="${zipalign}" failonerror="false" >
+            <arg line=" -v 4 ${out-signed-package-first}${channel_name}${out-signed-package-end}  ${out-zipalign-package-first}${channel_name}${out-zipalign-package-end}" />  
+        </exec>  
+    	
+    	
+  
+    </target>  
+
+</project>
+

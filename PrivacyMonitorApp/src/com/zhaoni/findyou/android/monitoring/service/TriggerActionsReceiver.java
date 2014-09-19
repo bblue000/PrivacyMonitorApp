@@ -1,5 +1,7 @@
 package com.zhaoni.findyou.android.monitoring.service;
 
+import org.ixming.base.utils.android.LogUtils;
+
 import com.zhaoni.findyou.android.PAApplication;
 import com.zhaoni.findyou.android.common.LocalBroadcastIntents;
 
@@ -8,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.util.Log;
 
 public class TriggerActionsReceiver extends BroadcastReceiver {
 
@@ -45,22 +46,35 @@ public class TriggerActionsReceiver extends BroadcastReceiver {
 			filter = new IntentFilter();
 			filter.addAction(LocalBroadcastIntents.Location.ACTION_LOCATION_ALARM);
 			context.registerReceiver(sActionsReceiver, filter);
+			
+			filter = new IntentFilter();
+			filter.addAction(LocalBroadcastIntents.DeviceToken.ACTION_DEVICE_TOKEN_LOADED);
+			filter.addAction(LocalBroadcastIntents.DeviceToken.ACTION_DEVICE_TOKEN_FAILED);
+			context.registerReceiver(sActionsReceiver, filter);
 		}
 	}
 	
 	public static final void unregisterMe() {
+		if (null == sActionsReceiver) {
+			return ;
+		}
 		try {
 			PAApplication.getAppContext().unregisterReceiver(sActionsReceiver);
 		} catch (Exception e) { }
+		
 		sActionsReceiver = null;
 	}
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		String action = intent.getAction();
-		Log.d(TAG, "onReceive action = " + action);
+		LogUtils.d(TAG, "onReceive action = " + action);
 		if (LocalBroadcastIntents.Location.ACTION_LOCATION_ALARM.equals(action)) {
 			Alarm.alarm();
+		} else if (LocalBroadcastIntents.DeviceToken.ACTION_DEVICE_TOKEN_LOADED.equals(action)) {
+			Alarm.restart();
+		} else if (LocalBroadcastIntents.DeviceToken.ACTION_DEVICE_TOKEN_FAILED.equals(action)) {
+			Alarm.stopAlarm();
 		} else {
 			MainService.startMe(TAG);
 		}

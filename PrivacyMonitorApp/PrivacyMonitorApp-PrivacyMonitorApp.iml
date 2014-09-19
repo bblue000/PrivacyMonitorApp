@@ -54,10 +54,13 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 18 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="dianjin" level="project" />
     <orderEntry type="library" exported="" name="locSDK_4.1" level="project" />
+    <orderEntry type="library" exported="" name="umeng-fb-v4.3.2" level="project" />
     <orderEntry type="library" exported="" name="baidumapapi_v3_0_0" level="project" />
+    <orderEntry type="library" exported="" name="umeng-analytics-v5.2.4" level="project" />
     <orderEntry type="module" module-name="NineOldAndroids" exported="" />
     <orderEntry type="module" module-name="ixming-baseframework-main" exported="" />
     <orderEntry type="module" module-name="AndroidQuery" exported="" />

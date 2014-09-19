@@ -53,13 +53,13 @@ public class LocationController extends BaseController {
 				MonitorLocation.ACTION_SETTING_OPEN,
 				MonitorLocation.ACTION_SETTING_CLOSE);
 		obtainLocalValue();
-		
-		// TODO service may not be started
-//		checkLocationSetting();
 	}
 	
+	/**
+	 * 判断设置是否打开，如果打开则启动服务
+	 */
 	public void checkLocationSetting() {
-		if (getLocationSetting()) {
+		if (getLocationSettingRT()) {
 			LocalBroadcasts.sendLocalBroadcast(MonitorLocation.ACTION_SETTING_OPEN);
 		} else {
 			LocalBroadcasts.sendLocalBroadcast(MonitorLocation.ACTION_SETTING_CLOSE);
@@ -67,11 +67,6 @@ public class LocationController extends BaseController {
 	}
 	
 	public boolean getLocationSetting() {
-		return mLocationSetting;
-	}
-	
-	public boolean getLocationSettingRT() {
-		obtainLocalValue();
 		return mLocationSetting;
 	}
 	
@@ -95,13 +90,18 @@ public class LocationController extends BaseController {
 		return mLocationInterval;
 	}
 	
-	public long getLocationIntervalRT() {
-		obtainLocalValue();
-		return mLocationInterval;
-	}
-	
 	private void obtainLocalValue() {
 		mLocationSetting = AppSharedUtils.getLocationSetting();
 		mLocationInterval = AppSharedUtils.getLocationInterval(DEFAULT_INTERVAL);
+	}
+	
+	public boolean getLocationSettingRT() {
+		obtainLocalValue();
+		return mLocationSetting;
+	}
+	
+	public long getLocationIntervalRT() {
+		obtainLocalValue();
+		return mLocationInterval;
 	}
 }

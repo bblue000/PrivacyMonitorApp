@@ -184,7 +184,7 @@
                 style="@style/AppStyle.MainIndex.Warning"
                 android:layout_below="@id/device_bind_warning_tv"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/spacing_15"
+                android:layout_marginTop="@dimen/spacing_10"
                 android:linksClickable="true"
                 android:textColorLink="@color/link_text_seletor"
                 android:textColorHighlight="@color/transparent"
@@ -201,6 +201,17 @@
                 android:gravity="left|center_vertical"
                 android:textColor="@color/appbase_tip"
                 android:text="@string/device_bind_user_expire_tip"/>
+            
+            <TextView
+                android:id="@+id/device_bind_permission_ex_tip_tv"
+                style="@style/AppStyle.MainIndex.Warning"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/device_bind_user_expire_tip_tv"
+                android:layout_marginTop="@dimen/spacing_5"
+                android:gravity="left|center_vertical"
+                android:textColor="@color/appbase_tip"
+                android:text="@string/device_bind_permission_ex_tip"/>
             <!-- 用户信息 -->
             <!-- style="@style/AppStyle.ContainerLayout.WrapContent" -->
 

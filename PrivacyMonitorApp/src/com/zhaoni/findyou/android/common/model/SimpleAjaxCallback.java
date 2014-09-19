@@ -19,6 +19,7 @@ public class SimpleAjaxCallback<T extends BasicResponseData<?>> extends
 	private String mTag = TAG;
 
 	public SimpleAjaxCallback() {
+		super();
 	}
 
 	/**
