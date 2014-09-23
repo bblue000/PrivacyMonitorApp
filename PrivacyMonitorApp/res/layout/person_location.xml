@@ -71,7 +71,7 @@
 	    android:layout_height="fill_parent"
         android:layout_below="@id/person_location_title_layout"
         android:paddingLeft="@dimen/spacing_20"
-        android:paddingRight="@dimen/spacing_10"
+        android:paddingRight="@dimen/spacing_5"
         android:layout_alignParentRight="true"
         >
         
@@ -91,7 +91,7 @@
         <View 
             android:layout_width="2dp"
             android:layout_height="fill_parent"
-            android:layout_marginRight="14dp"
+            android:layout_marginRight="9dp"
             android:layout_alignParentRight="true"
         	android:layout_marginTop="@dimen/spacing_20"
         	android:layout_marginBottom="@dimen/spacing_40"

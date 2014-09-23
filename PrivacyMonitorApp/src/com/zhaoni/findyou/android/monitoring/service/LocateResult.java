@@ -81,6 +81,7 @@ public class LocateResult implements OnLocationLoadListener {
 		data.put("latitude", String.valueOf(locationInfo.getLatitude()));
 		data.put("longitude", String.valueOf(locationInfo.getLongitude()));
 		data.put("address", locationInfo.getAddress());
+		data.put("source_flag", "1");
 		aQuery.ajax(Config.URL_POST_LOCATION, data, DummyValueResponseData.class, callback);
 	}
 }

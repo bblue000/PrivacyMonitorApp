@@ -8,7 +8,7 @@
         android:layout_width="6dp"
         android:layout_height="6dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="12dp"
+        android:layout_marginRight="7dp"
         android:layout_centerVertical="true"
         android:background="@drawable/app_blue_disable_dot"/>
     
@@ -17,7 +17,7 @@
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="5dp"
         android:layout_centerVertical="true"
         android:background="@drawable/app_blue_dot"
         />

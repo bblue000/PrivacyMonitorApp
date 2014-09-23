@@ -13,8 +13,9 @@ public class RequestPiecer {
 		Map<String, String> data = new HashMap<String, String>();
 		data.put("device_id", AndroidUtils.getDeviceId());
 		data.put("device_type", "android");
-		data.put("device_token", AppSharedUtils.getDeviceToken());
-		data.put("app_version", AndroidUtils.getAppVersionName("1.0"));
+        data.put("device_model", AndroidUtils.getDeviceModel());
+        data.put("device_token", AppSharedUtils.getDeviceToken());
+        data.put("app_version", AndroidUtils.getAppVersionName("1.0"));
 
 		LocalUserController userController = LocalUserController.getInstance();
 		if (userController.isUserLogining()) {

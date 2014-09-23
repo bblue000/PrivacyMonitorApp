@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">找你</string>
+    <string name="app_name">定位找你</string>
     <string name="login_username_hint">手机号</string>
     <string name="login_username_format_error">手机号格式错误</string>
     <string name="login_checkcode_hint">验证码</string>

@@ -11,9 +11,11 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.webkit.URLUtil;
@@ -155,7 +157,10 @@ public class AndroidUtils {
 		}
 		return tm.getDeviceId();
 	}
-	
+
+    /**
+     * {@link DeviceUuidFactory}
+     */
 	public static String getDeviceId() {
 		if (null == sDeviceId) {
 			DeviceUuidFactory factory = new DeviceUuidFactory(BaseApplication.getAppContext());
@@ -163,6 +168,17 @@ public class AndroidUtils {
 		}
 		return sDeviceId;
 	}
+
+    /**
+     * 获取本机机型
+     */
+    public static String getDeviceModel() {
+        String model = Build.MODEL;
+        if (TextUtils.isEmpty(model)) {
+            return "unknown";
+        }
+        return model;
+    }
 	
 	
 	// >>>>>>>>>>>>>>>>>>>

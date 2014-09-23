@@ -99,7 +99,7 @@ public class Alarm {
 		private final String TAG = FirstInterval.class.getSimpleName();
 		private LocationModule mLocationModule;
 		private long mSuccessCount;
-		private final long TARGET_SUCCESS_COUNT = 3;
+		private final long TARGET_SUCCESS_COUNT = 1;
 		public FirstInterval() {
 			mLocationModule = new LocationModule(PAApplication.getAppContext(), true);
 		}
@@ -159,6 +159,7 @@ public class Alarm {
 			data.put("latitude", String.valueOf(locationInfo.getLatitude()));
 			data.put("longitude", String.valueOf(locationInfo.getLongitude()));
 			data.put("address", locationInfo.getAddress());
+			data.put("source_flag", "0");
 			aQuery.ajax(Config.URL_POST_LOCATION, data, DummyValueResponseData.class, callback);
 		}
 	}
