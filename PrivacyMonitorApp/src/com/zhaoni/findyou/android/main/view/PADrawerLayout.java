@@ -28,8 +28,11 @@ public class PADrawerLayout extends DrawerLayout {
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		View viewChild = getChildAt(0);
 		measureChild(viewChild, widthMeasureSpec, heightMeasureSpec);
-		super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(viewChild.getMeasuredHeight()
-				+ getPaddingLeft() + getPaddingRight(), MeasureSpec.EXACTLY));
+		super.onMeasure(
+				// 竟然有手机报出DrawerLayout must be measured with MeasureSpec.EXACTLY错误
+				// 华为HONOR H30-L01
+				MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.EXACTLY), 
+				MeasureSpec.makeMeasureSpec(viewChild.getMeasuredHeight() + getPaddingLeft() + getPaddingRight(), MeasureSpec.EXACTLY));
 	}
 
 	public void setMinDrawerMargin(int dp) {

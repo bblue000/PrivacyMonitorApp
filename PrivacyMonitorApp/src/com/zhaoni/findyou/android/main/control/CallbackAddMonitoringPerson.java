@@ -3,6 +3,8 @@ package com.zhaoni.findyou.android.main.control;
 
 import java.util.Map;
 
+import org.ixming.base.utils.android.ToastUtils;
+
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
 import com.zhaoni.findyou.android.Config;
@@ -26,8 +28,14 @@ class CallbackAddMonitoringPerson extends SimpleAjaxCallback<MonitoredPersonSing
 	
 	@Override
 	protected boolean onSuccess(String url, Object object, AjaxStatus status) {
-		PersonListController.getInstance().onAddMonitoringPerson((MonitoredPerson) object);
+		if (null == object) {
+			//TODO 如果返回的数据为空，显示后台返回的MSG信息
+			ToastUtils.showToast(status.getMessage());
+		} else {
+			PersonListController.getInstance().onAddMonitoringPerson((MonitoredPerson) object);
+		}
 		return true;
 	}
+	
 	
 }
